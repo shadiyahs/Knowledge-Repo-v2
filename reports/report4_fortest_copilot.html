@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortest 4.0 & Copilot — Fortude I&I</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F2545;--navy-mid:#1A3A6B;--orange:#E8600A;--orange-light:#FF7A2B;--orange-pale:#FFF0E6;--slate:#4A5568;--slate-light:#718096;--border:#E2E8F0;--bg:#F8FAFC;--green:#1A7F5A;--green-pale:#E6F7F0;--amber:#B45309;--amber-pale:#FEF3C7;--red:#C53030;--red-pale:#FFF5F5;--purple:#553C9A;--purple-pale:#EDE9FE;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#1A202C;font-size:14px;line-height:1.65;}
+.report-header{background:linear-gradient(135deg,#0C1829 0%,#152241 50%,#1A3060 100%);color:white;position:relative;overflow:hidden;}
+.report-header::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(232,96,10,0.12);}
+.report-header::after{content:'';position:absolute;bottom:-80px;left:25%;width:240px;height:240px;border-radius:50%;background:rgba(85,60,154,0.12);}
+.header-inner{max-width:1100px;margin:0 auto;padding:52px 48px 44px;position:relative;z-index:1;}
+.header-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,96,10,0.2);border:1px solid rgba(232,96,10,0.5);color:#FFB07A;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:5px 12px;border-radius:3px;margin-bottom:20px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--orange-light);display:inline-block;}
+h1.report-title{font-family:'Sora',sans-serif;font-size:38px;font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px;}
+h1.report-title em{color:var(--orange-light);font-style:normal;}
+.report-subtitle{font-size:15px;color:rgba(255,255,255,0.7);max-width:620px;line-height:1.55;margin-bottom:32px;}
+.header-meta{display:flex;gap:32px;flex-wrap:wrap;}
+.meta-item{display:flex;flex-direction:column;gap:3px;}
+.meta-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.45);}
+.meta-value{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9);}
+.toc-bar{background:var(--navy);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.toc-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:flex;overflow-x:auto;}
+.toc-item{color:rgba(255,255,255,0.55);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:14px 14px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;text-decoration:none;display:block;}
+.toc-item:hover{color:white;border-bottom-color:var(--orange);}
+.toc-num{color:var(--orange);margin-right:5px;}
+.main{max-width:1100px;margin:0 auto;padding:48px;}
+.section{margin-bottom:52px;}
+.section-header{display:flex;align-items:flex-start;gap:18px;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid var(--border);}
+.section-num{background:var(--navy);color:var(--orange-light);font-family:'Sora',sans-serif;font-size:11px;font-weight:700;padding:6px 10px;border-radius:4px;flex-shrink:0;margin-top:4px;}
+.section-title{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--navy);}
+.section-desc{font-size:13px;color:var(--slate-light);margin-top:5px;}
+.intro-panel{background:white;border:1px solid var(--border);border-left:4px solid var(--orange);border-radius:6px;padding:24px 28px;margin-bottom:32px;}
+.intro-panel p{color:var(--slate);line-height:1.7;}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.feat-card{background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.feat-head{background:var(--navy);padding:12px 16px;display:flex;align-items:center;gap:10px;}
+.feat-icon{font-size:18px;}
+.feat-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:white;}
+.feat-new{background:var(--orange);color:white;font-family:'IBM Plex Mono',monospace;font-size:9px;padding:2px 7px;border-radius:2px;margin-left:auto;}
+.feat-body{padding:14px 16px;}
+.feat-list{list-style:none;}
+.feat-list li{font-size:12px;color:var(--slate);padding:3px 0;border-bottom:1px solid var(--border);}
+.feat-list li:last-child{border-bottom:none;}
+.feat-list li::before{content:'→ ';color:var(--orange);}
+.gap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:24px;}
+.gap-card{background:white;border:1px solid var(--border);border-radius:8px;padding:18px;border-top:3px solid var(--amber);}
+.gap-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.gap-body{font-size:12px;color:var(--slate);line-height:1.6;margin-bottom:8px;}
+.gap-risk{font-size:11.5px;color:var(--amber);font-style:italic;}
+.copilot-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+.copilot-card{background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.copilot-head{background:linear-gradient(135deg,var(--navy),var(--navy-mid));padding:12px 16px;}
+.copilot-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:white;}
+.copilot-value{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--orange-light);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;}
+.copilot-body{padding:14px 16px;}
+.copilot-can{margin-bottom:10px;}
+.copilot-section-title{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.copilot-list{list-style:none;}
+.copilot-list li{font-size:12px;color:var(--slate);padding:2px 0;}
+.copilot-list li::before{content:'✓ ';color:var(--green);}
+.copilot-wedo{background:var(--green-pale);border-radius:4px;padding:8px 10px;font-size:11.5px;color:var(--green);}
+.copilot-wedo strong{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;}
+.roadmap-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;}
+.roadmap-phase{padding:20px;border-right:1px solid var(--border);}
+.roadmap-phase:last-child{border-right:none;}
+.rp-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.rp-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.rp-effort{font-size:11px;color:var(--slate-light);margin-bottom:10px;}
+.rp-items{list-style:none;}
+.rp-items li{font-size:11.5px;color:var(--slate);padding:3px 0;border-bottom:1px solid var(--border);}
+.rp-items li:last-child{border-bottom:none;}
+.rp-items li::before{content:'→ ';color:var(--orange);}
+.position-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:28px;}
+.position-card{background:white;border:1px solid var(--border);border-radius:8px;padding:18px;}
+.position-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.position-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.position-body{font-size:12px;color:var(--slate);line-height:1.6;}
+.gain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:28px;}
+.gain-card{background:white;border:1px solid var(--border);border-radius:6px;padding:14px;border-left:3px solid var(--green);}
+.gain-item{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.gain-body{font-size:11.5px;color:var(--slate-light);}
+.callout{background:var(--orange-pale);border:1px solid rgba(232,96,10,0.25);border-radius:6px;padding:16px 20px;margin:20px 0;font-size:13px;color:#7B3100;}
+.callout strong{color:var(--orange);display:block;margin-bottom:4px;font-family:'Sora',sans-serif;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;}
+.table-wrap{overflow-x:auto;margin-bottom:24px;}
+table{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+thead tr{background:var(--navy);}
+thead th{padding:12px 16px;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);font-weight:500;}
+thead th:first-child{color:var(--orange-light);}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:#F8FAFC;}
+tbody td{padding:12px 16px;font-size:12.5px;color:var(--slate);vertical-align:top;}
+tbody td:first-child{font-weight:600;color:var(--navy-mid);}
+.badge{display:inline-block;padding:3px 9px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;}
+.badge-green{background:var(--green-pale);color:var(--green);}
+.badge-amber{background:var(--amber-pale);color:var(--amber);}
+.badge-navy{background:var(--navy);color:var(--orange-light);}
+.report-footer{background:var(--navy);color:rgba(255,255,255,0.5);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;}
+.footer-brand{color:rgba(255,255,255,0.85);font-weight:500;}
+.footer-brand em{color:var(--orange-light);font-style:normal;}
+@media(max-width:768px){.main{padding:24px;}.header-inner{padding:32px 24px;}h1.report-title{font-size:26px;}.feat-grid,.copilot-grid,.roadmap-phases,.position-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header class="report-header">
+  <div class="header-inner">
+    <div class="header-badge"><span class="dot"></span> Fortude I&I Session</div>
+    <h1 class="report-title"><em>Fortest 4.0</em> & Copilot</h1>
+    <p class="report-subtitle">What's new in Fortest 4.0, the gaps in the current platform, how Copilot can close them, and the strategic roadmap to move Fortest from a test execution tool to a full-stack Test Intelligence Platform.</p>
+    <div class="header-meta">
+      <div class="meta-item"><span class="meta-label">Session</span><span class="meta-value">Intelligence & Insights</span></div>
+      <div class="meta-item"><span class="meta-label">Product</span><span class="meta-value">Fortest v4.0.0</span></div>
+      <div class="meta-item"><span class="meta-label">Focus</span><span class="meta-value">AI-Powered Test Intelligence</span></div>
+      <div class="meta-item"><span class="meta-label">Platform</span><span class="meta-value">Azure AI + Key Vault</span></div>
+    </div>
+  </div>
+</header>
+<nav class="toc-bar">
+  <div class="toc-inner">
+    <a class="toc-item" href="#s1"><span class="toc-num">01</span> What is Fortest</a>
+    <a class="toc-item" href="#s2"><span class="toc-num">02</span> v4.0 New Features</a>
+    <a class="toc-item" href="#s3"><span class="toc-num">03</span> Competitor Landscape</a>
+    <a class="toc-item" href="#s4"><span class="toc-num">04</span> What Infor Doesn't Do</a>
+    <a class="toc-item" href="#s5"><span class="toc-num">05</span> Fortest Gaps</a>
+    <a class="toc-item" href="#s6"><span class="toc-num">06</span> Copilot Capabilities</a>
+    <a class="toc-item" href="#s7"><span class="toc-num">07</span> Roadmap</a>
+    <a class="toc-item" href="#s8"><span class="toc-num">08</span> Strategic Position</a>
+  </div>
+</nav>
+<main class="main">
+
+  <div class="intro-panel"><p><strong>Product Summary:</strong> Fortest is Fortude's intelligent test automation platform designed to streamline and accelerate functional, regression, integration, and data-validation testing across enterprise applications — especially Infor M3 and CloudSuite. Version 4.0.0 introduces <strong>AI-Powered Self-Healing</strong> and <strong>Microsoft Azure AI + Key Vault integration</strong>, pushing Fortest into the next generation of smart, resilient automation. This session analyses gaps in the current platform and maps how Copilot capabilities can address each one, ultimately moving Fortest from a niche execution tool to a competitive mid-tier Test Intelligence Platform.</p></div>
+
+  <section id="s1" class="section">
+    <div class="section-header"><div class="section-num">01</div><div><div class="section-title">What is Fortest?</div><div class="section-desc">Core platform capabilities and automation scope</div></div></div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-head"><div class="feat-icon">⚙️</div><div class="feat-title">Test Automation Capabilities</div></div>
+        <div class="feat-body"><ul class="feat-list">
+          <li>Automated functional, regression, integration and data-validation testing</li>
+          <li>Supports Web UI, API, and database validations</li>
+          <li>Industry-specific Infor M3 / CloudSuite test libraries with reusable business functions</li>
+          <li>Prebuilt test cases for Fashion, Food & Beverage, Manufacturing and more</li>
+          <li>Parallel execution & remote agents for 24×7 test runs</li>
+          <li>CI/CD integration with modern DevOps pipelines</li>
+          <li>Extensible to non-Infor systems using open tooling</li>
+        </ul></div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-head"><div class="feat-icon">✅</div><div class="feat-title">Core Benefits</div></div>
+        <div class="feat-body"><ul class="feat-list">
+          <li>Up to 90% reduction in regression test cycle time</li>
+          <li>Self-healing reduces locator-based test failures</li>
+          <li>Faster stabilization after UI updates or ERP changes</li>
+          <li>Lower maintenance costs and fewer broken scripts</li>
+          <li>Secrets stored in Azure Key Vault ensure compliance</li>
+          <li>Industry libraries and reusable functions accelerate scripting</li>
+          <li>Flexible cloud / on-prem deployments at scale</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s2" class="section">
+    <div class="section-header"><div class="section-num">02</div><div><div class="section-title">New in Fortest 4.0.0</div><div class="section-desc">Two major new capabilities introduced in this release</div></div></div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-head"><div class="feat-icon">🤖</div><div class="feat-title">AI-Powered Self-Healing</div><div class="feat-new">NEW v4.0</div></div>
+        <div class="feat-body"><ul class="feat-list">
+          <li>Uses machine learning models for intelligent locator analysis</li>
+          <li>Automatically detects changes in the UI/DOM and heals broken locators at runtime</li>
+          <li>Deep integration with Microsoft Azure AI for contextual understanding of UI changes</li>
+          <li>Reduces test flakiness and manual rework</li>
+          <li>Enhanced logs & reporting show which elements were healed and how</li>
+        </ul></div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-head"><div class="feat-icon">🔐</div><div class="feat-title">Azure Key Vault Integration</div><div class="feat-new">NEW v4.0</div></div>
+        <div class="feat-body"><ul class="feat-list">
+          <li>Secure cloud-managed storage and retrieval of credentials, API keys, tokens</li>
+          <li>Eliminates hardcoded secrets from scripts and configs</li>
+          <li>Encrypted configuration handling aligned with enterprise security standards</li>
+          <li>Supports standardized, centralized secrets management</li>
+          <li>Reduces security risks of exposed test data or credentials</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s3" class="section">
+    <div class="section-header"><div class="section-num">03</div><div><div class="section-title">Competitor Landscape</div><div class="section-desc">What generic automation tools are doing that Fortest currently doesn't match</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Capability Area</th><th>Competitor Activity</th><th>Implication for Fortest</th></tr></thead>
+      <tbody>
+        <tr><td>AI Native Locators + Agentic / NLP Authoring</td><td>Testim and mabl promote AI agents, NL/no-code test creation and features that auto-generate assertions and snippets, plus fast adoption metrics for GenAI features</td><td>Fortest needs NL authoring to broaden user base beyond QA engineers and reduce authoring time</td></tr>
+        <tr><td>Model-Based / Risk-Optimised Enterprise Testing</td><td>Tricentis Tosca uses model-based testing to reduce test surface — attractive for large ERP landscapes. Risk-based optimization reduces execution cost.</td><td>Large ERP customers want to shrink test suites. Adding model-based coverage mapping would reduce execution cost and speed up releases</td></tr>
+        <tr><td>Self-Healing + Dynamic Learning</td><td>Functionize, Testim, mabl combine self-healing with continuous learning from executions so tests evolve with the app — reducing maintenance burden over time.</td><td>Fortest's current self-healing (v4.0) is a strong foundation but needs continuous learning to match market leaders</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="s4" class="section">
+    <div class="section-header"><div class="section-num">04</div><div><div class="section-title">What Infor Is Currently Not Doing</div><div class="section-desc">Native gaps in Infor's CloudSuite that create a persistent moat for Fortest</div></div></div>
+    <div class="gap-grid">
+      <div class="gap-card"><div class="gap-title">No Native Test Automation Tool</div><div class="gap-body">Infor provides no equivalent to Fortest's industry-specific M3 test libraries. TaaS is not a testing platform — it lacks test automation capabilities entirely.</div></div>
+      <div class="gap-card"><div class="gap-title">No Self-Healing Automation</div><div class="gap-body">No AI-based locator healing or runtime intelligence. Infor provides no equivalent of Functionize or Testim's self-healing capabilities for CloudSuite screens.</div></div>
+      <div class="gap-card"><div class="gap-title">No Visual Testing Solution</div><div class="gap-body">No equivalent of Applitools / visual regression for CloudSuite screens. Visual bugs that locator-based checks won't catch go undetected.</div></div>
+      <div class="gap-card"><div class="gap-title">No Test Data Automation</div><div class="gap-body">Does not generate, mask, or orchestrate test data. Testers must manually manage test data sets, creating bottlenecks and compliance risks.</div></div>
+      <div class="gap-card"><div class="gap-title">No TestOps Analytics</div><div class="gap-body">Does not offer dashboards to track flaky tests, heatmaps, coverage, or run analytics. No equivalent of ACCELQ, Tricentis LiveCompare, or Testim's analytics.</div></div>
+      <div class="gap-card"><div class="gap-title">No NL-Driven Test Authoring</div><div class="gap-body">No equivalent of ACCELQ, Tricentis LiveCompare, or Testim for natural language test authoring. Test creation remains a specialist engineering activity.</div></div>
+    </div>
+  </section>
+
+  <section id="s5" class="section">
+    <div class="section-header"><div class="section-num">05</div><div><div class="section-title">Gaps in Fortest</div><div class="section-desc">Current capability gaps relative to market expectations — areas where Copilot can close the distance</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Gap Area</th><th>Market Context</th><th>Business Risk if Not Addressed</th></tr></thead>
+      <tbody>
+        <tr><td>AI Visual Testing</td><td>Pixel/visual AI for layout, style, pixel-level changes aren't addressed. Important for customer-facing UIs and accessibility/regulatory checks.</td><td>Risks missing UI bugs that locator-based checks won't catch — particularly for accessibility-regulated markets (EU, ANZ).</td></tr>
+        <tr><td>Low-Code / NL Test Authoring & Agentic Workflows</td><td>Market movement towards auto-generating tests from descriptions. Lowers the barrier to entry for business users and product teams.</td><td>Fortest remains a specialist engineering tool — limiting addressable market and reducing stickiness with business users.</td></tr>
+        <tr><td>Governance & Audit for AI Self-Healing</td><td>Auto-healing must be auditable and explainable for enterprise governance (who approved a healed change?)</td><td>Adoption blocked in regulated organisations (financial services, pharma, FSMA-regulated food manufacturers) without audit trails.</td></tr>
+        <tr><td>Model-Based / Risk-Based Test Optimization</td><td>Enterprises want to shrink test suites (Tricentis Tosca's approach). Model-based coverage mapping and risk scoring would reduce execution cost.</td><td>Without risk-based optimization, Fortest requires full test runs for every release — expensive for large M3 landscapes.</td></tr>
+        <tr><td>TestOps</td><td>TestOps dashboards: flaky test detection, root cause suggestions, execution heatmaps, SLA metrics, and test coverage over time.</td><td>Without centralized analytics, QA managers cannot operationalize testing at scale — limiting Fortest's value to technical execution only.</td></tr>
+        <tr><td>Security, Performance & Accessibility Testing Integrations</td><td>QA ecosystem covering security scanning (SAST/DAST), performance baselining, and accessibility checks integrated into pipelines.</td><td>Fortest operates in isolation — customers require multiple tools for a complete quality picture, reducing Fortude's wallet share.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="s6" class="section">
+    <div class="section-header"><div class="section-num">06</div><div><div class="section-title">How Copilot Closes the Gaps</div><div class="section-desc">Specific Copilot capabilities mapped to each Fortest gap — moving from a test execution tool to a Test Intelligence Platform</div></div></div>
+    <div class="copilot-grid">
+      <div class="copilot-card">
+        <div class="copilot-head"><div class="copilot-title">Visual AI / Visual Regression</div><div class="copilot-value">Closes: AI Visual Testing Gap</div></div>
+        <div class="copilot-body">
+          <div class="copilot-can"><div class="copilot-section-title">What Copilot Can Do</div><ul class="copilot-list"><li>Watch every visual checkpoint (screenshots, components, screens)</li><li>Detect visual differences (font/colour changes, missing buttons, layout shifts, pixel-level) and assess severity</li><li>Classify the type of change and explain it in simple language</li><li>Recommend action (Accept as new baseline, raise a defect) with side-by-side comparison UI</li><li>Track approvals for audit compliance</li></ul></div>
+          <div class="copilot-wedo"><strong>Fortude Action</strong>Productize a Visual Assistant that watches failed runs, suggests visual diffs and severity. Bundle visual checks as an upsell SKU. Demo as a "Visual Guardrail" for regulated environments.</div>
+        </div>
+      </div>
+      <div class="copilot-card">
+        <div class="copilot-head"><div class="copilot-title">Governance & Audit for Self-Healing</div><div class="copilot-value">Closes: Governance Gap</div></div>
+        <div class="copilot-body">
+          <div class="copilot-can"><div class="copilot-section-title">What Copilot Can Do</div><ul class="copilot-list"><li>Explain every healing action in human language with confidence score</li><li>Show alternative options (Approve, Reject, Require Team Lead sign-off)</li><li>Apply enterprise governance policies defined by the customer</li><li>Create immutable audit trail (what changed, who approved, why it was suggested, timestamps)</li><li>Guide teams when adopting self-healing for the first time</li></ul></div>
+          <div class="copilot-wedo"><strong>Fortude Action</strong>Copilot Governance Center presenting why changes were made, confidence scores, and alternative options. Keep immutable logs for audits. Target regulated organisations.</div>
+        </div>
+      </div>
+      <div class="copilot-card">
+        <div class="copilot-head"><div class="copilot-title">Low-Code / NL Test Authoring</div><div class="copilot-value">Closes: Authoring Gap</div></div>
+        <div class="copilot-body">
+          <div class="copilot-can"><div class="copilot-section-title">What Copilot Can Do</div><ul class="copilot-list"><li>Convert test scenarios described in plain English into structured test steps with validations, test data placeholders, and Fortest reusable functions</li><li>Generate test data automatically based on test steps, expected scenarios, and business constraints</li><li>Suggest valid supplier codes, SKUs, and customer names from M3 master data</li></ul></div>
+          <div class="copilot-wedo"><strong>Fortude Action</strong>Test Authoring Assistant enabling business users (Product Owners, BAs) to describe scenarios and receive draft tests. Run pilot programs to measure scripting time reduction. Expand Fortest's buyer beyond technical QA.</div>
+        </div>
+      </div>
+      <div class="copilot-card">
+        <div class="copilot-head"><div class="copilot-title">Model-Based / Risk-Based Test Optimization</div><div class="copilot-value">Closes: Suite Size Gap</div></div>
+        <div class="copilot-body">
+          <div class="copilot-can"><div class="copilot-section-title">What Copilot Can Do</div><ul class="copilot-list"><li>Read release notes, commit messages, change descriptions</li><li>Identify which processes are affected (e.g. POs, inventory movements)</li><li>Map changes to relevant test cases using Fortest templates and historical patterns</li><li>Recommend a smaller, high-impact test suite (e.g. "Instead of 100 tests, run these 35 that cover all changed areas with 91% risk coverage")</li><li>Create an optimized test plan automatically with explained reasoning</li></ul></div>
+          <div class="copilot-wedo"><strong>Fortude Action</strong>Copilot as Release Risk Advisor — begin with heuristic-based rules and progress to ML as telemetry improves. Position as premium Release Risk Analysis service.</div>
+        </div>
+      </div>
+      <div class="copilot-card">
+        <div class="copilot-head"><div class="copilot-title">TestOps Console</div><div class="copilot-value">Closes: TestOps Gap</div></div>
+        <div class="copilot-body">
+          <div class="copilot-can"><div class="copilot-section-title">What Copilot Can Do</div><ul class="copilot-list"><li>Summarize test health daily for QA managers and engineering leads</li><li>Pinpoint root cause patterns across failed test runs</li><li>Recommend operational actions (e.g. auto-create Jira tickets, mark flaky tests)</li><li>Predict issues before they become incidents ("this test has failed intermittently for 4 days")</li></ul></div>
+          <div class="copilot-wedo"><strong>Fortude Action</strong>Copilot TestOps Console synthesizing trends and surfacing flaky tests. Market to engineering leaders and QA managers. Ensure clear audit trail and human override.</div>
+        </div>
+      </div>
+      <div class="copilot-card">
+        <div class="copilot-head"><div class="copilot-title">Security, Performance & Accessibility Hub</div><div class="copilot-value">Closes: Quality Ecosystem Gap</div></div>
+        <div class="copilot-body">
+          <div class="copilot-can"><div class="copilot-section-title">What Copilot Can Do</div><ul class="copilot-list"><li>Analyze patterns in test logs to identify flakiness — flag tests that fail intermittently</li><li>Suggest remediation (add wait, update locator, fix test data, etc.) and assign ownership</li><li>Aggregate outputs from SAST/DAST, load tests, and accessibility scanners</li><li>Synthesize business impact across functional, performance, security and accessibility results</li></ul></div>
+          <div class="copilot-wedo"><strong>Fortude Action</strong>Copilot Quality Hub aggregating scanner outputs and synthesizing business impact. Bundle as a "Quality Suite" with connectors to popular security scanners.</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>What Copilot Will Not Solve</strong>
+      Cannot replace domain expertise. Relies on telemetry — poor data equals poor recommendations. Cannot autonomously test without a strong underlying test model. Cannot rewrite complex automation architecture independently. These four limits define where Fortest still needs human expertise and engineering investment.
+    </div>
+  </section>
+
+  <section id="s7" class="section">
+    <div class="section-header"><div class="section-num">07</div><div><div class="section-title">Recommended Roadmap</div><div class="section-desc">Three-horizon investment plan from closing essential gaps to durable differentiation</div></div></div>
+    <div class="roadmap-phases">
+      <div class="roadmap-phase">
+        <div class="rp-badge">Short Term</div>
+        <div class="rp-title">Close Essential Market Gaps</div>
+        <div class="rp-effort">Low to Medium Effort</div>
+        <ul class="rp-items">
+          <li>Visual AI diff checks + rule-based baseline management</li>
+          <li>Lightweight visual compare using ML for layout/semantic differences</li>
+          <li>Human-in-the-loop Auto Heal Policies (reasoning per healed locator)</li>
+          <li>Produce audit trails for each healing action</li>
+          <li>Basic TestOps dashboards: flaky test detection, heal history, execution trends, failure RCA suggestions</li>
+        </ul>
+      </div>
+      <div class="roadmap-phase">
+        <div class="rp-badge">Mid Term</div>
+        <div class="rp-title">Empower Non-Technical Users</div>
+        <div class="rp-effort">Medium Effort — Strategic</div>
+        <ul class="rp-items">
+          <li>Low-Code / NL Test Authoring: create tests from plain English</li>
+          <li>AI snippets for assertions using LLMs with local model inference for privacy</li>
+          <li>Model-Based Coverage Mapping & Risk-Based Test Selection</li>
+          <li>Build process model to recommend minimal test suites based on change impact</li>
+          <li>Expand self-healing beyond UI to API + data layers</li>
+        </ul>
+      </div>
+      <div class="roadmap-phase">
+        <div class="rp-badge">Long Term</div>
+        <div class="rp-title">Shift to Autonomous Decision-Making</div>
+        <div class="rp-effort">Higher Effort — Durable Differentiation</div>
+        <ul class="rp-items">
+          <li>Agentic Test Assistants: generate tests, triage failures, create bug reports, suggest fixes</li>
+          <li>Productize AI test agent for Infor M3 domain-specific automation</li>
+          <li>Autonomous regression suites that determine what to test</li>
+          <li>AI-led change impact modeling with automatic missing test case identification</li>
+          <li>Ecosystem & Marketplace: curated libraries, community templates</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="s8" class="section">
+    <div class="section-header"><div class="section-num">08</div><div><div class="section-title">Strategic Position After Copilot Integration</div><div class="section-desc">Where Fortest moves in the competitive landscape and what must change organisationally</div></div></div>
+    <div class="position-grid">
+      <div class="position-card">
+        <div class="position-label">Current Position</div>
+        <div class="position-title">Niche Player — Strong in its niche</div>
+        <div class="position-body">Strong Infor M3 specialisation, not recognised in the broader enterprise automation tool market. No multi-industry adoption, limited analyst recognition, no large partner ecosystem.</div>
+      </div>
+      <div class="position-card">
+        <div class="position-label">With Fortest + Copilot</div>
+        <div class="position-title">Competitive Mid-Tier Intelligence Platform</div>
+        <div class="position-body">Competes with mid-market players including Katalon, Testim, TestComplete, and Leapwork. Still below Tricentis Tosca, ACCELQ, and UiPath in multi-cloud and cross-platform coverage, but competitive in Infor M3 and Azure-native environments.</div>
+      </div>
+      <div class="position-card">
+        <div class="position-label">Future Position for Customers</div>
+        <div class="position-title">Intelligent Automation + Autonomy</div>
+        <div class="position-body">Provides intelligence, automation, and autonomy in one platform — faster release cycles, empowered business teams, security & compliance built in. A platform customers trust with AI-powered quality assurance at enterprise scale.</div>
+      </div>
+    </div>
+    <div class="section-desc" style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:16px;">Capabilities Gained with Copilot Integration</div>
+    <div class="gain-grid">
+      <div class="gain-card"><div class="gain-item">AI Generated Tests</div><div class="gain-body">Natural language to test case conversion</div></div>
+      <div class="gain-card"><div class="gain-item">AI Guided Maintenance</div><div class="gain-body">Explainable self-healing with governance</div></div>
+      <div class="gain-card"><div class="gain-item">Intelligent Impact Analysis</div><div class="gain-body">Risk-based test suite optimization</div></div>
+      <div class="gain-card"><div class="gain-item">Self-Healing Across All Layers</div><div class="gain-body">UI, API, and data validation layers</div></div>
+      <div class="gain-card"><div class="gain-item">Test Data Automation</div><div class="gain-body">AI-generated M3-aware test data</div></div>
+      <div class="gain-card"><div class="gain-item">Smart Analytics & Reporting</div><div class="gain-body">Centralized TestOps dashboards</div></div>
+      <div class="gain-card"><div class="gain-item">Low-Code Builder</div><div class="gain-body">Business users own their test cases</div></div>
+    </div>
+    <div class="callout">
+      <strong>Organisational Requirements for This Shift</strong>
+      Dedicated AI/ML product line ownership. Continuous model tuning policies. Data collection strategy (telemetry, logs, metadata). Upskilling testers to become AI supervisors. Privacy/compliance guardrails. New sales collateral, pricing & packaging for the expanded platform.
+    </div>
+  </section>
+
+</main>
+<footer class="report-footer">
+  <div><span class="footer-brand"><em>FORTUDE</em> — Delivering digital solutions that matter</span></div>
+  <div>Intelligence &amp; Insights · Fortest 4.0 &amp; Copilot</div>
+</footer>
+</body>
+</html>

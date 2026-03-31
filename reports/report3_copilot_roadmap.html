@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copilot Roadmap for Fortude's Digital Transformation — Fortude I&I</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F2545;--navy-mid:#1A3A6B;--orange:#E8600A;--orange-light:#FF7A2B;--orange-pale:#FFF0E6;--slate:#4A5568;--slate-light:#718096;--border:#E2E8F0;--bg:#F8FAFC;--green:#1A7F5A;--green-pale:#E6F7F0;--amber:#B45309;--amber-pale:#FEF3C7;--teal:#0D5C73;--teal-pale:#E6F7FA;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#1A202C;font-size:14px;line-height:1.65;}
+.report-header{background:linear-gradient(135deg,#0B1E3C 0%,#1A3A6B 55%,#1A5C7A 100%);color:white;position:relative;overflow:hidden;}
+.report-header::before{content:'';position:absolute;top:-80px;right:-40px;width:360px;height:360px;border-radius:50%;background:rgba(232,96,10,0.1);}
+.header-inner{max-width:1100px;margin:0 auto;padding:52px 48px 44px;position:relative;z-index:1;}
+.header-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,96,10,0.2);border:1px solid rgba(232,96,10,0.5);color:#FFB07A;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:5px 12px;border-radius:3px;margin-bottom:20px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--orange-light);display:inline-block;}
+h1.report-title{font-family:'Sora',sans-serif;font-size:36px;font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px;}
+h1.report-title em{color:var(--orange-light);font-style:normal;}
+.report-subtitle{font-size:15px;color:rgba(255,255,255,0.7);max-width:620px;line-height:1.55;margin-bottom:32px;}
+.header-meta{display:flex;gap:32px;flex-wrap:wrap;}
+.meta-item{display:flex;flex-direction:column;gap:3px;}
+.meta-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.45);}
+.meta-value{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9);}
+.toc-bar{background:var(--navy);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.toc-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:flex;overflow-x:auto;}
+.toc-item{color:rgba(255,255,255,0.55);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:14px 14px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;text-decoration:none;display:block;}
+.toc-item:hover{color:white;border-bottom-color:var(--orange);}
+.toc-num{color:var(--orange);margin-right:5px;}
+.main{max-width:1100px;margin:0 auto;padding:48px;}
+.section{margin-bottom:52px;}
+.section-header{display:flex;align-items:flex-start;gap:18px;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid var(--border);}
+.section-num{background:var(--navy);color:var(--orange-light);font-family:'Sora',sans-serif;font-size:11px;font-weight:700;padding:6px 10px;border-radius:4px;flex-shrink:0;margin-top:4px;}
+.section-title{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--navy);}
+.section-desc{font-size:13px;color:var(--slate-light);margin-top:5px;}
+.intro-panel{background:white;border:1px solid var(--border);border-left:4px solid var(--orange);border-radius:6px;padding:24px 28px;margin-bottom:32px;}
+.intro-panel p{color:var(--slate);line-height:1.7;}
+.trend-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px;}
+.trend-card{background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.trend-head{background:var(--navy);padding:12px 16px;}
+.trend-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:white;}
+.trend-opp{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--orange-light);letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;}
+.trend-body{padding:14px 16px;font-size:12.5px;color:var(--slate);line-height:1.6;}
+.tier-container{margin-bottom:32px;}
+.tier-header{display:flex;align-items:center;gap:16px;margin-bottom:16px;}
+.tier-badge{background:var(--navy);color:var(--orange-light);font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;padding:6px 12px;border-radius:4px;letter-spacing:0.08em;}
+.tier-title{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--navy);}
+.tier-subtitle{font-size:12px;color:var(--slate-light);}
+.service-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.service-card{background:white;border:1px solid var(--border);border-radius:8px;padding:18px;}
+.service-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.service-body{font-size:12px;color:var(--slate);line-height:1.6;margin-bottom:10px;}
+.service-benefit{background:var(--green-pale);border-radius:4px;padding:7px 10px;font-size:11.5px;color:var(--green);}
+.service-benefit strong{display:block;font-size:10px;font-family:'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:2px;}
+.avenue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
+.avenue-card{background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.avenue-head{padding:14px 16px;background:linear-gradient(135deg,var(--navy),var(--navy-mid));}
+.avenue-icon{font-size:20px;margin-bottom:6px;}
+.avenue-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:white;}
+.avenue-body{padding:14px 16px;}
+.avenue-desc{font-size:12px;color:var(--slate);line-height:1.6;margin-bottom:10px;}
+.avenue-reco{background:var(--orange-pale);border-radius:4px;padding:8px 10px;font-size:11.5px;color:#7B3100;}
+.avenue-reco strong{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:3px;}
+.positioning-card{background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px;}
+.positioning-head{background:var(--navy);padding:16px 20px;}
+.positioning-head h3{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:white;}
+.positioning-head p{font-size:13px;color:rgba(255,255,255,0.65);margin-top:4px;}
+.positioning-body{padding:20px;}
+.messaging-list{list-style:none;}
+.messaging-list li{padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--slate);display:flex;align-items:flex-start;gap:10px;}
+.messaging-list li:last-child{border-bottom:none;}
+.messaging-list li::before{content:'→';color:var(--orange);font-weight:700;flex-shrink:0;margin-top:1px;}
+.table-wrap{overflow-x:auto;margin-bottom:24px;}
+table{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+thead tr{background:var(--navy);}
+thead th{padding:12px 16px;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);font-weight:500;}
+thead th:first-child{color:var(--orange-light);}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:#F8FAFC;}
+tbody td{padding:12px 16px;font-size:12.5px;color:var(--slate);vertical-align:top;}
+tbody td:first-child{font-weight:600;color:var(--navy-mid);}
+.callout{background:var(--orange-pale);border:1px solid rgba(232,96,10,0.25);border-radius:6px;padding:16px 20px;margin:20px 0;font-size:13px;color:#7B3100;}
+.callout strong{color:var(--orange);display:block;margin-bottom:4px;font-family:'Sora',sans-serif;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;}
+.report-footer{background:var(--navy);color:rgba(255,255,255,0.5);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;}
+.footer-brand{color:rgba(255,255,255,0.85);font-weight:500;}
+.footer-brand em{color:var(--orange-light);font-style:normal;}
+@media(max-width:768px){.main{padding:24px;}.header-inner{padding:32px 24px;}h1.report-title{font-size:24px;}.trend-grid,.avenue-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header class="report-header">
+  <div class="header-inner">
+    <div class="header-badge"><span class="dot"></span> Fortude I&I Session</div>
+    <h1 class="report-title"><em>Copilot Roadmap</em> for Fortude's Digital Transformation</h1>
+    <p class="report-subtitle">Current AI & Copilot trends in digital transformation, a three-tier service model for Microsoft Copilot adoption, strategic avenues for Fortude, and competitive positioning guidance.</p>
+    <div class="header-meta">
+      <div class="meta-item"><span class="meta-label">Session</span><span class="meta-value">Intelligence & Insights</span></div>
+      <div class="meta-item"><span class="meta-label">Focus</span><span class="meta-value">Microsoft Copilot & GenAI DT</span></div>
+      <div class="meta-item"><span class="meta-label">Service Tiers</span><span class="meta-value">Enable · Expand · Transform</span></div>
+      <div class="meta-item"><span class="meta-label">Opportunity Areas</span><span class="meta-value">3 Strategic Avenues</span></div>
+    </div>
+  </div>
+</header>
+<nav class="toc-bar">
+  <div class="toc-inner">
+    <a class="toc-item" href="#s1"><span class="toc-num">01</span> AI Trends in DT</a>
+    <a class="toc-item" href="#s2"><span class="toc-num">02</span> Copilot Trends</a>
+    <a class="toc-item" href="#s3"><span class="toc-num">03</span> Tier 1: Enable</a>
+    <a class="toc-item" href="#s4"><span class="toc-num">04</span> Tier 2: Expand</a>
+    <a class="toc-item" href="#s5"><span class="toc-num">05</span> Tier 3: Transform</a>
+    <a class="toc-item" href="#s6"><span class="toc-num">06</span> Strategic Avenues</a>
+    <a class="toc-item" href="#s7"><span class="toc-num">07</span> Positioning</a>
+  </div>
+</nav>
+<main class="main">
+
+  <div class="intro-panel"><p><strong>Session Overview:</strong> This I&I session maps the current AI and Copilot landscape in enterprise digital transformation, defines a three-tier service model for how Fortude can monetise Copilot adoption (Enable → Expand → Transform), and identifies three high-value strategic avenues: GenAI & Copilot Adoption Consulting, AI-Driven Data & Analytics Services, and AI-Accelerated Low-Code Application Development.</p></div>
+
+  <section id="s1" class="section">
+    <div class="section-header"><div class="section-num">01</div><div><div class="section-title">Current AI Trends in Digital Transformation</div><div class="section-desc">Four macro-trends reshaping enterprise digital transformation</div></div></div>
+    <div class="trend-grid">
+      <div class="trend-card">
+        <div class="trend-head"><div class="trend-title">Data Democratization & AI Readiness</div><div class="trend-opp">Foundation for AI</div></div>
+        <div class="trend-body">AI models are only as good as the data they consume. This trend makes data an accessible, strategic asset for real-time, predictive decision-making and ethical AI deployment. Addresses the biggest roadblock to DT: organisations cannot leverage AI without clean, accessible data estates.</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-head"><div class="trend-title">Legacy System Modernization with Gen AI</div><div class="trend-opp">Overcoming Technical Debt</div></div>
+        <div class="trend-body">Addresses one of the biggest roadblocks to DT, allowing enterprises to create a modern, agile, and AI-ready core IT architecture. Moves organisations from managing technical debt to building a platform for AI-powered business outcomes.</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-head"><div class="trend-title">Generative AI Agents</div><div class="trend-opp">Process Reinvention</div></div>
+        <div class="trend-body">Moves DT beyond task automation to reinventing entire end-to-end business processes, driving massive gains in efficiency, quality, and speed. Agents coordinate across systems without human intervention, completing multi-step workflows autonomously.</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-head"><div class="trend-title">AI-Powered Low Code / No Code</div><div class="trend-opp">Citizen Development Velocity</div></div>
+        <div class="trend-body">Significantly accelerates solution development, empowers business users (citizen developers), and speeds up time-to-market for digital solutions. Lowers the barrier to enterprise AI application development beyond specialist engineering teams.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s2" class="section">
+    <div class="section-header"><div class="section-num">02</div><div><div class="section-title">Current Copilot Trends in DT</div><div class="section-desc">Four forces shaping how Copilot is being deployed in enterprise digital transformation</div></div></div>
+    <div class="trend-grid">
+      <div class="trend-card">
+        <div class="trend-head"><div class="trend-title">Real-Time Access to Enterprise Systems</div><div class="trend-opp">Opportunity: Data & Analytics</div></div>
+        <div class="trend-body">Copilots depend on access to good data, knowledge, connectors and semantic architecture. Real-time access to enterprise systems (ERP, CRM, PLM) and the ability to retrieve and reason over structured/unstructured data is the key differentiator between effective and ineffective Copilot deployments.</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-head"><div class="trend-title">Governance, Trust, Ethics & Hybrid Deployments</div><div class="trend-opp">Opportunity: Managed Services</div></div>
+        <div class="trend-body">As copilots handle sensitive tasks (finance, HR, supply chain), enterprises care about governance, compliance, model/data ownership, and deployment location (cloud vs on-prem vs hybrid). Some sectors refuse to deploy public AI — opening an opportunity for Fortude's governance and managed services practice.</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-head"><div class="trend-title">Domain & Role-Specific Copilots</div><div class="trend-opp">Vertical strength in Fashion, F&B, Mfg</div></div>
+        <div class="trend-body">General-purpose Copilot has made way for specialist versions tailored to functions or industries. Fortude's vertical depth in Fashion, F&B, Manufacturing, and Distribution is a natural differentiator — custom Copilots built on Infor M3 data are more valuable than generic solutions.</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-head"><div class="trend-title">Copilot as Action / Workflow Engine</div><div class="trend-opp">Opportunity: Automation & RPA</div></div>
+        <div class="trend-body">A shift from "give me an answer" to "take an action" is underway. Copilots are increasingly integrating into business workflows, triggering processes, connecting systems, and performing multi-step tasks — creating a natural extension point with Fortude's automation and RPA capabilities.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s3" class="section">
+    <div class="section-header"><div class="section-num">03</div><div><div class="section-title">Tier 1 — Enable & Adopt</div><div class="section-desc">Lower effort, high-impact services to get clients started with Copilot and build early ROI evidence</div></div></div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-title">Usage Analytics & Adoption Monitoring</div>
+        <div class="service-body">Leverage built-in dashboards and metrics (e.g. usage of Copilot Chat, prompts, app breakdown) to understand which users/apps are engaging. Offer monthly adoption reports, help clients identify "Copilot champions" and usage gaps.</div>
+        <div class="service-benefit"><strong>Benefit</strong>Helps quantify ROI and surface blockers early</div>
+      </div>
+      <div class="service-card">
+        <div class="service-title">Use Case Identification & Quick Wins</div>
+        <div class="service-body">Work with clients to identify 3–5 quick-win scenarios where Copilot adds visible productivity value (meeting summary, email drafting, analysis in Excel). Run a short workshop (~2–4 weeks) to map business problems and deliver proof-of-value.</div>
+        <div class="service-benefit"><strong>Benefit</strong>Demonstrates value early, builds stakeholder buy-in</div>
+      </div>
+      <div class="service-card">
+        <div class="service-title">Governance & Change Readiness</div>
+        <div class="service-body">Ensure data access, security, roles & permissions, and usage policies are addressed before major rollout. Offer a governance assessment, policy-template library, readiness checklist for Copilot usage, and risk matrix.</div>
+        <div class="service-benefit"><strong>Benefit</strong>Reduces risk, enables smoother scale</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s4" class="section">
+    <div class="section-header"><div class="section-num">04</div><div><div class="section-title">Tier 2 — Expand & Embed</div><div class="section-desc">Services that go beyond "just using Copilot" to embedding it deeper into workflows and integrations</div></div></div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-title">Connector & System Integration Services</div>
+        <div class="service-body">Extend Copilot to access enterprise data, third-party systems, and knowledge bases (CRM, ERP, PLM). Build connectors, integrate Copilot into Outlook/Teams/CRM with clients' data, design RAG flows.</div>
+        <div class="service-benefit"><strong>Benefit</strong>Makes Copilot more useful because it works with company-specific data, not just generic content</div>
+      </div>
+      <div class="service-card">
+        <div class="service-title">Role-Based Copilot Deployment</div>
+        <div class="service-body">Deploy role-specific Copilot offerings (e.g. Copilot for Service, Copilot for Sales) tailored to client roles. Map role workflows, configure Copilot for that role, change-manage those user groups, measure impact.</div>
+        <div class="service-benefit"><strong>Benefit</strong>Aligns solution with business function and drives deeper adoption</div>
+      </div>
+      <div class="service-card">
+        <div class="service-title">Low-Code Workflow Automation + Copilot</div>
+        <div class="service-body">Use low-code platforms (Power Automate, Power Apps) with Copilot to automate tasks: email drafting, case summaries, approval flows. Create automation templates using Copilot + low-code connectors for target processes.</div>
+        <div class="service-benefit"><strong>Benefit</strong>Reduces manual effort and fosters scale without custom code</div>
+      </div>
+      <div class="service-card">
+        <div class="service-title">Advanced Analytics & Insights-Driven Adoption</div>
+        <div class="service-body">Use adoption data + Copilot results to continuously refine which use-cases succeed. Monthly insights review, highlight lagging roles/processes, recommend next wave of use-cases or training.</div>
+        <div class="service-benefit"><strong>Benefit</strong>Keeps adoption momentum — moves from "pilot" to "scale"</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s5" class="section">
+    <div class="section-header"><div class="section-num">05</div><div><div class="section-title">Tier 3 — Transform & Customise</div><div class="section-desc">Higher effort, higher value services — building bespoke Copilot solutions and custom copilots for client-specific domains</div></div></div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-title">Custom Copilot Creation (Copilot Studio / Azure OpenAI)</div>
+        <div class="service-body">Build domain-specific copilots (e.g. "Merchandiser Copilot" for fashion, "Supplier-Exception Copilot" for manufacturing) using company data and business logic. Includes data ingestion, vector/embedding architecture, prompt design, custom UI/agent integration, rollout & monitoring.</div>
+        <div class="service-benefit"><strong>Benefit</strong>Differentiated IP, higher margin — helps clients transform rather than just adopt</div>
+      </div>
+      <div class="service-card">
+        <div class="service-title">Agent Orchestration & Digital-Worker Frameworks</div>
+        <div class="service-body">Build multi-agent workflows where copilots coordinate tasks across systems (ERP, CRM, support desk) — agent triggers, alerts, summarisation, action. Architecture design, agent workflow library, integration with enterprise systems.</div>
+        <div class="service-benefit"><strong>Benefit</strong>Automates knowledge-work and scales transformation across the enterprise</div>
+      </div>
+      <div class="service-card">
+        <div class="service-title">Managed Services for Copilot Governance / MLOps</div>
+        <div class="service-body">Provide ongoing monitoring, model governance, drift detection, usage cost control, and internal audit. Subscription service for "Copilot Operations" — monitor usage, cost, compliance; provide dashboards; remediate issues.</div>
+        <div class="service-benefit"><strong>Benefit</strong>Recurring revenue and embeds Fortude as a strategic long-term partner</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s6" class="section">
+    <div class="section-header"><div class="section-num">06</div><div><div class="section-title">Strategic Avenues for Fortude</div><div class="section-desc">Three high-value service areas where Fortude can build differentiated AI practices</div></div></div>
+    <div class="avenue-grid">
+      <div class="avenue-card">
+        <div class="avenue-head">
+          <div class="avenue-icon">🎯</div>
+          <div class="avenue-title">GenAI & Copilot Adoption Consulting</div>
+        </div>
+        <div class="avenue-body">
+          <div class="avenue-desc">
+            <strong>Copilot Strategy & Adoption Framework:</strong> Develop a proprietary framework to help clients assess their readiness, identify high-ROI Copilot use cases (in Procurement, Finance, or Supply Chain for Infor/D365 users), and support rollout.<br><br>
+            <strong>Custom Pilot Development:</strong> Utilize Microsoft Copilot Studio and Power Platform expertise to build industry-specific or role-based "custom Copilots" that integrate with Infor M3/CloudSuite data via connectors.<br><br>
+            <strong>Infor / D365 AI Integration:</strong> Target integration of Microsoft's Copilot capabilities with core Infor CloudSuite and Dynamics 365 offerings to demonstrate a unified, AI-powered ERP/SCM/CRM experience.
+          </div>
+          <div class="avenue-reco"><strong>Recommendation</strong>Industry-specific Copilots: Build vertical and business function copilots that integrate with a customer's ERP, PLM, POS and supply chain data to provide QA checks, demand forecasts, merchandising insights.</div>
+        </div>
+      </div>
+      <div class="avenue-card">
+        <div class="avenue-head">
+          <div class="avenue-icon">📊</div>
+          <div class="avenue-title">AI-Driven Data & Analytics Services</div>
+        </div>
+        <div class="avenue-body">
+          <div class="avenue-desc">
+            <strong>Predictive & Prescriptive Analytics Augmentation:</strong> Leverage GenAI to go beyond predictive failure or demand forecasting. Use LLMs to interpret complex data insights and automatically generate prescriptive recommendations for Manufacturing/Distribution clients.<br><br>
+            <strong>Data Quality & Governance for AI:</strong> Offer specialized services to ensure clients' data environments meet the quality, security, and governance standards required for reliable AI deployment, focusing on a robust Analytics Platform foundation.
+          </div>
+          <div class="avenue-reco"><strong>Recommendation</strong>Supply chain dashboards, predictive analytics, anomaly detection built into Copilot conversations. AI Governance, Risk & Compliance Offerings: AI risk assessments, model inventories, policy templates (NIST AI RMF), data lineage and audit trails.</div>
+        </div>
+      </div>
+      <div class="avenue-card">
+        <div class="avenue-head">
+          <div class="avenue-icon">⚡</div>
+          <div class="avenue-title">AI-Accelerated Low-Code App Development</div>
+        </div>
+        <div class="avenue-body">
+          <div class="avenue-desc">
+            <strong>Agentic Process Automation:</strong> Shift from basic RPA/Power Automate workflows to complex, multi-agent systems built on the Power Platform. Copilot identifies an exception, triggers an RPA flow, updates systems — not just "answers a question".<br><br>
+            <strong>Legacy Code Modernization:</strong> Offer a specialized service using GenAI tools to analyze and migrate outdated Infor customizations or legacy codebases to the modern cloud architecture, accelerating the Infor CloudSuite migration journey.
+          </div>
+          <div class="avenue-reco"><strong>Recommendation</strong>Creating an "Intelligent Inventory Agent" that monitors stock levels, automatically generates POs based on AI-forecasted demand, drafts supplier communication using GenAI, and alerts the supply chain team to exceptions.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s7" class="section">
+    <div class="section-header"><div class="section-num">07</div><div><div class="section-title">Strategic Positioning</div><div class="section-desc">Fortude's competitive angle and key messaging for Copilot-era digital transformation</div></div></div>
+    <div class="positioning-card">
+      <div class="positioning-head">
+        <h3>Angle: From ERP to Insights to Actions — End-to-End</h3>
+        <p>Data + Analytics + Copilot front-end + Automation back-end + Managed Services run phase</p>
+      </div>
+      <div class="positioning-body">
+        <ul class="messaging-list">
+          <li>Embed Copilot into your core business systems, not just into chat — Fortude builds Copilot into ERP workflows, not bolted on top.</li>
+          <li>Fortude will deliver Copilot + automation + insight + operations — not just a deployment. Full stack from data readiness to ongoing managed operations.</li>
+          <li>Industry-specific copilots for fashion, F&B & manufacturing built on your ERP data — not generic tools that require months of custom configuration.</li>
+          <li>Quality, safety and governance built in via our Fortest and managed services practices — AI deployments that your auditors, regulators, and risk teams can trust.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>The Fortude Differentiator vs. Mid-Market Microsoft Specialists</strong>
+      Mid-sized Microsoft/Digital Transformation specialists (Avanade, Slalom, etc.) offer Copilot deployment but lack Fortude's depth in Infor M3/CloudSuite, Fashion, F&B, and Manufacturing domain knowledge. Fortude's combination of ERP-native connectors, vertical IP, and the Charlie AI agent creates a moat that pure-play Microsoft SIs cannot replicate quickly.
+    </div>
+  </section>
+
+</main>
+<footer class="report-footer">
+  <div><span class="footer-brand"><em>FORTUDE</em> — Delivering digital solutions that matter</span></div>
+  <div>Intelligence &amp; Insights · Copilot Roadmap for Digital Transformation</div>
+</footer>
+</body>
+</html>

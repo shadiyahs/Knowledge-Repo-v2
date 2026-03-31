@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data & AI — Fortude Repository</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <nav class="global-nav">
+        <div class="nav-top">
+            <a href="../index.html" class="nav-brand"><span class="brand-f">F</span>ortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral...">
+        </div>
+        <div class="nav-tabs">
+            <a href="index.html" class="nav-tab active">Practices</a>
+            <a href="../enablers/index.html" class="nav-tab">Enablers</a>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        <a href="index.html">Practices</a>
+        <span>/</span>
+        <span>Data & AI</span>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <a href="index.html" class="hero-back">← Back to Practices</a>
+            <div class="hero-eyebrow">Practice Area</div>
+            <h1 style="display:flex;align-items:center;gap:12px;">
+                <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#0E9F6E;flex-shrink:0;margin-bottom:2px;"></span>
+                Data & AI
+            </h1>
+            <p>AI-ready data platforms, governance strategy and analytics adoption across the enterprise</p>
+        </div>
+    </section>
+
+    <div class="sub-tabs-bar">
+        <div class="sub-tab active" onclick="switchTab(this,'products')">Products</div><div class="sub-tab" onclick="switchTab(this,'services')">Services</div>
+    </div>
+
+    <div class="sub-panel" id="panel-products">
+        <div class="container">
+<h3>No collateral uploaded yet</h3>
+                <p>Product resources for Charlie, CharlieX, Analytics Accelerators will appear here once added.</p>
+            </div></div>
+    </div>
+
+    <div class="sub-panels" id="panel-services">
+        <div class="container">
+<h3>No collateral uploaded yet</h3>
+                <p>Service resources for AI Ready Data Platform Modernization, Data Governance & Strategy, Analytics Adoption Support will appear here once added.</p>
+            </div></div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v2.0</p>
+    </footer>
+
+    <script>
+    function switchTab(el, panel) {
+        document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('panel-' + panel).classList.add('active');
+    }
+    // set initial active
+    document.getElementById('panel-products').classList.add('active');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortude — Agentic AI Strategy for Infor M3 & CloudSuite</title>
+<style>
+:root{
+  --navy:#0D2138; --navy2:#1a3a5c; --ice:#EBF4F8; --cyan:#27B5E8;
+  --orange:#F05A28; --text:#1A2B45; --muted:#8A9BAB;
+  --lb:#D9EFF7; --white:#fff; --border:#D0E6EF;
+  --green:#0e9f6e; --amber:#d97706; --red:#dc2626;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--ice);color:var(--text);font-size:14px;line-height:1.65;}
+
+/* ── SIDEBAR NAV ── */
+.layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh;}
+.sidebar{background:var(--navy);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;}
+.sidebar-logo{padding:24px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08);}
+.logo-text{font-size:17px;font-weight:700;color:var(--cyan);letter-spacing:.12em;}
+.logo-text span{color:var(--orange);}
+.logo-sub{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.4;}
+.nav-section{padding:14px 16px 4px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.25);}
+.nav-link{display:flex;align-items:center;gap:8px;padding:8px 16px;font-size:12px;color:rgba(255,255,255,.55);text-decoration:none;border-left:3px solid transparent;transition:all .15s;}
+.nav-link:hover,.nav-link.active{color:#fff;background:rgba(39,181,232,.12);border-left-color:var(--cyan);}
+.nav-link .num{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+
+/* ── MAIN ── */
+.main{min-width:0;}
+
+/* ── COVER ── */
+.cover{background:var(--navy);padding:56px 56px 48px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--orange);}
+.cover::after{content:'';position:absolute;right:-60px;top:-60px;width:400px;height:400px;border-radius:50%;background:rgba(39,181,232,.04);pointer-events:none;}
+.cover-badge{display:inline-block;background:rgba(240,90,40,.15);border:1px solid rgba(240,90,40,.3);color:var(--orange);font-size:10px;font-weight:700;letter-spacing:.1em;padding:4px 12px;border-radius:20px;margin-bottom:20px;text-transform:uppercase;}
+.cover h1{font-size:32px;font-weight:300;color:#fff;line-height:1.2;margin-bottom:6px;}
+.cover h1 strong{font-weight:700;color:var(--cyan);}
+.cover-sub{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:32px;}
+.cover-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
+.pill{background:rgba(39,181,232,.1);border:1px solid rgba(39,181,232,.2);color:var(--cyan);font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;}
+.cover-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);}
+.meta-item .lbl{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+.meta-item .val{font-size:13px;color:rgba(255,255,255,.75);font-weight:500;}
+
+/* ── SECTION WRAPPER ── */
+.section{padding:40px 48px;border-bottom:1px solid var(--border);}
+.section:last-child{border-bottom:none;}
+.section-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:28px;}
+.s-bar{width:4px;flex-shrink:0;border-radius:2px;margin-top:4px;}
+.s-bar.orange{background:var(--orange);height:40px;}
+.s-bar.cyan{background:var(--cyan);height:40px;}
+.s-h{font-size:20px;font-weight:300;color:var(--navy);}
+.s-h strong{font-weight:700;}
+.s-sub{font-size:12px;color:var(--orange);margin-top:3px;font-style:italic;}
+.s-sub.cyan{color:var(--cyan);}
+
+p{margin-bottom:10px;color:#334155;}
+p:last-child{margin-bottom:0;}
+
+/* ── CARDS ── */
+.cards{display:grid;gap:14px;}
+.cards-2{grid-template-columns:1fr 1fr;}
+.cards-3{grid-template-columns:1fr 1fr 1fr;}
+.cards-4{grid-template-columns:repeat(4,1fr);}
+.card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.card-navy{background:var(--navy);border-color:var(--navy);}
+.card-cyan{background:var(--cyan);border-color:var(--cyan);}
+.card-orange{background:var(--orange);border-color:var(--orange);}
+.card-lb{background:var(--lb);border-color:#b5d8e8;}
+.card h4{font-size:13px;font-weight:700;margin-bottom:8px;}
+.card-navy h4,.card-cyan h4,.card-orange h4{color:#fff;}
+.card p{font-size:12px;}
+.card-navy p{color:rgba(255,255,255,.65);}
+.card-cyan p,.card-orange p{color:rgba(255,255,255,.8);}
+
+/* ── STAT CARDS ── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.stat{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.stat .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:4px;}
+.stat .val{font-size:26px;font-weight:700;color:var(--navy);}
+.stat .note{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* ── GAP BLOCKS ── */
+.use-case-gap{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;}
+.ucg-head{background:var(--navy);padding:14px 20px;display:flex;align-items:center;gap:12px;}
+.ucg-num{width:30px;height:30px;border-radius:50%;background:var(--orange);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ucg-head h3{color:#fff;font-size:15px;font-weight:600;}
+.ucg-head p{color:var(--cyan);font-size:12px;margin-top:2px;}
+.ucg-body{padding:20px;}
+.gap-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.gap-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:6px;}
+.gap-tag.red{background:#fee2e2;color:#991b1b;}
+.gap-tag.green{background:#d1fae5;color:#065f46;}
+.gap-box{border-radius:8px;padding:14px;}
+.gap-box.red{background:#fff5f5;border:1px solid #fecaca;}
+.gap-box.green{background:#f0fdf4;border:1px solid #bbf7d0;}
+.gap-box p{font-size:12px;color:#374151;margin:0;}
+.gap-box.red p{color:#7f1d1d;}
+.gap-box.green p{color:#064e3b;}
+
+/* ── TABLES ── */
+.tbl-wrap{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead tr{background:var(--navy);}
+th{padding:11px 14px;text-align:left;color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em;}
+td{padding:10px 14px;border-bottom:1px solid #f0f5f8;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:#f8fbfd;}
+.sub-row td{font-size:11px;color:var(--muted);}
+
+/* ── BADGES ── */
+.bdg{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+.bdg-go{background:#d1fae5;color:#065f46;}
+.bdg-cond{background:#fef3c7;color:#92400e;}
+.bdg-watch{background:#fee2e2;color:#991b1b;}
+.bdg-p1{background:var(--navy);color:#fff;}
+.bdg-p2{background:var(--cyan);color:#fff;}
+.bdg-p3{background:var(--lb);color:var(--navy);}
+.bdg-p4{background:#f1f5f9;color:#64748b;}
+.bdg-am{background:#dbeafe;color:#1d4ed8;}
+.bdg-eu{background:#ede9fe;color:#5b21b6;}
+.bdg-me{background:#fef3c7;color:#92400e;}
+.bdg-anz{background:#d1fae5;color:#065f46;}
+.bdg-gl{background:#f1f5f9;color:#334155;}
+
+/* ── REGION HEATMAP ── */
+.heatmap{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px;}
+.hm-cell{padding:7px 12px;border-radius:6px;font-size:12px;font-weight:700;text-align:center;display:inline-block;}
+.hm-p1{background:#0D2138;color:#fff;}
+.hm-p2{background:#27B5E8;color:#fff;}
+.hm-p3{background:#D9EFF7;color:#1A2B45;}
+.hm-p4{background:#f1f5f9;color:#94a3b8;}
+
+/* ── REGION CARDS ── */
+.region-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;}
+.rcard{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.rcard-head{padding:14px 18px;}
+.rcard-head.am{background:#0D2138;}
+.rcard-head.eu{background:#1a3a5c;}
+.rcard-head.me{background:#0f3d2e;}
+.rcard-head.anz{background:#1e1a4a;}
+.rcard-head h4{color:#fff;font-size:15px;font-weight:700;}
+.rcard-head p{color:rgba(255,255,255,.5);font-size:11px;margin-top:3px;}
+.rcard-body{padding:16px 18px;}
+.rbar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.rbar-lbl{font-size:11px;color:var(--text);width:160px;flex-shrink:0;}
+.rbar-track{flex:1;height:7px;background:var(--ice);border-radius:4px;overflow:hidden;}
+.rbar-fill{height:100%;border-radius:4px;}
+.fill-p1{background:var(--navy);width:90%;}
+.fill-p2{background:var(--cyan);width:68%;}
+.fill-p3{background:#93c5d7;width:42%;}
+.rcard-insight{background:var(--ice);padding:12px 18px;border-top:1px solid var(--border);font-size:12px;color:#334155;line-height:1.5;}
+.rcard-insight strong{color:var(--orange);}
+
+/* ── COMPETITIVE TABLE ── */
+.comp-table th{background:var(--navy);}
+.comp-strength{font-size:11px;color:#059669;font-weight:600;}
+.comp-weak{font-size:11px;color:#dc2626;font-weight:600;}
+.comp-neutral{font-size:11px;color:#d97706;font-weight:600;}
+.fortude-row td{background:#fffbeb !important;font-weight:600;}
+.fortude-row td:first-child{border-left:3px solid var(--orange);}
+
+/* ── RISK SECTION ── */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.risk-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.risk-level{display:flex;align-items:center;gap:6px;margin-bottom:8px;}
+.risk-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.risk-dot.high{background:#dc2626;}
+.risk-dot.med{background:#d97706;}
+.risk-dot.low{background:#059669;}
+.risk-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.risk-label.high{color:#dc2626;}
+.risk-label.med{color:#d97706;}
+.risk-label.low{color:#059669;}
+.risk-card h4{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.risk-card p{font-size:12px;color:#374151;}
+.risk-card .mitigation{font-size:12px;color:#065f46;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:8px 10px;margin-top:8px;}
+
+/* ── POC BLOCKS ── */
+.poc-block{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;}
+.poc-head{background:var(--navy);padding:16px 22px;display:flex;align-items:flex-start;gap:14px;}
+.poc-num{width:34px;height:34px;border-radius:50%;background:var(--orange);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.poc-head h3{color:#fff;font-size:15px;font-weight:700;margin-bottom:3px;}
+.poc-head p{color:var(--cyan);font-size:12px;}
+.poc-body{padding:22px;}
+
+.verdict-strip{border-radius:8px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;margin-bottom:18px;}
+.vs-go{background:#f0fdf4;border:1px solid #86efac;}
+.vs-cond{background:#fffbeb;border:1px solid #fde68a;}
+.vs-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.vs-go h4{color:#065f46;font-size:13px;font-weight:700;margin-bottom:3px;}
+.vs-cond h4{color:#92400e;font-size:13px;font-weight:700;margin-bottom:3px;}
+.vs-go p,.vs-cond p{font-size:12px;}
+.vs-go p{color:#166534;}
+.vs-cond p{color:#78350f;}
+
+.timeline-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:12px;}
+.week-lbl{font-size:11px;font-weight:700;color:var(--navy);background:var(--ice);padding:5px 10px;border-radius:6px;display:inline-block;margin-bottom:8px;}
+.week-lbl.w2{background:var(--cyan);color:#fff;}
+.day-card{border:1px solid var(--border);border-radius:8px;padding:9px 11px;background:#f8fbfd;}
+.day-card.act{border-color:var(--orange);background:#fff8f5;}
+.day-card.demo{border-color:var(--cyan);background:#f0f9ff;}
+.day-num{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:3px;text-transform:uppercase;}
+.day-card.act .day-num{color:var(--orange);}
+.day-card.demo .day-num{color:var(--cyan);}
+.day-title{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.day-desc{font-size:11px;color:#4a6080;line-height:1.4;}
+
+.poc-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0;}
+.pc{border-radius:8px;padding:12px 14px;}
+.pc.stack{background:var(--ice);border:1px solid #c8dfe8;}
+.pc.data{background:#fff7f4;border:1px solid #fcd5c6;}
+.pc.kpi{background:#f0fdf4;border:1px solid #bbf7d0;}
+.pc h5{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+.pc.stack h5{color:var(--navy);}
+.pc.data h5{color:#9a3412;}
+.pc.kpi h5{color:#065f46;}
+.pc ul{list-style:none;padding:0;}
+.pc ul li{font-size:11px;color:#334155;padding:2px 0;border-bottom:1px solid rgba(0,0,0,.05);}
+.pc ul li:last-child{border-bottom:none;}
+.pc ul li::before{content:'→ ';color:var(--cyan);font-weight:700;font-size:10px;}
+.pc.data ul li::before{color:var(--orange);}
+.pc.kpi ul li::before{color:#059669;}
+
+.int-box{background:var(--navy);border-radius:8px;padding:12px 16px;margin-top:12px;}
+.int-box h5{color:var(--cyan);font-size:10px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;}
+.int-box p{color:#94a3b8;font-size:12px;line-height:1.5;}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;}
+.chip{background:rgba(39,181,232,.15);border:1px solid rgba(39,181,232,.25);color:var(--cyan);font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;}
+
+/* ── GOVERNANCE ── */
+.gov-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+.gov-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.gov-card h4{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+.gov-card h4::before{content:'';width:12px;height:12px;border-radius:50%;background:var(--cyan);flex-shrink:0;}
+.gov-card p{font-size:12px;color:#374151;line-height:1.5;}
+.gov-framework{background:var(--navy);border-radius:10px;padding:20px;margin-top:16px;}
+.gov-framework h4{color:var(--cyan);font-size:14px;font-weight:700;margin-bottom:14px;}
+.gov-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.gov-step{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px;}
+.gov-step .sn{font-size:11px;color:var(--cyan);font-weight:700;margin-bottom:5px;}
+.gov-step h5{font-size:12px;color:#fff;font-weight:700;margin-bottom:4px;}
+.gov-step p{font-size:11px;color:rgba(255,255,255,.5);line-height:1.4;margin:0;}
+.hallucination-table{margin-top:16px;}
+
+/* ── STRATEGIC ROADMAP ── */
+.roadmap-phases{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:20px;}
+.rphase{padding:18px 16px;background:var(--white);border-right:1px solid var(--border);}
+.rphase:last-child{border-right:none;}
+.rp-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:5px;}
+.rp-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.rp-time{font-size:12px;color:var(--orange);font-weight:700;margin-bottom:10px;}
+.rp-body{font-size:12px;color:#374151;line-height:1.6;}
+.rp-uc{font-size:11px;background:var(--ice);border-radius:4px;padding:3px 8px;display:inline-block;margin:2px 2px 0 0;color:var(--navy);font-weight:600;}
+
+.roadmap-uc{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.ruc-head{background:var(--navy);padding:12px 18px;display:flex;align-items:center;gap:10px;}
+.ruc-num{width:24px;height:24px;border-radius:50%;background:var(--orange);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ruc-head h4{color:#fff;font-size:14px;font-weight:700;}
+.ruc-head .bdg{margin-left:auto;}
+.ruc-body{padding:16px 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.ruc-phase{border-radius:7px;padding:12px;}
+.ruc-phase.ph1{background:#f0f9ff;border:1px solid #bae6fd;}
+.ruc-phase.ph2{background:#f0fdf4;border:1px solid #bbf7d0;}
+.ruc-phase.ph3{background:#fffbeb;border:1px solid #fde68a;}
+.ruc-phase.ph4{background:#fdf4ff;border:1px solid #e9d5ff;}
+.ruc-phase .pn{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.ruc-phase.ph1 .pn{color:#0284c7;}
+.ruc-phase.ph2 .pn{color:#059669;}
+.ruc-phase.ph3 .pn{color:#d97706;}
+.ruc-phase.ph4 .pn{color:#7c3aed;}
+.ruc-phase h5{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:5px;}
+.ruc-phase p{font-size:11px;color:#374151;line-height:1.5;margin:0;}
+
+/* ── CALLOUTS ── */
+.callout{border-radius:8px;padding:14px 18px;margin:14px 0;}
+.cn{background:var(--navy);border-left:4px solid var(--cyan);}
+.cn p{color:#94a3b8;font-size:13px;line-height:1.6;}
+.cn strong{color:var(--cyan);}
+.co{background:#fff7f4;border-left:4px solid var(--orange);}
+.co p{color:#7c2d12;font-size:13px;line-height:1.6;}
+.co strong{color:var(--orange);}
+.cg{background:#f0fdf4;border-left:4px solid var(--green);}
+.cg p{color:#064e3b;font-size:13px;line-height:1.6;}
+.cg strong{color:var(--green);}
+
+/* ── FOOTER ── */
+.footer{background:var(--navy);color:var(--muted);text-align:center;padding:20px;font-size:11px;border-top:2px solid var(--orange);}
+.footer strong{color:var(--cyan);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .section{padding:28px 20px;}
+  .cover{padding:36px 20px 28px;}
+  .cards-2,.cards-3,.cards-4,.stat-grid,.gap-cols,.poc-cols,.cards-2{grid-template-columns:1fr;}
+  .region-grid,.risk-grid,.gov-grid,.timeline-grid{grid-template-columns:1fr 1fr;}
+  .roadmap-phases,.gov-steps,.ruc-body{grid-template-columns:1fr 1fr;}
+  .cover-meta{grid-template-columns:1fr 1fr;}
+}
+
+/* ── ABBREVIATIONS MODAL ── */
+.abbrv-fab{
+  position:fixed;bottom:28px;right:28px;z-index:1000;
+  width:52px;height:52px;border-radius:50%;
+  background:var(--orange);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(240,90,40,.4);
+  transition:transform .15s, box-shadow .15s;
+}
+.abbrv-fab:hover{transform:scale(1.08);box-shadow:0 6px 22px rgba(240,90,40,.55);}
+.abbrv-fab svg{width:22px;height:22px;fill:#fff;}
+.abbrv-fab .fab-label{
+  position:absolute;bottom:56px;right:0;
+  background:var(--navy);color:#fff;font-size:11px;font-weight:600;
+  padding:4px 10px;border-radius:6px;white-space:nowrap;
+  opacity:0;pointer-events:none;transform:translateY(4px);
+  transition:opacity .15s,transform .15s;
+}
+.abbrv-fab:hover .fab-label{opacity:1;transform:translateY(0);}
+
+.abbrv-overlay{
+  position:fixed;inset:0;z-index:1001;
+  background:rgba(13,33,56,.55);backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.abbrv-overlay.open{opacity:1;pointer-events:all;}
+
+.abbrv-modal{
+  background:var(--white);border-radius:14px;
+  width:min(780px,95vw);max-height:82vh;
+  display:flex;flex-direction:column;
+  box-shadow:0 20px 60px rgba(13,33,56,.3);
+  transform:translateY(16px) scale(.98);
+  transition:transform .2s;
+  overflow:hidden;
+}
+.abbrv-overlay.open .abbrv-modal{transform:translateY(0) scale(1);}
+
+.abbrv-modal-head{
+  background:var(--navy);padding:20px 24px 16px;
+  display:flex;align-items:flex-start;gap:16px;flex-shrink:0;
+}
+.abbrv-modal-head-text h2{
+  font-size:18px;font-weight:700;color:#fff;margin-bottom:3px;
+}
+.abbrv-modal-head-text p{font-size:12px;color:var(--muted);}
+.abbrv-close{
+  margin-left:auto;width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:var(--muted);font-size:18px;line-height:1;transition:background .15s,color .15s;
+}
+.abbrv-close:hover{background:rgba(240,90,40,.2);color:var(--orange);}
+
+.abbrv-search-wrap{
+  padding:14px 24px;background:var(--ice);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
+}
+.abbrv-search-wrap svg{width:16px;height:16px;fill:var(--muted);flex-shrink:0;}
+.abbrv-search{
+  flex:1;border:none;background:transparent;
+  font-size:14px;color:var(--text);outline:none;
+}
+.abbrv-search::placeholder{color:var(--muted);}
+.abbrv-count{font-size:11px;color:var(--muted);white-space:nowrap;}
+.abbrv-clear{
+  background:none;border:none;cursor:pointer;
+  font-size:13px;color:var(--muted);padding:2px 6px;
+  border-radius:4px;display:none;
+}
+.abbrv-clear:hover{color:var(--orange);}
+.abbrv-clear.visible{display:inline;}
+
+.abbrv-body{overflow-y:auto;padding:0 24px 20px;flex:1;}
+.abbrv-body::-webkit-scrollbar{width:6px;}
+.abbrv-body::-webkit-scrollbar-track{background:var(--ice);}
+.abbrv-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+.abbrv-category{margin-top:22px;}
+.abbrv-cat-title{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--orange);padding:6px 0 8px;
+  border-bottom:2px solid var(--border);margin-bottom:8px;
+  display:flex;align-items:center;gap:8px;
+}
+.abbrv-cat-count{
+  background:var(--ice);color:var(--muted);
+  font-size:9px;font-weight:700;padding:2px 7px;
+  border-radius:10px;
+}
+.abbrv-table{width:100%;border-collapse:collapse;}
+.abbrv-table tr{border-bottom:1px solid #f0f5f8;}
+.abbrv-table tr:last-child{border-bottom:none;}
+.abbrv-table tr.hidden{display:none;}
+.abbrv-table td{padding:7px 0;vertical-align:top;}
+.abbrv-table td:first-child{
+  width:90px;font-weight:700;font-size:13px;color:var(--navy);
+  font-family:'Courier New',monospace;padding-right:12px;white-space:nowrap;
+}
+.abbrv-table td:last-child{font-size:13px;color:#334155;line-height:1.5;}
+.abbrv-table td .full{font-weight:600;color:var(--text);}
+.abbrv-table td .context{font-size:11px;color:var(--muted);margin-top:2px;}
+
+mark.highlight{background:#fff3cd;color:var(--text);border-radius:2px;padding:0 1px;}
+
+.abbrv-empty{
+  text-align:center;padding:40px 20px;color:var(--muted);
+  font-size:14px;display:none;
+}
+.abbrv-empty svg{width:40px;height:40px;fill:var(--border);margin-bottom:12px;display:block;margin-inline:auto;}
+.abbrv-empty.visible{display:block;}
+
+.abbrv-tabs{
+  display:flex;gap:6px;padding:12px 24px 0;flex-wrap:wrap;flex-shrink:0;
+  background:var(--white);
+}
+.abbrv-tab{
+  background:var(--ice);border:1px solid var(--border);
+  color:var(--muted);font-size:11px;font-weight:600;
+  padding:4px 12px;border-radius:20px;cursor:pointer;
+  transition:all .15s;white-space:nowrap;
+}
+.abbrv-tab:hover,.abbrv-tab.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.abbrv-category.cat-hidden{display:none;}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">FORT<span>UDE</span></div>
+    <div class="logo-sub">Agentic AI Strategy<br>Infor M3 &amp; CloudSuite</div>
+  </div>
+  <div class="nav-section">Report Sections</div>
+  <a class="nav-link" href="#s1"><span class="num">1</span> CloudSuite Structural Gaps</a>
+  <a class="nav-link" href="#s2"><span class="num">2</span> Why the Window is Now</a>
+  <a class="nav-link" href="#s3"><span class="num">3</span> Regional Priority Map</a>
+  <a class="nav-link" href="#s4"><span class="num">4</span> Competitive Landscape</a>
+  <a class="nav-link" href="#s5"><span class="num">5</span> Infor Roadmap Risk</a>
+  <a class="nav-link" href="#s6"><span class="num">6</span> Prioritisation &amp; Recommendations</a>
+  <a class="nav-link" href="#s7"><span class="num">7</span> AI Governance &amp; Hallucination</a>
+  <a class="nav-link" href="#s8"><span class="num">8</span> 2-Week POC Strategy</a>
+  <a class="nav-link" href="#s9"><span class="num">9</span> Strategic Roadmap</a>
+  <a class="nav-link" href="#" onclick="openAbbrv();return false;"><span class="num" style="background:rgba(240,90,40,.2);color:var(--orange);">A</span> Abbreviations Glossary</a>
+  <div style="margin-top:auto;padding:16px;border-top:1px solid rgba(255,255,255,.08);">
+    <div style="font-size:10px;color:rgba(255,255,255,.2);line-height:1.5;">Delivering digital<br>solutions that matter</div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-badge">Strategic Intelligence Report · March 2026</div>
+  <h1><strong>Agentic AI Market Strategy</strong><br>for Infor M3 &amp; CloudSuite</h1>
+  <div class="cover-sub">Structural gaps · Market timing · Regional priority · Competitive landscape · POC blueprints · Strategic roadmap</div>
+  <div class="cover-pills">
+    <span class="pill">Americas</span><span class="pill">UK &amp; EU</span><span class="pill">AMEA</span><span class="pill">ANZ</span>
+    <span class="pill">Forecast Optimization</span><span class="pill">Inventory Optimization</span>
+    <span class="pill">Transport Optimization</span><span class="pill">Customer Service</span><span class="pill">Smart Factory</span>
+  </div>
+  <div class="cover-meta">
+    <div class="meta-item"><div class="lbl">Prepared by</div><div class="val">Fortude Innovation</div></div>
+    <div class="meta-item"><div class="lbl">Reference ERP</div><div class="val">Infor M3 / CloudSuite</div></div>
+    <div class="meta-item"><div class="lbl">Date</div><div class="val">March 2026</div></div>
+    <div class="meta-item"><div class="lbl">Classification</div><div class="val">Internal Strategic</div></div>
+  </div>
+</div>
+
+<!-- ══ SECTION 1: CLOUDSUITE GAPS ══ -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="s-bar orange"></div>
+    <div><div class="s-h"><strong>01 —</strong> CloudSuite Structural Gaps</div><div class="s-sub">Where Infor M3 &amp; CloudSuite fall short of agentic AI expectations across five critical use cases</div></div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat"><div class="lbl">Native Agentic Maturity</div><div class="val" style="color:var(--orange);">Low</div><div class="note">Decision-support, not autonomous execution</div></div>
+    <div class="stat"><div class="lbl">Agentic Orchestrator Launch</div><div class="val">Oct '25</div><div class="note">Amazon Bedrock + LangChain — early stage</div></div>
+    <div class="stat"><div class="lbl">Industry AI Agents (Apr '25)</div><div class="val">Limited</div><div class="note">M3 verticals: partial availability only</div></div>
+    <div class="stat"><div class="lbl">Overlay Opportunity</div><div class="val" style="color:var(--green);">High</div><div class="note">ION bus enables composable agent strategy</div></div>
+  </div>
+
+  <div class="callout cn" style="margin-bottom:20px;"><p><strong>Key framing:</strong> Infor M3 and CloudSuite are world-class at industry-specific ERP transaction processing. Their structural gaps are not in data — they hold exceptional operational data — but in <strong>autonomous execution</strong>: agents that reason, act, and self-correct without per-step human input. The April 2025 GenAI update added summarisation and prescriptive guidance, but did not unlock agentic autonomy at the process level.</p></div>
+
+  <!-- UC1 GAP -->
+  <div class="use-case-gap">
+    <div class="ucg-head"><div class="ucg-num">1</div><div><h3>Forecast Optimization</h3><p>Autonomous demand sensing &amp; self-updating planning</p></div></div>
+    <div class="ucg-body">
+      <div class="gap-cols">
+        <div class="gap-box red"><span class="gap-tag red">Structural Gap</span><p>M3's demand planning runs on MRP/MPS cycles with statistical algorithms. It cannot ingest real-time external signals — weather, social sentiment, competitor pricing, macroeconomic indices — autonomously. Forecast recalculation requires planner intervention. The Augmented Intelligence Service (AIS) provides prescriptive recommendations but does not execute autonomous replanning or reweight drivers without human approval. There is no native ensemble ML model or probabilistic forecast engine. Seasonal pattern auto-detection is rule-based, not learning-based.</p></div>
+        <div class="gap-box green"><span class="gap-tag green">What Exists in M3</span><p>M3 Planning (MPS/MRP) provides solid statistical forecasting, seasonality indices, and moving average models. The April 2025 AIS release added one-click demand insights and prescriptive reorder suggestions for CloudSuite Distribution. Infor's GenAI Agent Factory (low-code) and Mongoose builder can create custom demand agents — but require significant partner investment to build and maintain.</p></div>
+      </div>
+      <p style="font-size:12px;color:var(--red);font-weight:600;">Gap verdict: M3 forecasting is a passive decision-support system. The market expects autonomous sensing, continuous learning, and self-executing plan revisions — none of which are native.</p>
+    </div>
+  </div>
+
+  <!-- UC2 GAP -->
+  <div class="use-case-gap">
+    <div class="ucg-head"><div class="ucg-num">2</div><div><h3>Inventory Optimization</h3><p>Autonomous multi-echelon policy management &amp; replenishment</p></div></div>
+    <div class="ucg-body">
+      <div class="gap-cols">
+        <div class="gap-box red"><span class="gap-tag red">Structural Gap</span><p>CloudSuite Distribution's inventory modules optimise within predefined static policies (safety stock rules, reorder points, min/max). They do not autonomously detect policy drift, run probabilistic scenario simulations across echelons, or trigger replenishment purchase orders without manual approval workflows. Multi-echelon rebalancing (e.g. transfer between warehouses) requires planner decision. There is no native agent that continuously monitors inventory health and self-corrects positions in response to demand variability.</p></div>
+        <div class="gap-box green"><span class="gap-tag green">What Exists in M3</span><p>The April 2025 AIS update for CloudSuite Distribution added AI-driven demand analysis, warehouse slotting optimization, inventory policy scenario analysis, and competitive pricing recommendations. These are decision-support tools — effective, but not autonomous. M3's Warehouse Management (WMS) is solid; the gap is at the autonomous policy orchestration layer above WMS.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UC3 GAP -->
+  <div class="use-case-gap">
+    <div class="ucg-head"><div class="ucg-num">3</div><div><h3>Outbound Transport Optimization</h3><p>Autonomous carrier management, dynamic rerouting &amp; exception escalation</p></div></div>
+    <div class="ucg-body">
+      <div class="gap-cols">
+        <div class="gap-box red"><span class="gap-tag red">Structural Gap</span><p>M3 provides outbound shipment management and basic carrier integration but lacks: (a) autonomous carrier status management — live tracking, exception detection, carrier follow-up calls; (b) dynamic rerouting based on weather, port congestion, or geopolitical disruptions; (c) autonomous freight booking and rate negotiation; (d) proactive customer notification agents triggered by logistics events. Integration with TMS/visibility platforms is required via Infor ION but is not native.</p></div>
+        <div class="gap-box green"><span class="gap-tag green">What Exists in M3</span><p>M3 Delivery Order Management, Shipment Planning, and Freight Cost Management provide solid outbound logistics foundations. EDI integration with major carriers is available. ION enables event-driven messaging to third-party TMS platforms. The underlying data model is strong — the gap is in the autonomous execution layer on top of that data.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UC4 GAP -->
+  <div class="use-case-gap">
+    <div class="ucg-head"><div class="ucg-num">4</div><div><h3>Customer Service Management</h3><p>Autonomous case resolution, order intelligence &amp; proactive notifications</p></div></div>
+    <div class="ucg-body">
+      <div class="gap-cols">
+        <div class="gap-box red"><span class="gap-tag red">Structural Gap</span><p>The April 2025 GenAI release added grammar/spelling correction in customer notes and one-click summaries of project updates and equipment health checks. The CloudSuite Industrial AI Agents include a customer service manager agent for purchase orders and inventory — limited availability as of H1 2026 for M3-specific verticals. Missing: autonomous multi-channel case resolution, CRM-style agentic workflows, supply-chain-to-customer-service event triggers, and proactive outbound notifications at customer order level.</p></div>
+        <div class="gap-box green"><span class="gap-tag green">What Exists in M3</span><p>M3 Customer Order Management (COS) and After-Sales Service Management (SER) provide comprehensive customer lifecycle tracking. The April 2025 update added GenAI summaries in customer notes. The Infor Agentic Orchestrator can coordinate a customer service agent that reads M3 order data — but building this requires SI effort, not a native out-of-box experience.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UC5 GAP -->
+  <div class="use-case-gap">
+    <div class="ucg-head"><div class="ucg-num">5</div><div><h3>Smart Factory</h3><p>Autonomous anomaly detection, prescriptive maintenance &amp; production agents</p></div></div>
+    <div class="ucg-body">
+      <div class="gap-cols">
+        <div class="gap-box red"><span class="gap-tag red">Structural Gap</span><p>M3's Shop Floor Control (SFC) provides real-time manufacturing visibility and the April 2025 AIS release added equipment health check summaries. However, there are no native agents that: detect machine anomalies from sensor data, diagnose failure mode, specify repair action and parts, autonomously generate and assign work orders, check spare parts inventory, and raise purchase requisitions — all without human initiation. The OT-IT integration layer is the critical missing capability: M3 does not natively connect to IIoT sensor networks or PLC systems.</p></div>
+        <div class="gap-box green"><span class="gap-tag green">What Exists in M3</span><p>M3 Plant Maintenance (MMS) and Equipment Management provide work order lifecycle management, spare parts inventory, and preventive maintenance scheduling. The April 2025 GenAI update added one-click equipment health summaries. Infor's Agentic Orchestrator can coordinate third-party industrial AI agents that feed work orders into M3 MMS — this is the prescribed integration architecture for the smart factory use case.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 2: WHY NOW ══ -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="s-bar cyan"></div>
+    <div><div class="s-h"><strong>02 —</strong> Why the Window is Now</div><div class="s-sub cyan">The convergence of technology maturity, workforce pressure, and competitive dynamics that make 2026 the critical year to act</div></div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat"><div class="lbl">Agentic AI Value Share (BCG 2025)</div><div class="val">17%</div><div class="note">→ Projected 29% by 2028</div></div>
+    <div class="stat"><div class="lbl">Supply Chain Leaders Unprepared</div><div class="val">75%</div><div class="note">78% expect disruptions to intensify; only 25% feel ready</div></div>
+    <div class="stat"><div class="lbl">Pilots That Reached Full Production</div><div class="val" style="color:var(--red);">14%</div><div class="note">Only 14% of generative AI pilots scaled by mid-2025</div></div>
+    <div class="stat"><div class="lbl">Agentic SC Market CAGR (2025–30)</div><div class="val" style="color:var(--green);">14.2%</div><div class="note">$8.67B in 2025 → $16.84B by 2030</div></div>
+  </div>
+
+  <div class="cards cards-3" style="margin-bottom:20px;">
+    <div class="card card-navy">
+      <h4>Technology Has Finally Caught Up</h4>
+      <p>The co-pilot era is ending. Agentic AI now represents architectural disruption — agents that reason through multi-step logic chains, query disparate systems (ERP, WMS, TMS), and trigger actions without constant human oversight. Infor's October 2025 Agentic Orchestrator launch (Amazon Bedrock + LangChain) is the integration hook Fortude needed. The composable architecture is available today.</p>
+    </div>
+    <div class="card card-cyan">
+      <h4>The Workforce Retirement Cliff</h4>
+      <p>Record baby boomer retirements through 2026 are depleting supply chain expertise. The "augmented connected workforce" concept is gaining traction — AI agents handling data reconciliation, exception management, and routine decisions, effectively cloning senior planners' expertise. M3 customers with ageing planner workforces have an acute, board-level motivation to act now.</p>
+    </div>
+    <div class="card card-orange">
+      <h4>Competitive Differentiation Window</h4>
+      <p>Early adopters deploying agentic AI will achieve structurally higher forecast accuracy, faster reaction times, and lower operating costs. The gap between AI-driven supply chains and legacy operators will widen significantly — and Gartner projects it will become irreversible by 2028. Customers who start in 2026 will be 18 months ahead of peers who wait until 2027.</p>
+    </div>
+  </div>
+
+  <div class="cards cards-2">
+    <div class="card">
+      <h4 style="color:var(--navy);">Tariff Volatility &amp; Geopolitical Pressure</h4>
+      <p style="font-size:12px;">2026 tariff uncertainty and shifting geopolitical alliances are pressuring supply chain teams to rethink markets, supplier networks, and logistics plans. Agentic AI that can autonomously model tariff scenarios, rebalance supplier networks, and reroute logistics is no longer a luxury — it is a risk management imperative. M3 customers in food &amp; beverage, industrial manufacturing, and fashion face the most acute tariff exposure.</p>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--navy);">The $106 Trillion Infrastructure Gap</h4>
+      <p style="font-size:12px;">Global logistics infrastructure faces a $106 trillion investment gap through 2040. Physical infrastructure cannot catch up — but software intelligence can compensate. Organizations using AI-powered route optimization, predictive maintenance, and autonomous inventory rebalancing extract more throughput from constrained physical networks. For Fortude's manufacturing and distribution customers, this is the productivity multiplier argument.</p>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--navy);">Infor's Orchestrator Window (2026)</h4>
+      <p style="font-size:12px;">Infor's Agentic Orchestrator (October 2025) is the integration architecture that makes composable agentic overlays on M3 commercially viable. This window — when the architecture exists but market deployment is still nascent — is Fortude's best opportunity to build proprietary connectors, IP, and customer relationships before Columbus, Apex Systems, and Deloitte build the same accelerators.</p>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--navy);">Customer AI Budgets Unlocking in 2026</h4>
+      <p style="font-size:12px;">Enterprise AI budgets shifted in 2025 from experimentation to production. Over half of generative AI adopters now run agents in production. CFOs are approving agentic AI investment for measurable ROI use cases — working capital reduction, FTE efficiency, and service level improvement. These are exactly the business cases available through M3 agentic overlays. The buying cycle has arrived.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 3: REGIONAL PRIORITY MAP ══ -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="s-bar orange"></div>
+    <div><div class="s-h"><strong>03 —</strong> Regional Priority Map</div><div class="s-sub">Market trends, vendor readiness, and Fortude opportunity scoring by region and use case</div></div>
+  </div>
+
+  <div class="heatmap" style="margin-bottom:20px;">
+    <table>
+      <thead><tr><th>Use Case</th><th>Americas</th><th>UK &amp; EU</th><th>AMEA</th><th>ANZ</th><th>Overall Priority</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Forecast Optimization</strong></td><td><span class="hm-cell hm-p1">P1 Lead</span></td><td><span class="hm-cell hm-p1">P1 Lead</span></td><td><span class="hm-cell hm-p2">P2 Build</span></td><td><span class="hm-cell hm-p2">P2 Build</span></td><td><span class="bdg bdg-go">GO</span></td></tr>
+        <tr><td><strong>2. Inventory Optimization</strong></td><td><span class="hm-cell hm-p1">P1 Lead</span></td><td><span class="hm-cell hm-p1">P1 Lead</span></td><td><span class="hm-cell hm-p3">P3 Monitor</span></td><td><span class="hm-cell hm-p2">P2 Build</span></td><td><span class="bdg bdg-go">GO</span></td></tr>
+        <tr><td><strong>3. Outbound Transport</strong></td><td><span class="hm-cell hm-p1">P1 Lead</span></td><td><span class="hm-cell hm-p1">P1 Lead</span></td><td><span class="hm-cell hm-p2">P2 Build</span></td><td><span class="hm-cell hm-p1">P1 Lead</span></td><td><span class="bdg bdg-go">GO FIRST</span></td></tr>
+        <tr><td><strong>4. Customer Service</strong></td><td><span class="hm-cell hm-p1">P1 Lead</span></td><td><span class="hm-cell hm-p2">P2 Build</span></td><td><span class="hm-cell hm-p3">P3 Monitor</span></td><td><span class="hm-cell hm-p2">P2 Build</span></td><td><span class="bdg bdg-go">GO (scoped)</span></td></tr>
+        <tr><td><strong>5. Smart Factory</strong></td><td><span class="hm-cell hm-p2">P2 Build</span></td><td><span class="hm-cell hm-p1">P1 Lead</span></td><td><span class="hm-cell hm-p2">P2 Build</span></td><td><span class="hm-cell hm-p3">P3 Monitor</span></td><td><span class="bdg bdg-cond">CONDITIONAL</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="region-grid">
+    <div class="rcard">
+      <div class="rcard-head am"><h4>🌎 Americas (US &amp; Canada)</h4><p>Most mature market · Highest vendor density · All 4 GO use cases are P1</p></div>
+      <div class="rcard-body">
+        <div class="rbar-row"><div class="rbar-lbl">Forecast Optimization</div><div class="rbar-track"><div class="rbar-fill fill-p1"></div></div><span style="font-size:11px;font-weight:700;color:var(--navy);">P1</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Inventory Optimization</div><div class="rbar-track"><div class="rbar-fill fill-p1"></div></div><span style="font-size:11px;font-weight:700;color:var(--navy);">P1</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Outbound Transport</div><div class="rbar-track"><div class="rbar-fill fill-p1"></div></div><span style="font-size:11px;font-weight:700;color:var(--navy);">P1</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Customer Service</div><div class="rbar-track"><div class="rbar-fill fill-p1"></div></div><span style="font-size:11px;font-weight:700;color:var(--navy);">P1</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Smart Factory</div><div class="rbar-track"><div class="rbar-fill fill-p2"></div></div><span style="font-size:11px;font-weight:700;color:var(--cyan);">P2</span></div>
+      </div>
+      <div class="rcard-insight"><strong>Lead with Transport (UC3)</strong> as the fastest POC opener, then cross-sell Forecast + Inventory. Salesforce Agentforce penetration in Americas M3 accounts makes Customer Service a natural upsell. Smart Factory P2 due to brownfield OT challenges in mid-market. FourKites, ketteQ, ToolsGroup, and Agentforce all have strong Americas go-to-market — Fortude should target Q1-Q2 2026 POC launches here.</div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-head eu"><h4>🌍 UK &amp; EU</h4><p>Governance-first · EU AI Act compliance opportunity · German industrial AI stronghold</p></div>
+      <div class="rcard-body">
+        <div class="rbar-row"><div class="rbar-lbl">Forecast Optimization</div><div class="rbar-track"><div class="rbar-fill fill-p1"></div></div><span style="font-size:11px;font-weight:700;color:var(--navy);">P1</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Inventory Optimization</div><div class="rbar-track"><div class="rbar-fill fill-p1"></div></div><span style="font-size:11px;font-weight:700;color:var(--navy);">P1</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Outbound Transport</div><div class="rbar-track"><div class="rbar-fill fill-p1"></div></div><span style="font-size:11px;font-weight:700;color:var(--navy);">P1</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Customer Service</div><div class="rbar-track"><div class="rbar-fill fill-p2"></div></div><span style="font-size:11px;font-weight:700;color:var(--cyan);">P2</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Smart Factory</div><div class="rbar-track"><div class="rbar-fill fill-p1"></div></div><span style="font-size:11px;font-weight:700;color:var(--navy);">P1</span></div>
+      </div>
+      <div class="rcard-insight"><strong>Smart Factory jumps to P1</strong> in EU — Siemens/Rockwell ecosystem is strongest here, M3 has significant German industrial manufacturing customers, and Columbus just extended UK partnership (January 2026) creating urgency. EU AI Act compliance advisory is a Fortude differentiator. RELEX is the strongest Forecast vendor for EU F&B. Customer Service P2 due to GDPR complexity for customer-facing AI agents.</div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-head me"><h4>🌏 AMEA</h4><p>Fastest growing (48.6% CAGR) · Technical readiness gap · Sovereign AI investment rising</p></div>
+      <div class="rcard-body">
+        <div class="rbar-row"><div class="rbar-lbl">Forecast Optimization</div><div class="rbar-track"><div class="rbar-fill fill-p2"></div></div><span style="font-size:11px;font-weight:700;color:var(--cyan);">P2</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Inventory Optimization</div><div class="rbar-track"><div class="rbar-fill fill-p3"></div></div><span style="font-size:11px;font-weight:700;color:#4a7fa0;">P3</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Outbound Transport</div><div class="rbar-track"><div class="rbar-fill fill-p2"></div></div><span style="font-size:11px;font-weight:700;color:var(--cyan);">P2</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Customer Service</div><div class="rbar-track"><div class="rbar-fill fill-p3"></div></div><span style="font-size:11px;font-weight:700;color:#4a7fa0;">P3</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Smart Factory</div><div class="rbar-track"><div class="rbar-fill fill-p2"></div></div><span style="font-size:11px;font-weight:700;color:var(--cyan);">P2</span></div>
+      </div>
+      <div class="rcard-insight"><strong>Transport and Smart Factory</strong> are strongest P2 plays — project44 covers emerging market trade lanes, Infinite Uptime has documented AMEA deployments (prescriptive agents, 3-6 month ROI). 60% of APAC organizations cite technical challenges as primary AI barrier — Fortude's SI integration expertise is a competitive differentiator. Budget 30–50% more time for governance. Middle East sovereign AI (UAE, Saudi) is creating new greenfield demand.</div>
+    </div>
+
+    <div class="rcard">
+      <div class="rcard-head anz"><h4>🦘 ANZ</h4><p>Tech-forward · WiseTech home market advantage · Agri-food sector momentum</p></div>
+      <div class="rcard-body">
+        <div class="rbar-row"><div class="rbar-lbl">Forecast Optimization</div><div class="rbar-track"><div class="rbar-fill fill-p2"></div></div><span style="font-size:11px;font-weight:700;color:var(--cyan);">P2</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Inventory Optimization</div><div class="rbar-track"><div class="rbar-fill fill-p2"></div></div><span style="font-size:11px;font-weight:700;color:var(--cyan);">P2</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Outbound Transport</div><div class="rbar-track"><div class="rbar-fill fill-p1"></div></div><span style="font-size:11px;font-weight:700;color:var(--navy);">P1</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Customer Service</div><div class="rbar-track"><div class="rbar-fill fill-p2"></div></div><span style="font-size:11px;font-weight:700;color:var(--cyan);">P2</span></div>
+        <div class="rbar-row"><div class="rbar-lbl">Smart Factory</div><div class="rbar-track"><div class="rbar-fill fill-p3"></div></div><span style="font-size:11px;font-weight:700;color:#4a7fa0;">P3</span></div>
+      </div>
+      <div class="rcard-insight"><strong>Transport is uniquely P1</strong> — WiseTech Global (Australian HQ) is the home-market leader; FourKites has strong ANZ enterprise penetration. ANZ F&B and agri-food sectors are natural fits for RELEX (Forecast) and ToolsGroup (Inventory). Smart Factory P3 — smaller manufacturing base and OT complexity per dollar of outcome vs. other regions. Microsoft-heavy ANZ enterprise market makes Copilot Studio path preferred for Customer Service.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 4: COMPETITIVE LANDSCAPE ══ -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <div class="s-bar cyan"></div>
+    <div><div class="s-h"><strong>04 —</strong> Competitive Landscape</div><div class="s-sub cyan">How Fortude compares to key SI and technology competitors in the agentic AI for Infor M3 market</div></div>
+  </div>
+
+  <div class="callout co" style="margin-bottom:20px;"><p><strong>Market context:</strong> The Infor M3/CloudSuite SI partner ecosystem is consolidating around agentic AI. Columbus extended its Infor partnership into the UK in January 2026. Apex Systems (formerly Avaap) holds one of the largest IPN Implementation Co-Sell certifications globally. Fortude's differentiation must be clear, specific, and defensible — especially as larger SIs build the same capabilities.</p></div>
+
+  <div class="tbl-wrap">
+    <table class="comp-table">
+      <thead><tr><th>Partner / Competitor</th><th>Infor M3 Credentials</th><th>Agentic AI Capability</th><th>Regional Strength</th><th>Agentic AI Positioning</th><th>Fortude Threat Level</th></tr></thead>
+      <tbody>
+        <tr class="fortude-row">
+          <td><strong>Fortude</strong><br><span style="font-size:11px;color:var(--orange);">★ THIS COMPANY</span></td>
+          <td>Premier Infor M3 + CloudSuite SI; deep F&B, Distribution, Industrial verticals; Charlie AI agent (Azure AI Foundry) connected to M3 for inventory &amp; demand</td>
+          <td>Charlie RAG-based AI agent with agentic capabilities on Azure AI Foundry + Microsoft Copilot integration; ForTest AI self-healing automation; active agentic ERP workflow research</td>
+          <td><span class="bdg bdg-am">Americas</span> <span class="bdg bdg-me">AMEA</span> <span class="bdg bdg-anz">ANZ</span></td>
+          <td class="comp-strength">Early mover on M3-native agentic AI (Charlie). Azure-first architecture aligns with M3 cloud customers. Boutique speed advantage over large SIs.</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Columbus Global</strong><br><span style="font-size:11px;color:var(--muted);">Largest independent M3 partner globally</span></td>
+          <td>Self-described as the largest independent Infor M3 partner worldwide; OnTarget delivery methodology; 1,600 experts; strong in Nordics, Germany, Benelux, US, and now UK (Jan 2026 expansion)</td>
+          <td>Active in agentic commerce (NRF 2026 participation); dual ERP capability (Infor M3 + Microsoft Dynamics 365); built-in AI &amp; data practice; partnered on Infor's industry AI agents rollout</td>
+          <td><span class="bdg bdg-eu">UK &amp; EU</span> <span class="bdg bdg-am">Americas</span></td>
+          <td class="comp-neutral">Broad but not agentic-AI-specialized. Scale gives them resources but slows specialization. The Jan 2026 UK push signals aggressive intent — Fortude has a 6-12 month window before Columbus builds deep UK agentic IP.</td>
+          <td><span style="color:var(--red);font-weight:700;">HIGH</span> — directly competes on M3 accounts in all shared regions</td>
+        </tr>
+        <tr>
+          <td><strong>Apex Systems</strong><br><span style="font-size:11px;color:var(--muted);">Formerly Avaap Infor; ASGN NYSE listed</span></td>
+          <td>One of the largest IPN Implementation Co-Sell partners; CloudSuite Healthcare and Manufacturing/Distribution specialization; largest teams of Infor-certified technical consultants; ISPnext AP Automation integration with M3</td>
+          <td>AP Automation with ISPnext + M3 pre-built integration; strong in CloudSuite Food &amp; Beverage (fifth-generation family food company case study); data &amp; AI services practice; managed services</td>
+          <td><span class="bdg bdg-am">Americas</span> <span class="bdg bdg-eu">EU</span></td>
+          <td class="comp-neutral">Apex's agentic AI is primarily in finance automation (AP, procurement). Supply chain agentic AI (demand, inventory, transport) is not a published competency yet. Strong in Healthcare CloudSuite — less relevant for Fortude's F&B/Distribution/Industrial focus.</td>
+          <td><span style="color:var(--amber);font-weight:700;">MEDIUM</span> — competes in Americas and EU for CloudSuite Manufacturing; less direct on agentic supply chain</td>
+        </tr>
+        <tr>
+          <td><strong>Deloitte</strong><br><span style="font-size:11px;color:var(--muted);">Founding member, Infor Global SI Program</span></td>
+          <td>Founding member of Infor's Global Systems Integrator Program (highest partnering level); deep skills across M3, CloudSuite, Workforce Management, and Birst; global delivery capacity</td>
+          <td>Enterprise-scale agentic AI practices across all vendor ecosystems; AI governance frameworks; but Infor M3 is not Deloitte's primary ERP focus</td>
+          <td><span class="bdg bdg-gl">Global</span></td>
+          <td class="comp-neutral">Deloitte competes for large enterprise M3 accounts but rarely pursues mid-market. Their agentic AI is generic, not M3-specific. Fortude's M3-native agentic IP (Charlie, ION connectors) is a direct differentiator vs. Deloitte's generalist approach.</td>
+          <td><span style="color:var(--amber);font-weight:700;">MEDIUM</span> — enterprise accounts only; Fortude's M3 depth is a competitive moat at mid-market</td>
+        </tr>
+        <tr>
+          <td><strong>Wipro / Infosys / TCS</strong><br><span style="font-size:11px;color:var(--muted);">Global IT services majors</span></td>
+          <td>Infor partner network members; primarily staff augmentation and large-scale implementation; less vertical depth in M3-specific industries</td>
+          <td>Large-scale GenAI practices; agentic AI labs; but M3-specific agentic depth is thin — they deploy generic LLM tooling rather than M3-native agents</td>
+          <td><span class="bdg bdg-gl">Global</span> <span class="bdg bdg-me">AMEA</span></td>
+          <td class="comp-weak">Primarily compete on cost in large IT outsourcing. Fortude's technical depth in M3 agentic integration is a quality differentiator. AMEA presence creates overlap for Wipro specifically.</td>
+          <td><span style="color:#059669;font-weight:700;">LOW</span> — on agentic M3 specifically; higher risk on AMEA volume deals</td>
+        </tr>
+        <tr>
+          <td><strong>HiBob / Netsuite SIs</strong><br><span style="font-size:11px;color:var(--muted);">Adjacent ERP ecosystem players</span></td>
+          <td>Not M3-focused; compete for adjacent markets (HR, SMB ERP) that may intersect at CloudSuite customer accounts</td>
+          <td>Limited M3 relevance; not a primary threat in agentic supply chain</td>
+          <td><span class="bdg bdg-gl">Various</span></td>
+          <td class="comp-weak">Not directly relevant to Fortude's agentic M3 supply chain strategy.</td>
+          <td><span style="color:#059669;font-weight:700;">LOW</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout cg"><p><strong>Fortude's defensible differentiation:</strong> (1) Charlie — the only RAG-based AI agent with native M3 inventory + demand planning connectivity in production today; (2) Boutique speed — Fortude can deploy a working POC in 10 business days vs. 6–8 weeks for Columbus or Apex; (3) Azure AI Foundry architecture — Microsoft Copilot + M3 integration is a lower-friction path for the majority of M3 customers who are already in the Microsoft cloud ecosystem; (4) Vertical depth — F&B, Distribution, and Industrial Manufacturing ION data templates that competitors would need 12+ months to replicate.</p></div>
+</div>
+
+<!-- ══ SECTION 5: INFOR ROADMAP RISK ══ -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <div class="s-bar orange"></div>
+    <div><div class="s-h"><strong>05 —</strong> Infor Roadmap Risk</div><div class="s-sub">How Infor's own AI development trajectory could impact Fortude's agentic overlay strategy</div></div>
+  </div>
+
+  <div class="callout co" style="margin-bottom:20px;"><p><strong>The core risk:</strong> If Infor accelerates native agentic AI development and closes the structural gaps in M3/CloudSuite within 12–18 months, Fortude's third-party overlay strategy could be disrupted. However, the evidence strongly suggests native gap-closure will be slower than the market window — and partner-delivered agentic capability will remain commercially viable through at least 2028.</p></div>
+
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-level"><div class="risk-dot high"></div><span class="risk-label high">High Risk</span></div>
+      <h4>Infor Accelerates Native Agentic Agents</h4>
+      <p>Infor could expand its April 2025 Industry AI Agents beyond CloudSuite Industrial to cover M3 F&B, Distribution, and Fashion verticals by H2 2026. If native agents become available and work well, the vendor overlay case weakens.</p>
+      <div class="mitigation">Mitigation: Build Fortude IP on Infor ION and Agentic Orchestrator integration layer — not on a single vendor overlay. Vendor-agnostic connector library protects against Infor native displacement. Additionally, native Infor agents are likely to be generic; Fortude's vertical-specific configuration is the lasting differentiator.</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level"><div class="risk-dot high"></div><span class="risk-label high">High Risk</span></div>
+      <h4>Infor Agentic Orchestrator Immaturity</h4>
+      <p>The October 2025 Agentic Orchestrator is an early-stage product. Production deployments are limited. If the Orchestrator has reliability, performance, or integration issues in 2026, Fortude's Phase 3 architecture (multi-agent orchestration) would be delayed or require alternative middleware.</p>
+      <div class="mitigation">Mitigation: For Phase 1 POCs, do not require the Orchestrator layer. Use vendor-direct APIs (sufficient for 10-day POC). Use the Orchestrator as a Phase 3 unification layer only — after individual agent POCs are proven. Monitor Infor's Orchestrator roadmap quarterly through the Infor partner channel.</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level"><div class="risk-dot med"></div><span class="risk-label med">Medium Risk</span></div>
+      <h4>Infor Shifts to Closed Ecosystem Strategy</h4>
+      <p>If Infor restricts M3 API access, tightens ION integration policies, or prioritises exclusive vendor partnerships (e.g. exclusively promoting Blue Yonder or o9 as preferred agentic planning vendors), Fortude's multi-vendor connector strategy would face barriers.</p>
+      <div class="mitigation">Mitigation: Maintain active Infor Partner Network engagement. Elevate Fortude's partner tier to ensure continued API access. Fortude's own Charlie agent (Infor-connected) demonstrates commitment to the ecosystem and reduces risk of exclusion.</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level"><div class="risk-dot med"></div><span class="risk-label med">Medium Risk</span></div>
+      <h4>Koch Industries Investment Changes Infor's Direction</h4>
+      <p>Infor is majority-owned by Koch Industries. Changes in Koch's strategic priorities, a potential Infor IPO, or acquisition by a hyperscaler (Microsoft, Google, Amazon) could substantially alter Infor's product roadmap, partner strategy, or pricing model — creating uncertainty for Fortude's Infor-anchored practice.</p>
+      <div class="mitigation">Mitigation: Fortude's dual ERP capability (Infor M3 + Microsoft Dynamics 365) provides a hedge. If Infor is acquired by Microsoft or Google, the integration path to Fortude's existing Azure AI Foundry / Copilot architecture becomes even stronger, not weaker.</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level"><div class="risk-dot med"></div><span class="risk-label med">Medium Risk</span></div>
+      <h4>Gartner's 40% Cancellation Projection</h4>
+      <p>Gartner predicts over 40% of agentic AI projects will be cancelled by end of 2027 due to cost, integration drag, and unclear business value. If this materializes in M3 customer accounts, it could damage Fortude's pipeline and reputation if POCs fail to convert.</p>
+      <div class="mitigation">Mitigation: Fixed-scope 2-week POC with pre-agreed success criteria (quantitative). Mandatory Data Readiness Assessment before POC commit. Executive sponsor required before kickoff. Business case modelled in Week 2 — not promised upfront without evidence.</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level"><div class="risk-dot low"></div><span class="risk-label low">Lower Risk</span></div>
+      <h4>M3 Version Lock / CloudSuite Migration Delays</h4>
+      <p>Some M3 customers remain on older on-premise versions. If customers delay migration to CloudSuite (required for ION-based agentic connectivity), Fortude's agentic overlay strategy cannot be deployed until migration occurs.</p>
+      <div class="mitigation">Mitigation: For on-premise M3 customers, Fortude's Charlie agent can be architected on Azure API Management connecting directly to M3 REST APIs without requiring ION. The migration to CloudSuite becomes an upsell opportunity — bundle agentic AI with cloud migration as a combined business case.</div>
+    </div>
+  </div>
+
+  <div class="callout cn" style="margin-top:4px;"><p><strong>Bottom line on roadmap risk:</strong> Infor's native AI development is real but slow. The manufacturing ERP market's complexity — vertical specificity, brownfield OT, multi-echelon data models — means native AI agents will remain generic for 2-3 years. Fortude's window for building vertical-specific, customer-deployed agentic IP is 2026–2027. The risk is not Infor displacing the opportunity — it is Fortude moving too slowly and Columbus or Apex building equivalent IP first.</p></div>
+</div>
+
+<!-- ══ SECTION 6: PRIORITISATION ══ -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <div class="s-bar cyan"></div>
+    <div><div class="s-h"><strong>06 —</strong> Prioritisation &amp; Recommendations</div><div class="s-sub cyan">Go / No-Go decisions and recommended strategy for each use case</div></div>
+  </div>
+
+  <div class="tbl-wrap" style="margin-bottom:20px;">
+    <table>
+      <thead><tr><th>Use Case</th><th>Verdict</th><th>Primary Rationale</th><th>Lead Vendor(s)</th><th>Sequence</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>3. Outbound Transport</strong></td>
+          <td><span class="bdg bdg-go">✓ GO FIRST</span></td>
+          <td>Most mature agentic market; FourKites POC runnable on live shipments in 48 hours; highest visual impact for executive demos; fastest-to-value (8 days)</td>
+          <td>FourKites · project44 · WiseTech</td>
+          <td><strong>Sprint 1</strong></td>
+        </tr>
+        <tr>
+          <td><strong>1. Forecast Optimization</strong></td>
+          <td><span class="bdg bdg-go">✓ GO</span></td>
+          <td>Clear M3 gap; overlay-model vendors (ketteQ) require zero data migration; MAPE improvement is a CFO-visible metric; RELEX is perfect vertical match for M3's F&B customers</td>
+          <td>ketteQ · RELEX · o9</td>
+          <td><strong>Sprint 1-2</strong></td>
+        </tr>
+        <tr>
+          <td><strong>2. Inventory Optimization</strong></td>
+          <td><span class="bdg bdg-go">✓ GO</span></td>
+          <td>ToolsGroup has pre-built M3 connector (reduces Day 2 to configuration); working capital ROI is board-level; service level improvement is measurable in POC</td>
+          <td>ToolsGroup · Manhattan · Deposco</td>
+          <td><strong>Sprint 2</strong></td>
+        </tr>
+        <tr>
+          <td><strong>4. Customer Service</strong></td>
+          <td><span class="bdg bdg-go">✓ GO (scoped)</span></td>
+          <td>Scope narrowly to order status + exception escalation only; Salesforce Agentforce Manufacturing is GA (Oct 2025); CRM data readiness must be confirmed before commit</td>
+          <td>Agentforce · Dynamics 365 · ServiceNow</td>
+          <td><strong>Sprint 2-3</strong></td>
+        </tr>
+        <tr>
+          <td><strong>5. Smart Factory</strong></td>
+          <td><span class="bdg bdg-cond">⚡ CONDITIONAL</span></td>
+          <td>Highest ROI potential but OT infrastructure maturity is prerequisite; brownfield path (Guidewheel + Infinite Uptime) required; confirm M3 MMS is active before committing</td>
+          <td>Infinite Uptime · Guidewheel · Siemens</td>
+          <td><strong>Sprint 3+</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cards cards-2">
+    <div class="card">
+      <h4 style="color:var(--navy);">Recommended Go-to-Market Strategy</h4>
+      <p style="font-size:12px;"><strong>Package the 2-week POC as a fixed-fee accelerator</strong> ($15,000–$25,000 per use case, creditable against pilot engagement). Lead every account conversation with Transport (UC3) as the opener — it has the fastest setup, the most visual demo, and the clearest ROI signal. Use Transport POC wins to introduce Forecast and Inventory as natural extensions in the same account. Customer Service and Smart Factory require additional qualification before POC commitment.</p>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--navy);">Recommended Architecture Strategy</h4>
+      <p style="font-size:12px;"><strong>Composable overlays, not rip-and-replace.</strong> Anchor all agentic deployments to Infor ION as the data bus. Vendor agents sit alongside M3 and do not replace ERP data. Phase 1: vendor-direct APIs for POC. Phase 2: ION integration for pilot. Phase 3: Infor Agentic Orchestrator as the unification layer. Fortude-owned IP: ION connector library + industry data templates + AI governance framework. Sell this as "your M3 investment protected and amplified."</p>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--navy);">Data Readiness as Pre-Service</h4>
+      <p style="font-size:12px;">Offer a <strong>Data Readiness Assessment</strong> (2-3 days, $5,000–$8,000) as a mandatory pre-POC service. Assess: M3 data completeness, ION configuration, master data quality, and OT connectivity (for Smart Factory). Up to 95% of agentic AI initiatives fail due to fragmented data. This protects Fortude's delivery reputation, creates a billable pre-POC touchpoint, and gives customers a clear path to POC readiness.</p>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--navy);">Partner Ecosystem for Fortude</h4>
+      <p style="font-size:12px;">Establish preferred partnerships with: <strong>FourKites</strong> (Transport, all regions), <strong>ketteQ</strong> (Forecast overlay, Americas/EU), <strong>RELEX</strong> (Forecast, EU/ANZ F&B), <strong>ToolsGroup</strong> (Inventory, global), <strong>Salesforce</strong> (Customer Service, Americas lead), <strong>Infinite Uptime</strong> (Smart Factory, AMEA/ANZ). Target vendor-funded POC support from each partner — most will co-fund a customer POC to drive their own pipeline. This reduces Fortude's delivery cost for Phase 1.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 7: GOVERNANCE ══ -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <div class="s-bar orange"></div>
+    <div><div class="s-h"><strong>07 —</strong> AI Governance &amp; Hallucination Risk</div><div class="s-sub">How Fortude should build and advise on responsible agentic AI deployment for M3/CloudSuite customers</div></div>
+  </div>
+
+  <div class="gov-framework" style="margin-bottom:20px;">
+    <h4>Fortude Agentic AI Governance Framework — 5 Pillars</h4>
+    <div class="gov-steps">
+      <div class="gov-step"><div class="sn">Pillar 1</div><h5>Transparency</h5><p>Every autonomous agent action must be logged with full reasoning chain. Auditable decision trail required at all times.</p></div>
+      <div class="gov-step"><div class="sn">Pillar 2</div><h5>Human-in-Loop</h5><p>Define approval thresholds in writing before agent goes live. High-value or irreversible decisions always require human confirmation.</p></div>
+      <div class="gov-step"><div class="sn">Pillar 3</div><h5>Grounding</h5><p>Agents must only act on M3/ERP data — never on hallucinated or inferred facts. RAG architecture (like Charlie) is mandatory for any customer-facing agent.</p></div>
+      <div class="gov-step"><div class="sn">Pillar 4</div><h5>Reversibility</h5><p>Every autonomous action must be reversible within a defined window. Agents should not trigger cascading irreversible actions (e.g. confirmed PO + booked freight + customer notification) in a single autonomous loop.</p></div>
+      <div class="gov-step"><div class="sn">Pillar 5</div><h5>Monitoring</h5><p>Real-time dashboards tracking agent action counts, approval rates, exception rates, and any hallucination flags. Weekly governance review with customer in first 90 days.</p></div>
+    </div>
+  </div>
+
+  <div class="gov-grid">
+    <div class="gov-card">
+      <h4>EU AI Act Compliance (UK &amp; EU customers)</h4>
+      <p>Supply chain AI agents that influence procurement decisions or customer-facing communications may fall under the EU AI Act's "high-risk" or "limited-risk" categories. Key requirements: (1) conformity assessment before deployment; (2) human oversight mechanisms; (3) transparency disclosure to affected parties; (4) accuracy and robustness testing documentation. Fortude should include an EU AI Act compliance advisory module in all UK &amp; EU POC proposals — this is a billable differentiator that Columbus and Apex are not consistently offering.</p>
+    </div>
+    <div class="gov-card">
+      <h4>Hallucination Risk by Use Case</h4>
+      <p><strong>Customer Service (UC4) — HIGHEST RISK:</strong> Agent may provide incorrect order status, delivery dates, or pricing to customers. Mitigation: strict RAG grounding on M3 COS data only; shadow mode before autonomous deployment; zero-hallucination SLA for customer-facing responses.<br><br><strong>Forecast / Inventory (UC1/2) — MEDIUM RISK:</strong> Agent may recommend incorrect replenishment based on misread demand signals. Mitigation: human-in-loop approval for all replenishment orders above threshold value.<br><br><strong>Transport (UC3) — LOWER RISK:</strong> Agent may send incorrect ETA to customer. Mitigation: ETA updates grounded on carrier tracking data only; customer notification thresholds.</p>
+    </div>
+    <div class="gov-card">
+      <h4>Hallucination Prevention Architecture</h4>
+      <p><strong>RAG (Retrieval-Augmented Generation)</strong> is mandatory for all M3-connected agents. Agents must retrieve answers from M3 data, not generate them from model weights. Fortude's Charlie agent already implements this architecture — apply it as the standard pattern for all customer deployments.<br><br>Key technical controls: (1) Vector store of M3 operational data (orders, inventory, shipments); (2) Strict retrieval scoring — if no M3 data supports the answer, agent must escalate rather than generate; (3) Response confidence scoring — low-confidence responses routed to human review queue; (4) Regular M3 data sync to ensure agents work from current state.</p>
+    </div>
+    <div class="gov-card">
+      <h4>Change Management for Agentic Deployment</h4>
+      <p>The most underestimated governance risk is not technical — it is organisational. Planners and managers who have made decisions manually for years will resist AI autonomy. Mitigation strategy: (1) Start in shadow/recommendation mode — agent suggests, human decides; (2) Measure and celebrate agent accuracy vs. human decisions over 30 days; (3) Progressively expand agent autonomy based on demonstrated accuracy; (4) Never present agentic AI as "replacing the planner" — position as "amplifying expert judgement." Fortude should build a standard Change Management Playbook for agentic M3 deployments.</p>
+    </div>
+  </div>
+
+  <div class="tbl-wrap hallucination-table">
+    <table>
+      <thead><tr><th>Use Case</th><th>Hallucination Risk</th><th>Worst Case Scenario</th><th>Primary Prevention Control</th><th>Recovery Mechanism</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Forecast</strong></td><td><span class="bdg bdg-cond">Medium</span></td><td>Agent recommends a large demand spike that doesn't materialise; excess inventory built up</td><td>Statistical plausibility checks on agent recommendations; human approval for forecasts >2σ from baseline</td><td>Rolling forecast override; weekly planner review of agent adjustments</td></tr>
+        <tr><td><strong>2. Inventory</strong></td><td><span class="bdg bdg-cond">Medium</span></td><td>Agent triggers a large PO for a SKU that is already overstocked due to data lag</td><td>Real-time M3 on-hand sync before any replenishment trigger; PO value approval thresholds</td><td>PO cancellation window (24 hours); supplier notification protocol</td></tr>
+        <tr><td><strong>3. Transport</strong></td><td><span class="bdg bdg-go">Lower</span></td><td>Agent sends incorrect delivery ETA to customer; customer plans operations around wrong date</td><td>ETA updates grounded on live carrier tracking data only; no generated ETAs</td><td>Immediate human correction + customer apology workflow</td></tr>
+        <tr><td><strong>4. Customer Service</strong></td><td><span class="bdg bdg-watch">Highest</span></td><td>Agent tells customer their order is on time when it is actually delayed; customer escalates</td><td>Mandatory RAG grounding on M3 order data; shadow mode minimum 5 days; confidence scoring</td><td>Human takeover queue; apology + escalation SLA; post-incident review mandatory</td></tr>
+        <tr><td><strong>5. Smart Factory</strong></td><td><span class="bdg bdg-cond">Medium</span></td><td>Agent generates a work order for the wrong machine or incorrect repair action; technician acts on incorrect instruction</td><td>Maintenance supervisor approval required for all agent-generated work orders (no autonomous execution in Phase 1)</td><td>Work order void and reissue; root cause in sensor data or model</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ SECTION 8: POC STRATEGY ══ -->
+<div class="section" id="s8">
+  <div class="section-header">
+    <div class="s-bar cyan"></div>
+    <div><div class="s-h"><strong>08 —</strong> 2-Week POC Strategy</div><div class="s-sub cyan">Day-by-day blueprints for each use case — technology stack, data requirements, and measurable success criteria</div></div>
+  </div>
+
+  <!-- POC 1 -->
+  <div class="poc-block">
+    <div class="poc-head"><div class="poc-num">1</div><div><h3>Forecast Optimization — Agentic Demand Sensing POC</h3><p>Demonstrate autonomous forecast recalculation with external signal ingestion on live M3 data — no planner intervention required</p></div></div>
+    <div class="poc-body">
+      <div class="verdict-strip vs-go"><div class="vs-icon">✅</div><div><h4>RECOMMENDED: GO — Lead with ketteQ (overlay model) to minimise disruption; RELEX for EU/ANZ F&B customers; o9 for enterprise multi-echelon accounts</h4><p>ketteQ's PolymatiQ overlay runs parallel to M3's existing planning cycle without any write-back in POC phase. This is the lowest-risk, fastest POC path — M3 data is never modified. The demo becomes a side-by-side comparison: M3 baseline vs. agent forecast vs. actual demand.</p></div></div>
+      <div class="week-lbl">Week 1 — Discover &amp; Connect</div>
+      <div class="timeline-grid">
+        <div class="day-card act"><div class="day-num">Day 1</div><div class="day-title">Data Scoping</div><div class="day-desc">Extract 24 months M3 sales history, item master, customer segmentation, seasonal patterns via M3 API/ION. Define target SKU cluster (50–200 SKUs)</div></div>
+        <div class="day-card act"><div class="day-num">Day 2</div><div class="day-title">Vendor Provisioning</div><div class="day-desc">Stand up ketteQ/RELEX sandbox. Configure Infor ION connector. Map M3 item/location hierarchy to vendor data model</div></div>
+        <div class="day-card"><div class="day-num">Day 3</div><div class="day-title">Data Ingestion</div><div class="day-desc">Load historical sales, inventory, and open orders. Validate data quality — flag gaps >3% of records. Remediate critical gaps</div></div>
+        <div class="day-card"><div class="day-num">Day 4</div><div class="day-title">Signal Configuration</div><div class="day-desc">Connect weather API, macroeconomic indices, competitor signals. Configure signal weighting rules for the POC SKU cluster</div></div>
+        <div class="day-card"><div class="day-num">Day 5</div><div class="day-title">Baseline Benchmark</div><div class="day-desc">Run M3 statistical forecast against POC SKU cluster. Document current MAPE/WMAPE — this is the baseline the agent must beat</div></div>
+      </div>
+      <div class="week-lbl w2">Week 2 — Agents Running, Results Visible</div>
+      <div class="timeline-grid">
+        <div class="day-card"><div class="day-num">Day 6</div><div class="day-title">Agent First Run</div><div class="day-desc">Execute first agentic forecast cycle. Review autonomous adjustments and signal-driven overrides vs. M3 baseline</div></div>
+        <div class="day-card"><div class="day-num">Day 7</div><div class="day-title">Shock Scenario</div><div class="day-desc">Inject demand shock (promotional event, competitor stock-out). Observe: does agent autonomously recalculate without planner input?</div></div>
+        <div class="day-card"><div class="day-num">Day 8</div><div class="day-title">Accuracy Analysis</div><div class="day-desc">Compare agent MAPE vs. M3 baseline. Validate autonomous adjustments are directionally correct. Document bias patterns</div></div>
+        <div class="day-card demo"><div class="day-num">Day 9</div><div class="day-title">Demo Build</div><div class="day-desc">Build live dashboard: M3 forecast vs. agent forecast vs. actual demand. Prepare "agent caught what M3 missed" scenario</div></div>
+        <div class="day-card demo"><div class="day-num">Day 10</div><div class="day-title">POC Readout</div><div class="day-desc">Present to stakeholders. Deliver: accuracy delta, autonomy demonstrated, projected annual value, recommended rollout scope</div></div>
+      </div>
+      <div class="poc-cols">
+        <div class="pc stack"><h5>Technology Stack</h5><ul><li>ketteQ (overlay) / RELEX / o9</li><li>Infor ION data bus</li><li>M3 API / REST export</li><li>Weather + macroeconomic APIs</li><li>Power BI / Tableau (dashboard)</li><li>AWS Bedrock (Infor Orchestrator)</li></ul></div>
+        <div class="pc data"><h5>Data Requirements</h5><ul><li>24 months sales history</li><li>Item master + hierarchy</li><li>Customer segmentation</li><li>Open sales orders + backlog</li><li>Seasonal/promotional calendar</li><li>50–200 target SKUs</li></ul></div>
+        <div class="pc kpi"><h5>Success Criteria</h5><ul><li>MAPE improvement ≥5% vs. M3</li><li>≥1 autonomous adjustment observed</li><li>External signal latency &lt;15 min</li><li>Stakeholder: "materially better"</li><li>Annual value modelled >$300K</li></ul></div>
+      </div>
+      <div class="int-box"><h5>M3 Integration Touchpoints</h5><p>Data extraction via M3 API or Infor ION event broker. Forecast write-back (optional in POC) via ION BOD (Planning Order). For ketteQ overlay, no write-back required — parallel comparison is the POC output.</p><div class="chips"><span class="chip">Infor ION</span><span class="chip">M3 REST API</span><span class="chip">ION BOD (Planning)</span><span class="chip">Amazon Bedrock</span><span class="chip">LangChain</span></div></div>
+    </div>
+  </div>
+
+  <!-- POC 2 -->
+  <div class="poc-block">
+    <div class="poc-head"><div class="poc-num">2</div><div><h3>Inventory Optimization — Autonomous Multi-Echelon Agent POC</h3><p>Demonstrate autonomous policy drift detection, agent-triggered replenishment, and working capital impact modelling without manual planner input</p></div></div>
+    <div class="poc-body">
+      <div class="verdict-strip vs-go"><div class="vs-icon">✅</div><div><h4>RECOMMENDED: GO — ToolsGroup (pre-built M3 connector) or Manhattan Agent Foundry (distribution-focused); Deposco for mid-market CloudSuite Distribution</h4><p>ToolsGroup's pre-built Infor connector reduces Day 2 to a configuration exercise vs. a build. The working capital release story ($X million freed from excess stock) is the CFO-level outcome that justifies investment. The POC period alone typically surfaces $500K–$2M in working capital release opportunity in a mid-size distribution company.</p></div></div>
+      <div class="week-lbl">Week 1 — Data, Policies &amp; Baseline</div>
+      <div class="timeline-grid">
+        <div class="day-card act"><div class="day-num">Day 1</div><div class="day-title">Policy Audit</div><div class="day-desc">Extract M3 safety stock policies, reorder points, lead time settings, service level targets for POC SKU cluster (100–300 SKUs, 2–3 locations)</div></div>
+        <div class="day-card act"><div class="day-num">Day 2</div><div class="day-title">Vendor Setup</div><div class="day-desc">Provision ToolsGroup/Manhattan sandbox. Load item master, on-hand, in-transit, open PO from M3. Validate data completeness</div></div>
+        <div class="day-card"><div class="day-num">Day 3</div><div class="day-title">Model Calibration</div><div class="day-desc">Run probabilistic engine against 18 months demand history. Generate initial autonomous safety stock recommendations vs. current M3 policy</div></div>
+        <div class="day-card"><div class="day-num">Day 4</div><div class="day-title">Policy Gap Analysis</div><div class="day-desc">Identify over/under-stocked SKUs relative to agent recommendations. Quantify working capital tied up in policy drift</div></div>
+        <div class="day-card"><div class="day-num">Day 5</div><div class="day-title">Guardrail Config</div><div class="day-desc">Define autonomous execution thresholds: agent executes automatically vs. flags for human review. Set approval workflow for out-of-policy events</div></div>
+      </div>
+      <div class="week-lbl w2">Week 2 — Autonomous Decisions in Motion</div>
+      <div class="timeline-grid">
+        <div class="day-card"><div class="day-num">Day 6</div><div class="day-title">Agent Live Run</div><div class="day-desc">Execute agentic inventory cycle. Observe: autonomous replenishment triggers, stock-risk detection before M3</div></div>
+        <div class="day-card"><div class="day-num">Day 7</div><div class="day-title">Multi-Echelon Test</div><div class="day-desc">Simulate supply disruption at one location. Observe agent's autonomous rebalancing across echelons vs. M3's manual response time</div></div>
+        <div class="day-card"><div class="day-num">Day 8</div><div class="day-title">Impact Modelling</div><div class="day-desc">Quantify delta: current M3 investment vs. agent-recommended levels. Project annualised working capital release and service level impact</div></div>
+        <div class="day-card demo"><div class="day-num">Day 9</div><div class="day-title">Executive Scenario</div><div class="day-desc">Prepare 2 live scenarios: (1) agent auto-corrects stock-out risk M3 missed; (2) agent releases working capital by right-sizing excess stock</div></div>
+        <div class="day-card demo"><div class="day-num">Day 10</div><div class="day-title">POC Readout</div><div class="day-desc">Present live dashboard. Deliver working capital projection, service level improvement, deployment scope and timeline recommendation</div></div>
+      </div>
+      <div class="poc-cols">
+        <div class="pc stack"><h5>Technology Stack</h5><ul><li>ToolsGroup SO99+ / Manhattan AF</li><li>Infor ION connector (pre-built)</li><li>M3 inventory / item / location APIs</li><li>Probabilistic ML engine (hosted)</li><li>Power BI / Tableau dashboard</li></ul></div>
+        <div class="pc data"><h5>Data Requirements</h5><ul><li>18 months demand history</li><li>On-hand inventory by location</li><li>In-transit &amp; open PO data</li><li>Lead time &amp; supplier variability</li><li>Current safety stock / ROP policies</li><li>Service level targets by SKU</li></ul></div>
+        <div class="pc kpi"><h5>Success Criteria</h5><ul><li>≥1 autonomous replenishment trigger</li><li>Working capital release ≥8% modelled</li><li>Service level improvement ≥2%</li><li>Agent detects policy drift M3 missed</li><li>POC-to-production case signed off</li></ul></div>
+      </div>
+      <div class="int-box"><h5>M3 Integration Touchpoints</h5><p>Read-only for POC via M3 API. ToolsGroup has pre-built Infor connector. Replenishment write-back via M3 PO API to be enabled in pilot phase only — not in POC scope.</p><div class="chips"><span class="chip">Infor ION</span><span class="chip">M3 Item API</span><span class="chip">M3 Inventory API</span><span class="chip">ION Purchase Order BOD</span></div></div>
+    </div>
+  </div>
+
+  <!-- POC 3 -->
+  <div class="poc-block">
+    <div class="poc-head"><div class="poc-num">3</div><div><h3>Outbound Transport — Agentic Digital Workers POC</h3><p>Deploy FourKites digital workers on live shipments — autonomous carrier tracking, exception escalation, and proactive customer notifications with zero manual intervention</p></div></div>
+    <div class="poc-body">
+      <div class="verdict-strip vs-go"><div class="vs-icon">✅</div><div><h4>RECOMMENDED: GO FIRST — Fastest POC to value (8 days live). Highest stakeholder impact. Lead with this use case in every new account.</h4><p>FourKites digital workers (Tracy, Sam, Alan, Cassie) can be live on active M3 shipments within 48 hours of integration. The demo literally shows real shipments being managed in real time by named AI agents. No other use case achieves this level of visual, immediate impact for an executive audience. Recommended as Fortude's flagship opener POC.</p></div></div>
+      <div class="week-lbl">Week 1 — Connect &amp; Automate</div>
+      <div class="timeline-grid">
+        <div class="day-card act"><div class="day-num">Day 1</div><div class="day-title">Shipment Selection</div><div class="day-desc">Identify 200–500 active outbound shipments from M3 (mixed carrier mix: parcel, FTL, LTL). These are the POC shipments digital workers will manage vs. manual control group</div></div>
+        <div class="day-card act"><div class="day-num">Day 2</div><div class="day-title">FourKites Setup</div><div class="day-desc">Connect M3 shipment data via REST API or EDI. Enable Tracy (tracking) and Sam (exceptions). Pre-built M3 connector accelerates to configuration-only exercise</div></div>
+        <div class="day-card"><div class="day-num">Day 3</div><div class="day-title">Carrier Activation</div><div class="day-desc">Activate carrier tracking for all POC shipments via FourKites' 230,000+ carrier network. Validate ETAs are flowing. Establish manual baseline for comparison</div></div>
+        <div class="day-card"><div class="day-num">Day 4</div><div class="day-title">Exception Rules</div><div class="day-desc">Define autonomous escalation rules: delays >4 hours trigger agent action; customer alert thresholds; carrier follow-up protocols; human approval triggers</div></div>
+        <div class="day-card"><div class="day-num">Day 5</div><div class="day-title">Digital Workers Live</div><div class="day-desc">Tracy and Sam go live. Begin counting: autonomous vs. manual carrier calls, status checks, and customer queries handled in real time</div></div>
+      </div>
+      <div class="week-lbl w2">Week 2 — Measure Autonomous Impact</div>
+      <div class="timeline-grid">
+        <div class="day-card"><div class="day-num">Day 6</div><div class="day-title">Action Audit</div><div class="day-desc">Review all agent actions Days 5–6. Confirm accuracy: disruption alerts correct? Customer notifications appropriate? Refine thresholds as needed</div></div>
+        <div class="day-card"><div class="day-num">Day 7</div><div class="day-title">Customer Connect</div><div class="day-desc">Enable Cassie (Customer Connect AI). Configure proactive notifications for 5–10 test customers. Measure response time vs. manual baseline</div></div>
+        <div class="day-card"><div class="day-num">Day 8</div><div class="day-title">Impact Quantification</div><div class="day-desc">Count: manual calls avoided, time saved per shipment, detection speed improvement. Calculate annualised FTE saving and project freight cost optimisation</div></div>
+        <div class="day-card demo"><div class="day-num">Day 9</div><div class="day-title">Live Demo Build</div><div class="day-desc">Build "live shipment wall" dashboard showing active shipments, agent actions taken, exceptions resolved, and a real customer notification sent autonomously during POC</div></div>
+        <div class="day-card demo"><div class="day-num">Day 10</div><div class="day-title">POC Readout</div><div class="day-desc">Present with live data. Show real shipments, real agent decisions, real time saved. Deliver full-scale ROI projection and contract recommendation</div></div>
+      </div>
+      <div class="poc-cols">
+        <div class="pc stack"><h5>Technology Stack</h5><ul><li>FourKites Loft (Tracy, Sam, Cassie)</li><li>project44 (AMEA/ANZ alt.)</li><li>WiseTech CargoWise (ANZ)</li><li>Shippeo (EU cross-border)</li><li>M3 Shipment API + EDI 214</li><li>SMS/Email notification gateway</li></ul></div>
+        <div class="pc data"><h5>Data Requirements</h5><ul><li>200–500 active outbound shipments</li><li>Carrier master &amp; SCAC codes</li><li>Customer delivery commitments</li><li>Historical exception/delay data</li><li>M3 delivery order data</li></ul></div>
+        <div class="pc kpi"><h5>Success Criteria</h5><ul><li>≥60% carrier updates autonomous</li><li>Exception detection >2 hrs faster</li><li>≥1 proactive customer notification</li><li>FTE saving modelled ≥0.5 FTE equiv.</li><li>Zero undetected late shipments</li></ul></div>
+      </div>
+      <div class="int-box"><h5>M3 Integration Touchpoints</h5><p>FourKites has the most mature M3 integration. Shipment data via M3 Delivery Order API or ION. ETA push-back to M3 for customer order visibility (optional in POC). Full M3 customer notification integration in pilot phase.</p><div class="chips"><span class="chip">M3 Delivery Order API</span><span class="chip">Infor ION</span><span class="chip">EDI 214 (carrier)</span><span class="chip">REST webhooks</span><span class="chip">SMS/Email</span></div></div>
+    </div>
+  </div>
+
+  <!-- POC 4 -->
+  <div class="poc-block">
+    <div class="poc-head"><div class="poc-num">4</div><div><h3>Customer Service — Agentic Order Intelligence POC</h3><p>Deploy an autonomous agent to resolve order status queries and proactively notify customers of supply chain exceptions — zero human intervention for first-line cases</p></div></div>
+    <div class="poc-body">
+      <div class="verdict-strip vs-go"><div class="vs-icon">✅</div><div><h4>RECOMMENDED: GO — Scope tightly. Start with one query type (order status). Shadow mode first. CRM data readiness must be confirmed before commit.</h4><p>Salesforce Agentforce Manufacturing (GA October 2025) is the recommended platform. For Azure-ecosystem M3 customers, Dynamics 365 + Copilot Studio is the lower-friction path. The scope discipline is critical — attempting broad customer service automation in 2 weeks will fail. One query type, one channel, working reliably is worth more than a broad demo that breaks in the room.</p></div></div>
+      <div class="week-lbl">Week 1 — Agent Training &amp; Scope</div>
+      <div class="timeline-grid">
+        <div class="day-card act"><div class="day-num">Day 1</div><div class="day-title">Query Scoping</div><div class="day-desc">Identify top 3 customer service query types by volume. Select highest-volume (typically order status, delivery date, invoice copy) as POC scope</div></div>
+        <div class="day-card act"><div class="day-num">Day 2</div><div class="day-title">Agent Platform</div><div class="day-desc">Provision Salesforce Agentforce or Dynamics 365 Copilot Studio. Configure M3 order data feed via ION/REST. Map order lifecycle statuses to NL responses</div></div>
+        <div class="day-card"><div class="day-num">Day 3</div><div class="day-title">Knowledge Base</div><div class="day-desc">Load M3 customer order data, product catalogue, delivery SLAs, escalation protocols. Set customer tier-based handling rules</div></div>
+        <div class="day-card"><div class="day-num">Day 4</div><div class="day-title">Guardrails</div><div class="day-desc">Define autonomous vs. escalate boundary: status/ETA = autonomous; complaints/credits/large amendments = always human escalation</div></div>
+        <div class="day-card"><div class="day-num">Day 5</div><div class="day-title">Synthetic Test</div><div class="day-desc">Run 30–50 synthetic customer queries. Rate accuracy, tone, escalation correctness. Adjust knowledge base based on failures</div></div>
+      </div>
+      <div class="week-lbl w2">Week 2 — Live Agent, Real Queries</div>
+      <div class="timeline-grid">
+        <div class="day-card"><div class="day-num">Day 6</div><div class="day-title">Shadow Mode</div><div class="day-desc">Route live queries through agent. Agent responds; human validates before sending. Track accuracy, tone, escalation rate</div></div>
+        <div class="day-card"><div class="day-num">Day 7</div><div class="day-title">Autonomy Mode</div><div class="day-desc">Switch to autonomous for order status queries only. Agent sends directly. Human monitors real-time. Track resolution rate</div></div>
+        <div class="day-card"><div class="day-num">Day 8</div><div class="day-title">SC Trigger Test</div><div class="day-desc">Pair FourKites Customer Connect (UC3) to pass disruption events to agent — test autonomous proactive notification workflow</div></div>
+        <div class="day-card demo"><div class="day-num">Day 9</div><div class="day-title">Demo Scenarios</div><div class="day-desc">Prepare: (1) customer email → agent resolves in &lt;60 seconds; (2) shipment delayed → agent proactively contacts customer before they ask</div></div>
+        <div class="day-card demo"><div class="day-num">Day 10</div><div class="day-title">POC Readout</div><div class="day-desc">Present resolution rate, handle time reduction, FTE equivalency, customer satisfaction signal. Recommend expanding query coverage in Pilot</div></div>
+      </div>
+      <div class="poc-cols">
+        <div class="pc stack"><h5>Technology Stack</h5><ul><li>Salesforce Agentforce 360 / Mfg</li><li>Dynamics 365 + Copilot Studio</li><li>ServiceNow CRM Agent (enterprise)</li><li>FourKites Customer Connect AI</li><li>M3 Customer Order + Delivery APIs</li><li>Email / Teams / Slack channel</li></ul></div>
+        <div class="pc data"><h5>Data Requirements</h5><ul><li>Customer order master (M3 COS)</li><li>Delivery status &amp; ETA data</li><li>Historical query/ticket types (6 mo)</li><li>Escalation protocols &amp; SLA policy</li><li>Customer tier &amp; contact preference</li><li>Product / pricing reference data</li></ul></div>
+        <div class="pc kpi"><h5>Success Criteria</h5><ul><li>≥70% order status queries autonomous</li><li>Handle time &lt;60 sec vs. manual</li><li>Zero incorrect resolutions in POC</li><li>≥1 proactive SC-triggered notification</li><li>Internal team satisfaction ≥7/10</li></ul></div>
+      </div>
+      <div class="int-box"><h5>M3 Integration Touchpoints</h5><p>Read M3 Customer Order (CRS610), Delivery (MWS410), Invoice (ARS200) via REST or ION. Salesforce connector via MuleSoft (recommended path). Dynamics 365 via Azure Logic Apps. Read-only in POC — no write-back to M3 in Phase 1.</p><div class="chips"><span class="chip">M3 Customer Order API</span><span class="chip">Infor ION</span><span class="chip">MuleSoft / Logic Apps</span><span class="chip">M3 CRS610 / MWS410</span></div></div>
+    </div>
+  </div>
+
+  <!-- POC 5 -->
+  <div class="poc-block">
+    <div class="poc-head"><div class="poc-num">5</div><div><h3>Smart Factory — Agentic Prescriptive Maintenance POC</h3><p>Deploy non-invasive sensors and prescriptive AI agents that autonomously detect anomalies, diagnose failure modes, and generate M3 work orders before equipment fails</p></div></div>
+    <div class="poc-body">
+      <div class="verdict-strip vs-cond"><div class="vs-icon">⚡</div><div><h4>CONDITIONAL — Only proceed if OT infrastructure baseline confirmed. Use brownfield path: Guidewheel + Infinite Uptime. Prerequisite check mandatory before Day 1.</h4><p>This use case has the highest 12-month ROI potential (Infinite Uptime documents 3–6 month payback) but the most complex prerequisites. Confirm: accessible electrical panels for clip-on sensors, M3 Plant Maintenance (MMS) module is active, maintenance team willingness to validate AI work orders, and at least 3 months downtime/failure history available.</p></div></div>
+      <div class="week-lbl">Week 1 — Sensor Deploy &amp; Anomaly Detection</div>
+      <div class="timeline-grid">
+        <div class="day-card act"><div class="day-num">Day 1</div><div class="day-title">OT Assessment</div><div class="day-desc">Select 5–10 production assets with known failure history. Document: M3 asset ID, maintenance schedule, last 3 failures, available sensor access points</div></div>
+        <div class="day-card act"><div class="day-num">Day 2</div><div class="day-title">Sensor Install</div><div class="day-desc">Install Guidewheel PowerRadar clip-on sensors (no machine stoppage — 30 min per machine). Or deploy Infinite Uptime edge device if vibration/temp access exists</div></div>
+        <div class="day-card"><div class="day-num">Day 3</div><div class="day-title">Baseline Capture</div><div class="day-desc">Run machines 24 hours in normal operation. Capture operational signature (power, vibration, temp patterns) per machine. This is the anomaly detection baseline</div></div>
+        <div class="day-card"><div class="day-num">Day 4</div><div class="day-title">AI Configuration</div><div class="day-desc">Load Infinite Uptime prescriptive AI with machine specs, maintenance history, failure mode library. Configure M3 work order template: fields agent will auto-populate</div></div>
+        <div class="day-card"><div class="day-num">Day 5</div><div class="day-title">Digital Twin Link</div><div class="day-desc">Link sensor data to M3 asset master. Calibrate Digital Twin baseline. Run first autonomous anomaly detection — surface false positives and adjust thresholds</div></div>
+      </div>
+      <div class="week-lbl w2">Week 2 — Prescriptive Agents &amp; M3 Work Orders</div>
+      <div class="timeline-grid">
+        <div class="day-card"><div class="day-num">Day 6</div><div class="day-title">Prescriptive Test</div><div class="day-desc">Observe agent on mild anomaly: does it identify failure mode, recommend specific part and action, and draft M3 work order? Validate with maintenance team</div></div>
+        <div class="day-card"><div class="day-num">Day 7</div><div class="day-title">Work Order Integration</div><div class="day-desc">Connect agent to M3 MMS via API. Agent generates draft work order → maintenance supervisor receives push notification → one-click approve/reject in M3</div></div>
+        <div class="day-card"><div class="day-num">Day 8</div><div class="day-title">Parts Query Test</div><div class="day-desc">Test: when agent generates WO, does it check M3 inventory for required spare parts? If unavailable, does it draft a purchase requisition? This is the full agentic loop</div></div>
+        <div class="day-card demo"><div class="day-num">Day 9</div><div class="day-title">Demo Construction</div><div class="day-desc">Build "avoided failure" narrative: sensor data → anomaly detected → prescriptive action recommended → M3 work order created → failure that didn't happen</div></div>
+        <div class="day-card demo"><div class="day-num">Day 10</div><div class="day-title">POC Readout</div><div class="day-desc">Present: anomalies detected, WOs auto-generated, maintenance validation scores, downtime risk quantified, projected 12-month OEE improvement</div></div>
+      </div>
+      <div class="poc-cols">
+        <div class="pc stack"><h5>Technology Stack</h5><ul><li>Guidewheel PowerRadar (non-invasive)</li><li>Infinite Uptime prescriptive agents</li><li>Siemens Xcelerator (enterprise alt.)</li><li>PTC ThingWorx (discrete mfg. alt.)</li><li>M3 Plant Maintenance (MMS) API</li><li>M3 Purchase Requisition API</li></ul></div>
+        <div class="pc data"><h5>Data Requirements</h5><ul><li>M3 asset master (5–10 machines)</li><li>Historical failure &amp; maintenance records</li><li>Current maintenance schedule (MMS)</li><li>Machine specs &amp; failure mode library</li><li>Spare parts inventory (M3 MMS)</li><li>OEE baseline (even manual calc)</li></ul></div>
+        <div class="pc kpi"><h5>Success Criteria</h5><ul><li>≥1 anomaly detected before failure</li><li>M3 WO auto-generated ≥80% field accuracy</li><li>Maintenance approval rate ≥70%</li><li>Prescriptive action (part + timeframe)</li><li>Downtime reduction ≥10% projected</li></ul></div>
+      </div>
+      <div class="int-box"><h5>M3 Integration Touchpoints</h5><p>M3 Plant Maintenance (MMS) module is the critical integration. Agent reads: asset master (MMS001), maintenance plans (MMS200), spare parts inventory. Agent writes: work orders (MMS170), purchase requisitions (PPS170). ION BOD integration in pilot phase for scalability.</p><div class="chips"><span class="chip">M3 MMS API</span><span class="chip">M3 Work Order API</span><span class="chip">M3 PR API</span><span class="chip">Infor ION (pilot)</span><span class="chip">Edge IoT gateway</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION 9: STRATEGIC ROADMAP ══ -->
+<div class="section" id="s9">
+  <div class="section-header">
+    <div class="s-bar orange"></div>
+    <div><div class="s-h"><strong>09 —</strong> Strategic Roadmap</div><div class="s-sub">18-month execution plan across all five use cases — from POC sprints to full multi-agent orchestration</div></div>
+  </div>
+
+  <div class="roadmap-phases" style="margin-bottom:28px;">
+    <div class="rphase">
+      <div class="rp-num">Phase 1</div>
+      <div class="rp-title">POC Sprints</div>
+      <div class="rp-time">Months 1–3</div>
+      <div class="rp-body">Run 2-week POCs for UC3 (Transport) and UC1 (Forecast) across 2 anchor customers per region. UC3 opens every account. Use POC wins to build pipeline for UC2 and UC4. Target 3 POCs per region per quarter.</div>
+      <div style="margin-top:10px;"><span class="rp-uc">UC3 Lead</span><span class="rp-uc">UC1 Parallel</span></div>
+    </div>
+    <div class="rphase">
+      <div class="rp-num">Phase 2</div>
+      <div class="rp-title">Pilot Conversion</div>
+      <div class="rp-time">Months 3–7</div>
+      <div class="rp-body">Convert POC wins to 90-day pilots with full M3/CloudSuite integration via Infor ION. Expand agentic scope (multi-SKU, multi-location). Begin UC4 (Customer Service) POC for Americas. First UC5 Smart Factory POC for EU customers with confirmed OT readiness.</div>
+      <div style="margin-top:10px;"><span class="rp-uc">UC2 Launch</span><span class="rp-uc">UC4 POC</span><span class="rp-uc">UC5 EU POC</span></div>
+    </div>
+    <div class="rphase">
+      <div class="rp-num">Phase 3</div>
+      <div class="rp-title">Scale &amp; Orchestrate</div>
+      <div class="rp-time">Months 7–12</div>
+      <div class="rp-body">Deploy Infor Agentic Orchestrator as the unifying layer. Connect UC1+UC2+UC3 agents to share data and coordinate autonomous decisions. Build Fortude ION Connector Library v1.0. AMEA market entry for UC3 and UC5 brownfield deployments.</div>
+      <div style="margin-top:10px;"><span class="rp-uc">Multi-agent</span><span class="rp-uc">AMEA Entry</span><span class="rp-uc">IP Build</span></div>
+    </div>
+    <div class="rphase">
+      <div class="rp-num">Phase 4</div>
+      <div class="rp-title">Agent Network</div>
+      <div class="rp-time">Months 12–18</div>
+      <div class="rp-body">Full multi-agent orchestration across all 5 use cases. Fortude's proprietary accelerators (ION connectors, data templates, AI governance framework) become a recurring licensing stream alongside implementation fees. Target: 15+ production customer deployments across all regions.</div>
+      <div style="margin-top:10px;"><span class="rp-uc">All 5 UCs</span><span class="rp-uc">Licensing IP</span><span class="rp-uc">All Regions</span></div>
+    </div>
+  </div>
+
+  <div class="roadmap-uc">
+    <div class="ruc-head"><div class="ruc-num">1</div><h4>Forecast Optimization Roadmap</h4><span class="bdg bdg-go">GO</span></div>
+    <div class="ruc-body">
+      <div class="ruc-phase ph1"><div class="pn">Phase 1 · M1–3</div><h5>POC Sprint</h5><p>ketteQ/RELEX POC on 50–200 SKUs. Parallel run alongside M3. MAPE comparison. Americas + EU anchor customers.</p></div>
+      <div class="ruc-phase ph2"><div class="pn">Phase 2 · M3–7</div><h5>Pilot Scale</h5><p>Expand to full SKU catalogue. ION integration for continuous demand signal feed. RELEX for EU F&B / ANZ accounts. o9 for enterprise.</p></div>
+      <div class="ruc-phase ph3"><div class="pn">Phase 3 · M7–12</div><h5>Orchestration</h5><p>Connect forecast agent to inventory agent (UC2) — demand signals auto-trigger inventory policy review. Multi-echelon coordinated replanning.</p></div>
+      <div class="ruc-phase ph4"><div class="pn">Phase 4 · M12–18</div><h5>Autonomous Planning</h5><p>Fully autonomous demand-supply cycle. Agent adjusts forecasts, triggers inventory, updates production schedules in M3 with human oversight only for strategic decisions.</p></div>
+    </div>
+  </div>
+
+  <div class="roadmap-uc">
+    <div class="ruc-head"><div class="ruc-num">2</div><h4>Inventory Optimization Roadmap</h4><span class="bdg bdg-go">GO</span></div>
+    <div class="ruc-body">
+      <div class="ruc-phase ph1"><div class="pn">Phase 1 · M2–4</div><h5>POC Sprint</h5><p>ToolsGroup POC on 100–300 SKUs, 2–3 locations. Policy drift detection. Working capital impact modelled. Americas + EU lead.</p></div>
+      <div class="ruc-phase ph2"><div class="pn">Phase 2 · M4–8</div><h5>Pilot Scale</h5><p>Full network deployment. ION replenishment write-back enabled. Manhattan Agent Foundry for distribution-focused accounts. ANZ F&B entry.</p></div>
+      <div class="ruc-phase ph3"><div class="pn">Phase 3 · M8–12</div><h5>Multi-Agent Link</h5><p>Inventory agent receives forecast signals from UC1. Transport agent (UC3) feeds inbound visibility. Tri-agent coordination via Infor Orchestrator.</p></div>
+      <div class="ruc-phase ph4"><div class="pn">Phase 4 · M12–18</div><h5>Autonomous Replenishment</h5><p>Agent autonomously writes M3 purchase orders within approved limits. Human oversight for exceptions and strategic supplier decisions only. AMEA expansion.</p></div>
+    </div>
+  </div>
+
+  <div class="roadmap-uc">
+    <div class="ruc-head"><div class="ruc-num">3</div><h4>Outbound Transport Roadmap</h4><span class="bdg bdg-go">GO FIRST</span></div>
+    <div class="ruc-body">
+      <div class="ruc-phase ph1"><div class="pn">Phase 1 · M1–2</div><h5>POC Sprint</h5><p>FourKites live on 200–500 M3 shipments within 48 hours. Tracy + Sam digital workers active. All 4 regions targeted in Sprint 1.</p></div>
+      <div class="ruc-phase ph2"><div class="pn">Phase 2 · M2–6</div><h5>Full Network</h5><p>All outbound shipments under agent management. Cassie (Customer Connect) active. ANZ: add WiseTech. EU: add Shippeo for cross-border. AMEA: add project44.</p></div>
+      <div class="ruc-phase ph3"><div class="pn">Phase 3 · M6–12</div><h5>Freight Intelligence</h5><p>Agent autonomously rebooks carriers on disruption. Dynamic mode selection (FTL vs LTL vs parcel). Freight cost optimization across carrier network.</p></div>
+      <div class="ruc-phase ph4"><div class="pn">Phase 4 · M12–18</div><h5>End-to-End Visibility</h5><p>Full inbound + outbound agent network. Connected to inventory (UC2) and customer service (UC4) agents. Autonomous exception-to-resolution loop with zero planner intervention.</p></div>
+    </div>
+  </div>
+
+  <div class="roadmap-uc">
+    <div class="ruc-head"><div class="ruc-num">4</div><h4>Customer Service Management Roadmap</h4><span class="bdg bdg-go">GO (scoped)</span></div>
+    <div class="ruc-body">
+      <div class="ruc-phase ph1"><div class="pn">Phase 1 · M2–4</div><h5>POC Sprint</h5><p>Agentforce / Copilot Studio POC: order status queries only. Shadow mode → autonomy. Americas lead. Azure-track for EU and ANZ Microsoft customers.</p></div>
+      <div class="ruc-phase ph2"><div class="pn">Phase 2 · M4–8</div><h5>Query Expansion</h5><p>Extend to delivery date queries, invoice copies, and standard complaint triage. Connect to FourKites Customer Connect for proactive supply chain notifications.</p></div>
+      <div class="ruc-phase ph3"><div class="pn">Phase 3 · M8–12</div><h5>Omnichannel Agent</h5><p>Email + Teams + phone (Salesforce Voice via Tenyx). Agent handles 80%+ of first-line queries. Complex cases auto-escalated with full context package.</p></div>
+      <div class="ruc-phase ph4"><div class="pn">Phase 4 · M12–18</div><h5>Proactive Service</h5><p>Agent proactively identifies at-risk orders from supply chain events and contacts customers before issues escalate. Zero-complaint-from-surprise target. AMEA and ANZ expansion.</p></div>
+    </div>
+  </div>
+
+  <div class="roadmap-uc">
+    <div class="ruc-head"><div class="ruc-num">5</div><h4>Smart Factory Roadmap</h4><span class="bdg bdg-cond">CONDITIONAL</span></div>
+    <div class="ruc-body">
+      <div class="ruc-phase ph1"><div class="pn">Phase 1 · M3–5</div><h5>Brownfield POC</h5><p>Guidewheel sensors on 5–10 machines. Infinite Uptime prescriptive agents. M3 MMS work order integration. EU industrial + Americas F&B customers with confirmed OT readiness.</p></div>
+      <div class="ruc-phase ph2"><div class="pn">Phase 2 · M5–9</div><h5>Prescriptive Scale</h5><p>Expand to full plant (50–200 assets). Parts inventory check + auto-PR in M3. Maintenance team operating in agent-supervisor model. AMEA entry (Infinite Uptime strength).</p></div>
+      <div class="ruc-phase ph3"><div class="pn">Phase 3 · M9–14</div><h5>Production Agents</h5><p>Add production scheduling agents (Siemens/PTC). Agent adjusts production plan in M3 SFC based on machine health signals. OEE optimization becomes autonomous.</p></div>
+      <div class="ruc-phase ph4"><div class="pn">Phase 4 · M14–18</div><h5>Digital Factory</h5><p>Full digital twin + prescriptive agent network. Siemens Xcelerator marketplace integration with M3. Plant manager supervises agents, not individual machine decisions. EU P1 expansion.</p></div>
+    </div>
+  </div>
+
+  <div class="callout cn" style="margin-top:20px;"><p><strong>Fortude's 18-month IP target:</strong> By Month 18, Fortude should own: (1) a published <strong>ION Connector Library</strong> for the 5 primary agentic vendors (FourKites, ketteQ/RELEX, ToolsGroup, Salesforce, Infinite Uptime) — reducing future POC setup from 2 days to 2 hours; (2) <strong>Industry Data Templates</strong> (M3 data models pre-mapped to vendor schemas for F&B, Distribution, Industrial Manufacturing); (3) an <strong>Agentic AI Governance Framework</strong> document covering EU AI Act compliance, human-in-loop thresholds, and audit logging. These three IP assets become the recurring revenue foundation — licensed to customers and co-delivered with vendors — separating Fortude from staff-augmentation competitors.</p></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>Fortude</strong> — Delivering digital solutions that matter &nbsp;·&nbsp; Agentic AI Strategy for Infor M3 &amp; CloudSuite &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; Internal Strategic Document &nbsp;·&nbsp; Based on market research, vendor intelligence, and publicly available information as of Q1 2026
+</div>
+
+</div><!-- /.main -->
+</div><!-- /.layout -->
+
+<script>
+const sections = document.querySelectorAll('.section');
+const links = document.querySelectorAll('.nav-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      links.forEach(l => l.classList.remove('active'));
+      const id = e.target.getAttribute('id');
+      const active = document.querySelector(`.nav-link[href="#${id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+},{threshold:0.3});
+sections.forEach(s => obs.observe(s));
+</script>
+
+<!-- ── ABBREVIATIONS FAB ── -->
+<button class="abbrv-fab" onclick="openAbbrv()" aria-label="Open Abbreviations Glossary">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>
+  <span class="fab-label">Abbreviations Glossary</span>
+</button>
+
+<!-- ── ABBREVIATIONS MODAL ── -->
+<div class="abbrv-overlay" id="abbrvOverlay" onclick="handleOverlayClick(event)">
+  <div class="abbrv-modal" role="dialog" aria-modal="true" aria-label="Abbreviations Glossary">
+
+    <div class="abbrv-modal-head">
+      <div class="abbrv-modal-head-text">
+        <h2>Abbreviations Glossary</h2>
+        <p>All abbreviations used across this report — search or browse by category</p>
+      </div>
+      <button class="abbrv-close" onclick="closeAbbrv()" aria-label="Close">&#x2715;</button>
+    </div>
+
+    <div class="abbrv-tabs" id="abbrvTabs">
+      <button class="abbrv-tab active" data-cat="all" onclick="filterCat(this,'all')">All</button>
+      <button class="abbrv-tab" data-cat="tech" onclick="filterCat(this,'tech')">Technology &amp; AI</button>
+      <button class="abbrv-tab" data-cat="sc" onclick="filterCat(this,'sc')">Supply Chain</button>
+      <button class="abbrv-tab" data-cat="biz" onclick="filterCat(this,'biz')">Business &amp; Commercial</button>
+      <button class="abbrv-tab" data-cat="regional" onclick="filterCat(this,'regional')">Regional</button>
+      <button class="abbrv-tab" data-cat="reg" onclick="filterCat(this,'reg')">Regulatory</button>
+      <button class="abbrv-tab" data-cat="vendors" onclick="filterCat(this,'vendors')">Vendors &amp; Products</button>
+    </div>
+
+    <div class="abbrv-search-wrap">
+      <svg viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.293 14.293l4.707 4.707-1.414 1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12A6 6 0 0110 4z"/></svg>
+      <input class="abbrv-search" id="abbrvSearch" type="text" placeholder="Search abbreviations or meanings…" oninput="doSearch(this.value)" autocomplete="off" spellcheck="false">
+      <span class="abbrv-count" id="abbrvCount"></span>
+      <button class="abbrv-clear" id="abbrvClear" onclick="clearSearch()" title="Clear search">&#x2715;</button>
+    </div>
+
+    <div class="abbrv-body" id="abbrvBody">
+      <div class="abbrv-empty" id="abbrvEmpty">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        No abbreviations match your search
+      </div>
+      <!-- Categories rendered by JS -->
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── ABBREVIATION DATA ────────────────────────────────────────────
+const ABBRV = {
+  tech: {
+    label: "Technology & AI",
+    items: [
+      ["AI",        "Artificial Intelligence",                       ""],
+      ["ML",        "Machine Learning",                              ""],
+      ["LLM",       "Large Language Model",                          "The AI model type powering systems like GPT and Claude"],
+      ["RAG",       "Retrieval-Augmented Generation",                "AI architecture where the model retrieves real data (e.g. from M3) before generating a response — prevents hallucination"],
+      ["GenAI",     "Generative AI",                                 ""],
+      ["NLP",       "Natural Language Processing",                   "AI capability enabling computers to understand and generate human language"],
+      ["IIoT",      "Industrial Internet of Things",                 "Network of sensors and devices connected across manufacturing environments"],
+      ["OT",        "Operational Technology",                        "Hardware and software that monitors and controls physical industrial equipment (machines, PLCs, sensors)"],
+      ["IT",        "Information Technology",                        ""],
+      ["IoT",       "Internet of Things",                            ""],
+      ["API",       "Application Programming Interface",             "A set of rules allowing software systems to communicate with each other"],
+      ["REST",      "Representational State Transfer",               "Standard architectural style for building web APIs"],
+      ["EDI",       "Electronic Data Interchange",                   "Standardised electronic communication between businesses, e.g. carrier shipment status messages (EDI 214)"],
+      ["BOD",       "Business Object Document",                      "Infor's standard message format used within the ION integration bus"],
+      ["ION",       "Infor Operating Network",                       "Infor's middleware/integration bus connecting M3 and CloudSuite to third-party systems"],
+      ["PLC",       "Programmable Logic Controller",                 "Industrial computer used to control manufacturing equipment on the shop floor"],
+      ["LangChain", "LangChain Framework",                           "Open-source framework for building LLM-powered applications and agent orchestration pipelines"],
+      ["AWS",       "Amazon Web Services",                           "Amazon's cloud computing platform — hosts Infor CloudSuite and the Agentic Orchestrator"],
+      ["ERP",       "Enterprise Resource Planning",                  "Integrated business management software, e.g. Infor M3, SAP, Oracle"],
+      ["CRM",       "Customer Relationship Management",              "Software for managing customer interactions, data, and service workflows"],
+      ["WMS",       "Warehouse Management System",                   "Software controlling warehouse operations: receiving, storage, picking, shipping"],
+      ["TMS",       "Transportation Management System",              "Software managing freight planning, execution, and carrier relationships"],
+      ["OMS",       "Order Management System",                       "Software managing the full order lifecycle from placement to fulfilment"],
+      ["MES",       "Manufacturing Execution System",                "Software connecting ERP planning to real-time shop floor control"],
+      ["CPQ",       "Configure, Price, Quote",                       "Software managing product configuration, pricing, and quote generation in sales processes"],
+      ["MRP",       "Material Requirements Planning",                "Production planning and inventory control system within M3 — calculates material needs from demand"],
+      ["MPS",       "Master Production Schedule",                    "Plan for individual commodities to be produced within a given planning horizon"],
+      ["AIS",       "Augmented Intelligence Service",                "Infor's built-in decision-support AI layer within CloudSuite — provides prescriptive recommendations"],
+      ["COS",       "Customer Order Service",                        "M3's customer order management module"],
+      ["MMS",       "Maintenance Management System",                 "M3's Plant Maintenance module — manages work orders, maintenance plans, spare parts"],
+      ["SFC",       "Shop Floor Control",                            "M3's module for real-time manufacturing floor management and production tracking"],
+      ["CRS",       "Customer Record Service",                       "M3 module reference — e.g. CRS610 is the Customer Order screen"],
+      ["MWS",       "M3 Warehouse Service",                          "Delivery and warehouse management screen references in M3 — e.g. MWS410"],
+      ["ARS",       "Accounts Receivable Service",                   "M3 module for invoicing and accounts receivable — e.g. ARS200"],
+      ["PPS",       "Purchase Planning Service",                     "M3 module for purchase requisitions — e.g. PPS170"],
+      ["AR",        "Augmented Reality",                             "In context of PTC Vuforia — overlaying digital information onto the physical shop floor"],
+      ["SaaS",      "Software as a Service",                         "Cloud-delivered software accessed via subscription, e.g. Infor CloudSuite, FourKites"],
+      ["Azure",     "Microsoft Azure",                               "Microsoft's cloud computing platform — hosts Fortude's Charlie AI agent via Azure AI Foundry"],
+      ["VPN",       "Virtual Private Network",                       ""],
+      ["SDK",       "Software Development Kit",                      ""],
+      ["MCP",       "Model Context Protocol",                        "Open standard allowing AI agents from different vendors to communicate and share context"],
+      ["A2A",       "Agent-to-Agent",                               "Communication protocol enabling AI agents from different systems to collaborate autonomously"],
+    ]
+  },
+  sc: {
+    label: "Supply Chain & Logistics",
+    items: [
+      ["SC",        "Supply Chain",                                  ""],
+      ["SKU",       "Stock Keeping Unit",                            "A unique identifier for each distinct product variant in inventory"],
+      ["FTL",       "Full Truckload",                                "Shipping mode where a single shipper fills an entire truck"],
+      ["LTL",       "Less Than Truckload",                           "Shipping mode where cargo from multiple shippers shares a truck"],
+      ["SCAC",      "Standard Carrier Alpha Code",                   "Unique 2–4 letter code identifying individual transportation/carrier companies"],
+      ["ETA",       "Estimated Time of Arrival",                     ""],
+      ["PO",        "Purchase Order",                                "Formal document issued by a buyer to a supplier confirming purchase of goods/services"],
+      ["PR",        "Purchase Requisition",                          "Internal document requesting authorisation to purchase goods before a PO is issued"],
+      ["WO",        "Work Order",                                    "An authorisation to perform a specific maintenance or production task"],
+      ["ROP",       "Reorder Point",                                 "The inventory level at which a replenishment order must be triggered to avoid stock-out"],
+      ["OEE",       "Overall Equipment Effectiveness",               "Manufacturing KPI combining availability, performance, and quality — expressed as a percentage"],
+      ["MAPE",      "Mean Absolute Percentage Error",                "Forecast accuracy metric — average of absolute percentage differences between forecast and actual"],
+      ["WMAPE",     "Weighted Mean Absolute Percentage Error",       "Variant of MAPE that weights errors by sales volume — more meaningful for high-volume SKUs"],
+      ["SLA",       "Service Level Agreement",                       "Contractual commitment defining minimum service quality/delivery performance standards"],
+      ["FTE",       "Full-Time Equivalent",                          "Unit measuring workload — 1.0 FTE = one employee working full-time"],
+      ["OTIF",      "On-Time In-Full",                               "Delivery performance metric — measures whether orders arrive on time and with complete quantity"],
+      ["3PL",       "Third-Party Logistics",                         "Outsourced logistics service provider handling transport, warehousing, and/or fulfilment"],
+      ["S&OP",      "Sales and Operations Planning",                 "Integrated business planning process aligning supply and demand across functions"],
+      ["IBP",       "Integrated Business Planning",                  "Advanced form of S&OP incorporating financial planning and longer-term strategic plans"],
+      ["APS",       "Advanced Planning and Scheduling",              "Software optimising production and supply chain scheduling beyond standard MRP"],
+      ["CSCO",      "Chief Supply Chain Officer",                    "Executive responsible for end-to-end supply chain strategy"],
+    ]
+  },
+  biz: {
+    label: "Business & Commercial",
+    items: [
+      ["POC",       "Proof of Concept",                              "A short, focused project demonstrating feasibility of a solution before full commitment"],
+      ["ROI",       "Return on Investment",                          "Financial metric measuring the return on a business investment relative to its cost"],
+      ["CFO",       "Chief Financial Officer",                       ""],
+      ["CIO",       "Chief Information Officer",                     ""],
+      ["COO",       "Chief Operating Officer",                       ""],
+      ["CEO",       "Chief Executive Officer",                       ""],
+      ["CAGR",      "Compound Annual Growth Rate",                   "Year-over-year growth rate calculated over a defined time period"],
+      ["KPI",       "Key Performance Indicator",                     "Measurable metric used to evaluate success against objectives"],
+      ["SOW",       "Statement of Work",                             "Document defining the scope, deliverables, and timeline of a project engagement"],
+      ["SI",        "Systems Integrator",                            "A company specialising in implementing and integrating software platforms for clients"],
+      ["IP",        "Intellectual Property",                         "In this context: proprietary software, connectors, templates, and frameworks owned by Fortude"],
+      ["M&A",       "Mergers and Acquisitions",                      ""],
+      ["NRF",       "National Retail Federation",                    "Major retail industry trade association — hosts the NRF annual conference in New York"],
+      ["IPO",       "Initial Public Offering",                       "First sale of a company's shares to the public on a stock exchange"],
+      ["BCG",       "Boston Consulting Group",                       "Global management consulting firm — cited for agentic AI value share research"],
+      ["IPN",       "Infor Partner Network",                         "Infor's official partner ecosystem program — includes Implementation Co-Sell (ICS) tiers"],
+      ["ICS",       "Implementation Co-Sell",                        "The highest tier of Infor partner certification — held by Columbus and Apex Systems"],
+      ["RFP",       "Request for Proposal",                          "Document issued by a buyer inviting vendors to submit solution proposals"],
+      ["RFQ",       "Request for Quotation",                         "Document requesting vendors to submit pricing for defined goods or services"],
+      ["TCO",       "Total Cost of Ownership",                       "Full cost of owning and operating a solution over its entire lifecycle"],
+      ["SME",       "Subject Matter Expert",                         "An individual with deep expertise in a specific domain or process area"],
+      ["OCM",       "Organisational Change Management",              "Structured approach to transitioning organisations through change, e.g. AI adoption"],
+    ]
+  },
+  regional: {
+    label: "Regional",
+    items: [
+      ["AMEA",      "Asia, Middle East & Africa",                    "Regional grouping used in this report covering South/East Asia, the Middle East, and African markets"],
+      ["ANZ",       "Australia and New Zealand",                     ""],
+      ["EU",        "European Union",                                ""],
+      ["UK",        "United Kingdom",                                ""],
+      ["US",        "United States",                                 ""],
+      ["UAE",       "United Arab Emirates",                          "Key Middle East market for sovereign AI investment — highlighted in AMEA section"],
+      ["APAC",      "Asia-Pacific",                                  "Broader regional grouping sometimes used interchangeably with parts of AMEA"],
+      ["EMEA",      "Europe, Middle East & Africa",                  "Alternative regional grouping — sometimes used interchangeably with UK & EU + AMEA in analyst research"],
+      ["ANZ",       "Australia and New Zealand",                     ""],
+      ["GCC",       "Gulf Cooperation Council",                      "Regional bloc comprising UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, and Oman"],
+    ]
+  },
+  reg: {
+    label: "Regulatory",
+    items: [
+      ["EU AI Act",  "European Union Artificial Intelligence Act",   "EU regulation (2024–2026 compliance phasing) classifying AI by risk level and imposing conformity, transparency, and oversight requirements"],
+      ["GDPR",       "General Data Protection Regulation",           "EU data privacy law governing collection, storage, and use of personal data — impacts UC4 Customer Service AI agents"],
+      ["ITIL",       "Information Technology Infrastructure Library", "Framework of best practices for IT service management — referenced in Agentforce IT Service context"],
+      ["ISO",        "International Organisation for Standardisation",""],
+      ["SOC",        "Security Operations Centre",                   "In context of industrial AI: team monitoring cybersecurity threats in OT/IT environments"],
+      ["CSRD",       "Corporate Sustainability Reporting Directive",  "EU regulation requiring companies to report on sustainability impacts — affects supply chain AI transparency"],
+    ]
+  },
+  vendors: {
+    label: "Vendors & Products",
+    items: [
+      ["M3",         "Infor M3",                                     "Infor's cloud ERP platform purpose-built for manufacturing and distribution industries"],
+      ["o9",         "o9 Solutions",                                  "AI-powered integrated business planning and supply chain platform"],
+      ["F&B",        "Food and Beverage",                            "An industry vertical — one of M3/CloudSuite's primary target sectors"],
+      ["PTC",        "Parametric Technology Corporation",            "Industrial software company — makes ThingWorx (IIoT platform) and Vuforia (AR)"],
+      ["TCS",        "Tata Consultancy Services",                    "Indian multinational IT services and consulting firm — Infor IPN member"],
+      ["DHL",        "Dalsey, Hillblom and Lynn",                    "Named after founders — global logistics company; early adopter of agentic AI for real-time logistics monitoring"],
+      ["IBV",        "IBM Institute for Business Value",             "IBM's research arm — cited for supply chain agentic AI study"],
+      ["IBP",        "SAP Integrated Business Planning",             "SAP's advanced supply chain planning platform — competitor to Kinaxis and o9"],
+      ["APO",        "SAP Advanced Planning and Optimisation",       "SAP's legacy supply chain planning tool, predecessor to SAP IBP"],
+      ["WMS",        "Infor WMS",                                    "Infor's Warehouse Management System — part of the CloudSuite portfolio"],
+      ["ITSM",       "IT Service Management",                        "In context of Salesforce Agentforce IT Service and ServiceNow — managing IT incident and service workflows"],
+      ["CMDB",       "Configuration Management Database",            "Repository storing IT asset and infrastructure data — used by Salesforce Agentforce IT Service"],
+      ["CPG",        "Consumer Packaged Goods",                      "Industry vertical — companies producing fast-moving consumer goods; key M3 customer segment"],
+    ]
+  }
+};
+
+// ── CURRENT FILTER STATE ─────────────────────────────────────────
+let currentCat = 'all';
+let currentQuery = '';
+
+// ── RENDER ───────────────────────────────────────────────────────
+function renderAll() {
+  const body = document.getElementById('abbrvBody');
+  const empty = document.getElementById('abbrvEmpty');
+  body.innerHTML = '';
+  body.appendChild(empty);
+
+  let totalVisible = 0;
+
+  Object.entries(ABBRV).forEach(([catKey, cat]) => {
+    const catDiv = document.createElement('div');
+    catDiv.className = 'abbrv-category';
+    catDiv.dataset.cat = catKey;
+
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'abbrv-cat-title';
+
+    const table = document.createElement('table');
+    table.className = 'abbrv-table';
+
+    let visibleInCat = 0;
+    const q = currentQuery.toLowerCase();
+
+    cat.items.forEach(([abbr, full, context]) => {
+      const matchesSearch = !q
+        || abbr.toLowerCase().includes(q)
+        || full.toLowerCase().includes(q)
+        || context.toLowerCase().includes(q);
+
+      const matchesCat = currentCat === 'all' || currentCat === catKey;
+
+      const tr = document.createElement('tr');
+      if (!matchesSearch || !matchesCat) {
+        tr.classList.add('hidden');
+      } else {
+        visibleInCat++;
+        totalVisible++;
+      }
+
+      const tdAbbr = document.createElement('td');
+      const tdMeaning = document.createElement('td');
+
+      if (q && matchesSearch) {
+        tdAbbr.innerHTML = highlight(abbr, q);
+        const fullHL = highlight(full, q);
+        const ctxHL = context ? `<div class="context">${highlight(context, q)}</div>` : '';
+        tdMeaning.innerHTML = `<span class="full">${fullHL}</span>${ctxHL}`;
+      } else {
+        tdAbbr.textContent = abbr;
+        tdMeaning.innerHTML = `<span class="full">${escapeHtml(full)}</span>${context ? `<div class="context">${escapeHtml(context)}</div>` : ''}`;
+      }
+
+      tr.appendChild(tdAbbr);
+      tr.appendChild(tdMeaning);
+      table.appendChild(tr);
+    });
+
+    const countBadge = document.createElement('span');
+    countBadge.className = 'abbrv-cat-count';
+    countBadge.textContent = visibleInCat;
+    titleDiv.textContent = cat.label + ' ';
+    titleDiv.appendChild(countBadge);
+
+    catDiv.appendChild(titleDiv);
+    catDiv.appendChild(table);
+
+    if (visibleInCat === 0 || (!matchesCatFilter(catKey))) {
+      catDiv.classList.add('cat-hidden');
+    }
+
+    body.appendChild(catDiv);
+  });
+
+  // update count
+  const countEl = document.getElementById('abbrvCount');
+  const allCount = Object.values(ABBRV).reduce((s, c) => s + c.items.length, 0);
+  countEl.textContent = q ? `${totalVisible} of ${allCount}` : `${allCount} terms`;
+
+  // empty state
+  empty.classList.toggle('visible', totalVisible === 0);
+}
+
+function matchesCatFilter(key) {
+  return currentCat === 'all' || currentCat === key;
+}
+
+function highlight(text, q) {
+  if (!q) return escapeHtml(text);
+  const re = new RegExp(`(${escapeRe(q)})`, 'gi');
+  return escapeHtml(text).replace(re, '<mark class="highlight">$1</mark>');
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function escapeRe(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// ── SEARCH ───────────────────────────────────────────────────────
+function doSearch(val) {
+  currentQuery = val.trim();
+  document.getElementById('abbrvClear').classList.toggle('visible', !!currentQuery);
+  renderAll();
+}
+
+function clearSearch() {
+  const inp = document.getElementById('abbrvSearch');
+  inp.value = '';
+  currentQuery = '';
+  document.getElementById('abbrvClear').classList.remove('visible');
+  inp.focus();
+  renderAll();
+}
+
+// ── CATEGORY FILTER ──────────────────────────────────────────────
+function filterCat(btn, cat) {
+  document.querySelectorAll('.abbrv-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = cat;
+  renderAll();
+}
+
+// ── OPEN / CLOSE ─────────────────────────────────────────────────
+function openAbbrv() {
+  document.getElementById('abbrvOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderAll();
+  setTimeout(() => document.getElementById('abbrvSearch').focus(), 220);
+}
+
+function closeAbbrv() {
+  document.getElementById('abbrvOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('abbrvOverlay')) closeAbbrv();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeAbbrv();
+});
+</script>
+</body>
+</html>

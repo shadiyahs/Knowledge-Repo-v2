@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI Use Cases for Manufacturing — Fortude I&I February 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F2545;--navy-mid:#1A3A6B;--orange:#E8600A;--orange-light:#FF7A2B;--orange-pale:#FFF0E6;--slate:#4A5568;--slate-light:#718096;--border:#E2E8F0;--bg:#F8FAFC;--green:#1A7F5A;--green-pale:#E6F7F0;--amber:#B45309;--amber-pale:#FEF3C7;--red:#C53030;--red-pale:#FFF5F5;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#1A202C;font-size:14px;line-height:1.65;}
+.report-header{background:linear-gradient(135deg,var(--navy) 0%,#0D3B5E 60%,#145E7A 100%);color:white;position:relative;overflow:hidden;}
+.report-header::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:rgba(232,96,10,0.1);}
+.report-header::after{content:'';position:absolute;bottom:-50px;left:20%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.03);}
+.header-inner{max-width:1100px;margin:0 auto;padding:52px 48px 44px;position:relative;z-index:1;}
+.header-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,96,10,0.2);border:1px solid rgba(232,96,10,0.5);color:#FFB07A;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:5px 12px;border-radius:3px;margin-bottom:20px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--orange-light);display:inline-block;}
+h1.report-title{font-family:'Sora',sans-serif;font-size:38px;font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:12px;}
+h1.report-title em{color:var(--orange-light);font-style:normal;}
+.report-subtitle{font-size:15px;color:rgba(255,255,255,0.7);max-width:620px;line-height:1.55;margin-bottom:32px;}
+.header-meta{display:flex;gap:32px;flex-wrap:wrap;}
+.meta-item{display:flex;flex-direction:column;gap:3px;}
+.meta-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.45);}
+.meta-value{font-size:13px;font-weight:500;color:rgba(255,255,255,0.9);}
+.toc-bar{background:var(--navy);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+.toc-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:flex;overflow-x:auto;}
+.toc-item{color:rgba(255,255,255,0.55);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:14px 14px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;text-decoration:none;display:block;}
+.toc-item:hover{color:white;border-bottom-color:var(--orange);}
+.toc-num{color:var(--orange);margin-right:5px;}
+.main{max-width:1100px;margin:0 auto;padding:48px;}
+.section{margin-bottom:52px;}
+.section-header{display:flex;align-items:flex-start;gap:18px;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid var(--border);}
+.section-num{background:var(--navy);color:var(--orange-light);font-family:'Sora',sans-serif;font-size:11px;font-weight:700;padding:6px 10px;border-radius:4px;flex-shrink:0;margin-top:4px;}
+.section-title{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--navy);}
+.section-desc{font-size:13px;color:var(--slate-light);margin-top:5px;}
+.intro-panel{background:white;border:1px solid var(--border);border-left:4px solid var(--orange);border-radius:6px;padding:24px 28px;margin-bottom:32px;}
+.intro-panel p{color:var(--slate);line-height:1.7;}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
+.stat-card{background:white;border:1px solid var(--border);border-top:3px solid var(--orange);border-radius:6px;padding:18px;}
+.stat-num{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--navy);line-height:1;}
+.stat-label{font-size:11.5px;color:var(--slate-light);margin-top:6px;line-height:1.4;}
+.table-wrap{overflow-x:auto;margin-bottom:24px;}
+table{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+thead tr{background:var(--navy);}
+thead th{padding:12px 16px;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);font-weight:500;}
+thead th:first-child{color:var(--orange-light);}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:#F8FAFC;}
+tbody td{padding:12px 16px;font-size:12.5px;color:var(--slate);vertical-align:top;}
+tbody td:first-child{font-weight:600;color:var(--navy-mid);}
+.uc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px;}
+.uc-card{background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.uc-head{background:var(--navy);padding:14px 18px;display:flex;align-items:center;gap:12px;}
+.uc-icon{font-size:20px;}
+.uc-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:white;}
+.uc-target{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--orange-light);letter-spacing:0.1em;margin-top:2px;}
+.uc-body{padding:16px 18px;}
+.uc-section{margin-bottom:12px;}
+.uc-section-title{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.uc-section-body{font-size:12px;color:var(--slate);line-height:1.6;}
+.uc-regions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.region-tag{background:#EBF8FF;color:#1A6FA8;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 8px;border-radius:3px;}
+.prereq-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.prereq-card{background:white;border:1px solid var(--border);border-radius:8px;padding:18px;}
+.prereq-card h4{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.prereq-list{list-style:none;}
+.prereq-list li{font-size:12px;color:var(--slate);padding:4px 0;border-bottom:1px solid var(--border);}
+.prereq-list li:last-child{border-bottom:none;}
+.prereq-list li::before{content:'✓ ';color:var(--green);}
+.gov-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.gov-card{background:white;border:1px solid var(--border);border-radius:8px;padding:18px;border-left:3px solid var(--orange);}
+.gov-card h4{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.gov-card p{font-size:12px;color:var(--slate);line-height:1.6;}
+.roi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:24px;}
+.roi-card{background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.roi-head{background:linear-gradient(135deg,var(--navy),var(--navy-mid));padding:10px 16px;display:flex;align-items:center;gap:8px;}
+.roi-uc{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:white;}
+.roi-body{padding:14px 16px;}
+.roi-kpi{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;}
+.roi-num{font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:var(--navy);}
+.roi-desc{font-size:11.5px;color:var(--slate-light);}
+.callout{background:var(--orange-pale);border:1px solid rgba(232,96,10,0.25);border-radius:6px;padding:16px 20px;margin:20px 0;font-size:13px;color:#7B3100;}
+.callout strong{color:var(--orange);display:block;margin-bottom:4px;font-family:'Sora',sans-serif;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;}
+.report-footer{background:var(--navy);color:rgba(255,255,255,0.5);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;}
+.footer-brand{color:rgba(255,255,255,0.85);font-weight:500;}
+.footer-brand em{color:var(--orange-light);font-style:normal;}
+@media(max-width:768px){.main{padding:24px;}.header-inner{padding:32px 24px;}h1.report-title{font-size:26px;}.uc-grid,.prereq-grid,.gov-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<header class="report-header">
+  <div class="header-inner">
+    <div class="header-badge"><span class="dot"></span> Fortude I&I Session · February 2026</div>
+    <h1 class="report-title">Agentic AI Use Cases for <em>Manufacturing</em></h1>
+    <p class="report-subtitle">Four high-value agentic AI use cases for Infor M3 manufacturing customers — covering business problems, regional opportunities, target customers, prerequisites, governance, and enterprise ROI.</p>
+    <div class="header-meta">
+      <div class="meta-item"><span class="meta-label">Session</span><span class="meta-value">Intelligence & Insights</span></div>
+      <div class="meta-item"><span class="meta-label">Date</span><span class="meta-value">February 2026</span></div>
+      <div class="meta-item"><span class="meta-label">Use Cases</span><span class="meta-value">4 Manufacturing UCs</span></div>
+      <div class="meta-item"><span class="meta-label">Regions</span><span class="meta-value">Americas · UK&EU · AMEA · ANZ</span></div>
+    </div>
+  </div>
+</header>
+<nav class="toc-bar">
+  <div class="toc-inner">
+    <a class="toc-item" href="#s1"><span class="toc-num">01</span> Business Problems</a>
+    <a class="toc-item" href="#s2"><span class="toc-num">02</span> Demands & Trends</a>
+    <a class="toc-item" href="#s3"><span class="toc-num">03</span> Use Case Deep-Dives</a>
+    <a class="toc-item" href="#s4"><span class="toc-num">04</span> Competitors</a>
+    <a class="toc-item" href="#s5"><span class="toc-num">05</span> Target Industries</a>
+    <a class="toc-item" href="#s6"><span class="toc-num">06</span> Target Customers</a>
+    <a class="toc-item" href="#s7"><span class="toc-num">07</span> Pre-Requisites</a>
+    <a class="toc-item" href="#s8"><span class="toc-num">08</span> Governance</a>
+    <a class="toc-item" href="#s9"><span class="toc-num">09</span> ROI</a>
+  </div>
+</nav>
+<main class="main">
+
+  <div class="intro-panel"><p><strong>Scope:</strong> This session covers four agentic AI use cases relevant to Fortude's manufacturing clients across Infor M3 and CloudSuite — Smart Factory Agent (Real Time Orchestrator), Predictive Maintenance Coordinator, Supplier Risk Monitoring, and Automated Quality Control. All four draw on operational data already available in IoT sensor streams, MES systems, ERP/EAM systems, supplier performance databases, and quality inspection data.</p></div>
+
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-num">35%</div><div class="stat-label">Production throughput gain from Smart Factory Agent deployment</div></div>
+    <div class="stat-card"><div class="stat-num">73%</div><div class="stat-label">Reduction in equipment failure rate from Predictive Maintenance</div></div>
+    <div class="stat-card"><div class="stat-num">99.8%</div><div class="stat-label">Defect detection accuracy from Automated Quality Control agents</div></div>
+    <div class="stat-card"><div class="stat-num">171%</div><div class="stat-label">Average ROI from agentic AI deployments (US firms: 192%)</div></div>
+  </div>
+
+  <section id="s1" class="section">
+    <div class="section-header"><div class="section-num">01</div><div><div class="section-title">Business Problems Being Solved</div><div class="section-desc">Core operational pain points each use case is designed to address</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Use Case</th><th>Core Target</th><th>Business Problem</th></tr></thead>
+      <tbody>
+        <tr><td>Smart Factory Agent</td><td>Scheduling Inflexibility</td><td>Rigid production schedules fail when machines break down, priority orders change, or labour availability shifts. Manual planners must constantly rework schedules, creating inconsistent decisions and lost throughput.</td></tr>
+        <tr><td>Predictive Maintenance Coordinator</td><td>Machine Failures</td><td>Unplanned downtime from equipment failures stops production, delays orders, and increases overtime costs. Time-based preventive maintenance leads to unnecessary servicing; maintenance insights don't flow into ERP, production planning, or EAM.</td></tr>
+        <tr><td>Supplier Risk Monitoring</td><td>Margin Protection</td><td>Manual spreadsheet-based supplier reviews detect issues only after late deliveries or quality failures. Over-reliance on key suppliers creates production risk and revenue exposure with limited visibility into Tier 2 and Tier 3 suppliers.</td></tr>
+        <tr><td>Automated Quality Control</td><td>Quality Escapes</td><td>Late defect detection — often at final inspection or after shipment — results in high rework/scrap costs, warranty claims, and customer returns. Subjective inspections produce inconsistent quality enforcement.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="s2" class="section">
+    <div class="section-header"><div class="section-num">02</div><div><div class="section-title">Manufacturing Demands & Trends</div><div class="section-desc">Industry and technology shifts driving agent adoption in manufacturing</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Use Case</th><th>Key Demand / Trend</th><th>Regional Signal</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Smart Factory</strong></td><td>Shift towards reducing 8–12 week replenishment cycles. Agents used for Automated Pattern Cutting, Micro-Batch Orchestration, Dynamic Production Balancing in F&B plants facing raw material volatility.</td><td>ANZ: "lights-out" micro-shifts. UK/EU: 2026 destruction of unsold goods ban. Americas: DTC scaling for custom apparel. AMEA: Hub coordination agents.</td></tr>
+        <tr><td><strong>Predictive Maintenance</strong></td><td>Precision Machinery Longevity: High capex assets (digital textile printers, automated sewing robots) require specialised maintenance. Agents focused on hygienic maintenance and FSMA 204 recall prevention. Siemens/NVIDIA industrial copilots now ingesting sensor data to autonomously draft repair plans and trigger spare part procurement through ERP.</td><td>ANZ: Remote asset management critical for regional F&B plants. UK/EU: EU Digital Product Passport sustainability reporting. Americas: Strict 2026 FSMA 204 traceability deadline. AMEA: Infrastructure resilience to manage power volatility.</td></tr>
+        <tr><td><strong>Supplier Risk</strong></td><td>Agentic Sourcing (Zara, Walmart) with agents that talk directly to factory ERPs. Deploying agents monitoring geopolitical signals (tariffs, port strikes). Cold chain autonomy: GLP-1 nutrition shifts driving 30% reduction in spoilage and 20% reduction in delay-related breaches.</td><td>ANZ: Pacific Corridor supply chain disruptions. UK/EU: Supplier ESG/human rights compliance + CBAM requirements. Americas: Near-shoring execution. AMEA: Labour compliance for western buyers.</td></tr>
+        <tr><td><strong>Quality Control</strong></td><td>Multi-modal AI agents moving beyond simple detection — simulating fit and drape in 3D, using computer vision for real-time quality checks on production lines. Shift from static alerts to systems that sense disruptions and adapt operations.</td><td>ANZ: Premium export branding quality standards. UK/EU: Eco-label verification. Americas: GLP-1 companion food market (high precision formulation). AMEA: Strict QC on massive production lines.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="s3" class="section">
+    <div class="section-header"><div class="section-num">03</div><div><div class="section-title">Use Case Deep-Dives</div><div class="section-desc">How each agentic AI use case works and key regional applicability</div></div></div>
+    <div class="uc-grid">
+      <div class="uc-card">
+        <div class="uc-head"><div class="uc-icon">🏭</div><div><div class="uc-title">Smart Factory Agent</div><div class="uc-target">Targets: Scheduling Inflexibility</div></div></div>
+        <div class="uc-body">
+          <div class="uc-section"><div class="uc-section-title">What it does</div><div class="uc-section-body">Reads real-time shop floor data and continuously adjusts production schedules, reassigns work orders, and manages machine sequencing based on breakdowns or priority changes. Manages Lot-Size-One production and acts as a Dynamic Recipe Adjustor for F&B.</div></div>
+          <div class="uc-section"><div class="uc-section-title">Regional Applicability</div></div>
+          <div class="uc-regions">
+            <span class="region-tag">ANZ: lights-out micro-shifts</span>
+            <span class="region-tag">UK/EU: unsold goods ban</span>
+            <span class="region-tag">Americas: DTC custom apparel</span>
+            <span class="region-tag">AMEA: hub coordination</span>
+          </div>
+        </div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-head"><div class="uc-icon">🔧</div><div><div class="uc-title">Predictive Maintenance Coordinator</div><div class="uc-target">Targets: Machine Failures</div></div></div>
+        <div class="uc-body">
+          <div class="uc-section"><div class="uc-section-title">What it does</div><div class="uc-section-body">Multi-agent system tracks sensor data for each asset (e.g. monitoring heat and tension sensors on high-speed digital printers). Predicts failures and schedules maintenance automatically. Auto-creates work orders, logs audit-ready maintenance records in the ERP/EAM system.</div></div>
+          <div class="uc-section"><div class="uc-section-title">Regional Applicability</div></div>
+          <div class="uc-regions">
+            <span class="region-tag">ANZ: remote asset management</span>
+            <span class="region-tag">UK/EU: EU Digital Product Passport</span>
+            <span class="region-tag">Americas: FSMA 204</span>
+            <span class="region-tag">AMEA: power volatility</span>
+          </div>
+        </div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-head"><div class="uc-icon">🌐</div><div><div class="uc-title">Supplier Risk Monitoring</div><div class="uc-target">Targets: Margin Protection</div></div></div>
+        <div class="uc-body">
+          <div class="uc-section"><div class="uc-section-title">What it does</div><div class="uc-section-body">Monitors geopolitical sourcing signals via social/political feeds. Identifies near-shore suppliers with idle capacity. Checks digital tech pack compatibility. Drafts new contracts. Provides cold chain autonomy to reroute to closest retailer to prevent spoilage.</div></div>
+          <div class="uc-section"><div class="uc-section-title">Regional Applicability</div></div>
+          <div class="uc-regions">
+            <span class="region-tag">ANZ: Pacific Corridor disruptions</span>
+            <span class="region-tag">UK/EU: ESG + CBAM</span>
+            <span class="region-tag">Americas: near-shoring</span>
+            <span class="region-tag">AMEA: labour compliance</span>
+          </div>
+        </div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-head"><div class="uc-icon">🔍</div><div><div class="uc-title">Automated Quality Control</div><div class="uc-target">Targets: Quality Escapes</div></div></div>
+        <div class="uc-body">
+          <div class="uc-section"><div class="uc-section-title">What it does</div><div class="uc-section-body">Vision agents detect micro-defects and communicate to sewing robots to adjust requirements while garments are being made. Monitors formulation consistency. Integrates real-time computer vision with corrective action agents that respond in milliseconds.</div></div>
+          <div class="uc-section"><div class="uc-section-title">Regional Applicability</div></div>
+          <div class="uc-regions">
+            <span class="region-tag">ANZ: premium export branding</span>
+            <span class="region-tag">UK/EU: eco-label verification</span>
+            <span class="region-tag">Americas: GLP-1 formulation</span>
+            <span class="region-tag">AMEA: high-speed production lines</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s4" class="section">
+    <div class="section-header"><div class="section-num">04</div><div><div class="section-title">Regional Competitors</div><div class="section-desc">Key competitive players per use case across all four regions</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Use Case</th><th>ANZ</th><th>AMEA</th><th>UK/EU</th><th>Americas</th></tr></thead>
+      <tbody>
+        <tr><td>Smart Factory</td><td>Accenture, Avanade, IBM, DXC Technology</td><td>TCS, Wipro, Infosys, HCLTech</td><td>Siemens, SAP, Capgemini, Fujitsu</td><td>Deloitte, IBM, Salesforce, Microsoft</td></tr>
+        <tr><td>Predictive Maintenance</td><td>Rio Tinto, Worley, ABB, Honeywell</td><td>Almarai, Petronas, L&T, Aveva</td><td>Rolls-Royce, Schneider Electric, SKF, Bosch</td><td>nVent, GE Digital, Emerson, PTC</td></tr>
+        <tr><td>Supplier Risk</td><td>Munro, KPMG, Toll Group, WiseTech</td><td>o9 Solutions, Li & Fung, DP World, Prewave</td><td>LVMH, DHL, EcoVadis, SAP Ariba</td><td>Burton, Resilinc, Exiger, Coupa</td></tr>
+        <tr><td>Quality Control</td><td>BlueScope, DuluxGroup, Visy, Cognex</td><td>Toyota, Titan, Foxconn, Omron</td><td>Dener, Zeiss, Hexagon, Sick</td><td>Tesla, AWS, Keyence, Cognex</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="s5" class="section">
+    <div class="section-header"><div class="section-num">05</div><div><div class="section-title">Target Industries by Region</div><div class="section-desc">Industry verticals with highest agentic AI readiness per use case</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Use Case</th><th>ANZ</th><th>AMEA</th><th>UK/EU</th><th>Americas</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Smart Factory</strong></td><td>F&B (Wineries/Dairy) & Building Materials</td><td>Apparel & Textile Mega Hubs</td><td>FMCG & Pharma</td><td>High Tech & Electronics</td></tr>
+        <tr><td><strong>Predictive Maintenance</strong></td><td>Industrial Processing & Heavy Packaging</td><td>Heavy Industrial & Chemicals</td><td>Specialised Machinery</td><td>F&B Large Scale Distribution (FSMA 204)</td></tr>
+        <tr><td><strong>Supplier Risk</strong></td><td>Fashion Retail & Export F&B</td><td>Global Apparel Brands</td><td>Luxury Fashion (EU Digital Product Passport)</td><td>Industrial Equipment & Apparel (near-shoring)</td></tr>
+        <tr><td><strong>Quality Control</strong></td><td>Premium Exports F&B (Wine, Meat)</td><td>High Precision Manufacturing</td><td>Luxury Goods & Pharma</td><td>Specialized Textiles (vision agents)</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="s6" class="section">
+    <div class="section-header"><div class="section-num">06</div><div><div class="section-title">Target Customers</div><div class="section-desc">Named accounts with the highest agentic AI readiness across each use case</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Use Case</th><th>Region</th><th>Target Customer</th><th>Readiness Signal</th></tr></thead>
+      <tbody>
+        <tr><td>Smart Factory</td><td>ANZ</td><td><strong>Bega Cheese</strong></td><td>Recently unified data estate to handle high-volume dairy processing</td></tr>
+        <tr><td>Smart Factory</td><td>ANZ</td><td><strong>Arnott's Group</strong></td><td>Extensive Azure + Infor use for supply chain; "Lights Out" warehouse initiative scaling</td></tr>
+        <tr><td>Smart Factory</td><td>AMEA</td><td><strong>Hela Clothing</strong></td><td>Using Infor Fashion and pilot testing AI for real-time production line re-routing</td></tr>
+        <tr><td>Smart Factory</td><td>UK/EU</td><td><strong>Bridgestone EMEA</strong></td><td>Confirmed Fabric/OneLake user, moving towards prescriptive factory actions</td></tr>
+        <tr><td>Smart Factory</td><td>Americas</td><td><strong>Hatco</strong></td><td>Optimized "Action Layer" and prime for agentic orchestration of food service equipment lines</td></tr>
+        <tr><td>Predictive Maintenance</td><td>ANZ</td><td><strong>Visy</strong></td><td>Extensive Microsoft estate; moved to 24/7 autonomous sensor monitoring, lacking agentic "Action" layer</td></tr>
+        <tr><td>Predictive Maintenance</td><td>AMEA</td><td><strong>Almarai</strong></td><td>Infor user; requires agents for extreme environment maintenance. 2024-2028 digitalization strategy</td></tr>
+        <tr><td>Predictive Maintenance</td><td>UK/EU</td><td><strong>HamiltonJet</strong> / <strong>IRCA Group</strong></td><td>Existing customers; data-rich and ready for prescriptive repair agents; specialized thermal machinery</td></tr>
+        <tr><td>Predictive Maintenance</td><td>Americas</td><td><strong>nVent</strong></td><td>Infor user; unified global asset data into OneLake; already using Azure ML</td></tr>
+        <tr><td>Supplier Risk</td><td>ANZ</td><td><strong>Munro Footwear Group</strong></td><td>Infor user; susceptible to Asian logistics shifts</td></tr>
+        <tr><td>Supplier Risk</td><td>AMEA</td><td><strong>Brandix</strong> / <strong>MAS</strong></td><td>Infor users; MAS has sophisticated digital twin of supply chain; "Plan for Change 2030" targets scope 3 emissions</td></tr>
+        <tr><td>Supplier Risk</td><td>UK/EU</td><td><strong>LVMH</strong></td><td>Infor user; requires audit agents for EU supply chain law compliance</td></tr>
+        <tr><td>Supplier Risk</td><td>Americas</td><td><strong>Wajax</strong></td><td>Unified 8 legacy ERPs into Infor; clean data estate; optimizing via Infor OS and Microsoft Fabric</td></tr>
+        <tr><td>Quality Control</td><td>ANZ</td><td><strong>BlueScope Steel</strong></td><td>Major Microsoft customer; using AI to monitor slab defects in real time; 2026 roadmap: Autonomous Correction</td></tr>
+        <tr><td>Quality Control</td><td>AMEA</td><td><strong>Toyota Material Handling</strong></td><td>Infor user; requires In-Process Correction; 2026 vision includes closing loop between vision sensors and ERP via agents</td></tr>
+        <tr><td>Quality Control</td><td>UK/EU</td><td><strong>Groupe Clarins</strong> / <strong>Burton</strong></td><td>Formulation consistency and packaging focus; Infor user managing size curve corrections in European production</td></tr>
+        <tr><td>Quality Control</td><td>Americas</td><td><strong>Graphic Packaging Intl</strong></td><td>Infor user; integrated with Azure Vision to detect printing defects</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="s7" class="section">
+    <div class="section-header"><div class="section-num">07</div><div><div class="section-title">Pre-Requisites</div><div class="section-desc">Infor and Microsoft platform requirements for each use case</div></div></div>
+    <div class="prereq-grid">
+      <div class="prereq-card">
+        <h4>🏭 Smart Factory Agent</h4>
+        <p style="font-size:11px;color:var(--orange);font-family:'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">Infor Prerequisites</p>
+        <ul class="prereq-list">
+          <li>Infor M3 Cloud Edition (latest API structures)</li>
+          <li>Infor OS (essential for ION workflows)</li>
+          <li>Infor Scheduling & Dispatching (Lot-Size-One logic)</li>
+        </ul>
+        <p style="font-size:11px;color:var(--orange);font-family:'IBM Plex Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;margin:10px 0 8px;">Microsoft Prerequisites</p>
+        <ul class="prereq-list">
+          <li>Microsoft Fabric Real Time Intelligence (telemetry ingestion)</li>
+          <li>Azure AI Foundry (to host SLMs)</li>
+          <li>Fabric Eventstream (real-time machine status capture)</li>
+        </ul>
+      </div>
+      <div class="prereq-card">
+        <h4>🔧 Predictive Maintenance Coordinator</h4>
+        <ul class="prereq-list">
+          <li>Infor EAM / M3 Maintenance (clean asset registry)</li>
+          <li>Infor Document Management (autonomous compliance PDFs)</li>
+          <li>Purchase Office integration (spare part availability)</li>
+          <li>Microsoft OneLake (historical data + M3 maintenance logs)</li>
+          <li>Azure Machine Learning (Remaining Useful Life models)</li>
+          <li>Power Automate (multi-step approval workflows)</li>
+        </ul>
+      </div>
+      <div class="prereq-card">
+        <h4>🌐 Supplier Risk Monitoring</h4>
+        <ul class="prereq-list">
+          <li>Infor Nexus (Tier 2 and Tier 3 supplier data)</li>
+          <li>Infor M3 Supplier Portal (autonomous quote requests / certificate verification)</li>
+          <li>Global Ledger Configuration (implications of moving production)</li>
+          <li>Microsoft Purview (data lineage + ESG/labour law compliance)</li>
+          <li>Bing Search API via Azure AI (real-time feed)</li>
+          <li>Azure OpenAI (high-level reasoning)</li>
+        </ul>
+      </div>
+      <div class="prereq-card">
+        <h4>🔍 Automated Quality Control</h4>
+        <ul class="prereq-list">
+          <li>Infor Quality Management (digitized quality specifications)</li>
+          <li>MES Integration (signal "machine stop" or "parameter adjustment" via Infor OS)</li>
+          <li>Azure AI Vision (high-speed image analysis)</li>
+          <li>Azure IoT Edge (agentic brain at the Edge, not just cloud)</li>
+          <li>Fabric Data Activator (triggers corrective action)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="s8" class="section">
+    <div class="section-header"><div class="section-num">08</div><div><div class="section-title">Proposed Governance</div><div class="section-desc">Governance controls and Fortude must-dos for each use case</div></div></div>
+    <div class="gov-grid">
+      <div class="gov-card"><h4>🏭 Smart Factory — Agent Limits & Source Validation</h4><p>Agents confined to "Optimising" within a defined time fence. Any changes to the "Frozen Zone" require a human override. Infor OS ION API Gateway enforces that the agent cannot exceed the "Production Planner" role permission.</p></div>
+      <div class="gov-card"><h4>🔧 Predictive Maintenance — Risk Scored Decision Gates</h4><p>Any maintenance action with predicted cost &gt;$5,000 or downtime impact &gt;2 hours triggers a HITL approval in Microsoft Teams. Every prescription action must be linked to a Digital Twin Proof, and the agent must cite the anomalies that led to the decision.</p></div>
+      <div class="gov-card"><h4>🌐 Supplier Risk — Multi-Tier Identity & Sovereign Guardrails</h4><p>Agent operates under a Non-Human Identity with restricted access to the Nexus Sourcing Module. Agent is restricted from moving sensitive supplier PII data outside of the regional Azure hub. Automated remediation: if agent detects a red flag news signal, the framework instantly revokes that supplier's Active status until a human reviews.</p></div>
+      <div class="gov-card"><h4>🔍 Quality Control — Continuous Verification & Fail Safe</h4><p>If the agent's confidence score on quality check drops below 95%, default to manual inspection mode. Offline interlocks: edge agent must be designed to "Halt or Degrade Safely". Fortude should run "Pre-flight scans" on vision models every 24 hours, injecting known defect images to ensure the agent still catches them.</p></div>
+    </div>
+    <div class="callout">
+      <strong>Fortude Must-Dos (Across All Use Cases)</strong>
+      Policy-as-Code: write scheduling rules as hard code that the agent's reasoning engine cannot bypass. Chain-of-Thought Logging: store the agent's internal reasoning "monologue" in Microsoft Purview for 7 years to meet FSMA 204 audit requirements. Evaluation Harnesses: run "Pre-flight scans" on vision models every 24 hours.
+    </div>
+  </section>
+
+  <section id="s9" class="section">
+    <div class="section-header"><div class="section-num">09</div><div><div class="section-title">ROI Benchmarks</div><div class="section-desc">Industry-validated ROI KPIs per use case and enterprise-wide impact</div></div></div>
+    <div class="roi-grid">
+      <div class="roi-card">
+        <div class="roi-head"><div class="roi-uc">🏭 Smart Factory</div></div>
+        <div class="roi-body">
+          <div class="roi-kpi"><div class="roi-num">35%</div><div class="roi-desc">Production Throughput Gain</div></div>
+          <div class="roi-kpi"><div class="roi-num">43%</div><div class="roi-desc">Labour Productivity Improvement</div></div>
+          <div class="roi-kpi"><div class="roi-num">92%</div><div class="roi-desc">OEE vs. 78% Industry Average</div></div>
+        </div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-head"><div class="roi-uc">🔧 Predictive Maintenance</div></div>
+        <div class="roi-body">
+          <div class="roi-kpi"><div class="roi-num">30–50%</div><div class="roi-desc">Downtime Reduction</div></div>
+          <div class="roi-kpi"><div class="roi-num">20–40%</div><div class="roi-desc">Equipment Lifespan Extension</div></div>
+          <div class="roi-kpi"><div class="roi-num">73%</div><div class="roi-desc">Equipment Failure Rate Reduction</div></div>
+        </div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-head"><div class="roi-uc">🌐 Supplier Risk</div></div>
+        <div class="roi-body">
+          <div class="roi-kpi"><div class="roi-num">28–35%</div><div class="roi-desc">Inventory Carrying Cost Reduction</div></div>
+          <div class="roi-kpi"><div class="roi-num">32%</div><div class="roi-desc">On-Time Delivery Improvement</div></div>
+          <div class="roi-kpi"><div class="roi-num">15–25%</div><div class="roi-desc">Logistics Cost Decrease</div></div>
+        </div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-head"><div class="roi-uc">🔍 Quality Control</div></div>
+        <div class="roi-body">
+          <div class="roi-kpi"><div class="roi-num">99.8%</div><div class="roi-desc">Defect Detection Accuracy</div></div>
+          <div class="roi-kpi"><div class="roi-num">20–30%</div><div class="roi-desc">Scrap & Rework Reduction</div></div>
+          <div class="roi-kpi"><div class="roi-num">63%</div><div class="roi-desc">Customer Returns Decrease</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="stat-row" style="margin-top:8px;">
+      <div class="stat-card"><div class="stat-num">171%</div><div class="stat-label">Average ROI from agentic AI — US firms see 192%</div></div>
+      <div class="stat-card"><div class="stat-num">457%</div><div class="stat-label">Projected 3-year ROI from Microsoft Fabric + Azure AI deployments</div></div>
+    </div>
+  </section>
+
+</main>
+<footer class="report-footer">
+  <div><span class="footer-brand"><em>FORTUDE</em> — Delivering digital solutions that matter</span></div>
+  <div>Intelligence &amp; Insights · February 2026 · Agentic AI Use Cases for Manufacturing</div>
+</footer>
+</body>
+</html>

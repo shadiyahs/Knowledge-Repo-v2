@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortude — IT Market & Demand Trends 2026 | Part 4</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D2138;--navy-mid:#1A2B45;--cyan:#27B5E8;--orange:#F05A28;--ice:#EBF4F8;--muted:#8A9BAB;--white:#fff;--body:#4A6077;--card-border:rgba(13,33,56,0.08);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--ice);color:var(--navy-mid);font-size:14px;line-height:1.6;}
+.top-nav{background:var(--navy);padding:0 48px;display:flex;align-items:center;position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(39,181,232,0.12);}
+.nav-logo{font-size:15px;font-weight:600;margin-right:32px;padding:14px 0;letter-spacing:-.02em;white-space:nowrap;flex-shrink:0;}
+.nav-logo .f{color:var(--orange)}.nav-logo .rest{color:var(--white)}
+.nav-scroll{display:flex;overflow-x:auto;scrollbar-width:none;}
+.nav-scroll::-webkit-scrollbar{display:none;}
+.nbtn{padding:15px 13px;font-size:11px;font-weight:500;letter-spacing:.04em;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.nbtn:hover{color:var(--white);}.nbtn.on{color:var(--cyan);border-bottom-color:var(--cyan);}
+.nav-tag{font-size:9px;font-weight:600;padding:2px 7px;border-radius:8px;background:rgba(240,90,40,0.2);color:#FCA99B;margin-left:auto;flex-shrink:0;align-self:center;}
+.panel{display:none;}.panel.active{display:block;}
+.main{max-width:1100px;margin:0 auto;padding:40px 36px 72px;}
+.ov-cover{background:var(--navy);border-radius:12px 12px 0 0;padding:36px 40px 28px;position:relative;overflow:hidden;}
+.ov-cover::before{content:'';position:absolute;top:-120px;right:-120px;width:380px;height:380px;border-radius:50%;border:1px solid rgba(39,181,232,0.08);}
+.ov-cover::after{content:'';position:absolute;top:-50px;right:-50px;width:220px;height:220px;border-radius:50%;border:1px solid rgba(39,181,232,0.12);}
+.ov-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;}
+.ov-title{font-family:'DM Serif Display',serif;font-size:30px;color:var(--white);line-height:1.1;margin-bottom:10px;}
+.ov-title span{color:var(--cyan);}
+.ov-sub{font-size:12.5px;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7;max-width:580px;margin-bottom:16px;}
+.ov-meta{display:flex;gap:6px;flex-wrap:wrap;}
+.ov-chip{font-size:8.5px;font-weight:600;padding:3px 10px;border-radius:10px;letter-spacing:.04em;}
+.ov-chip.date{background:rgba(39,181,232,0.18);color:#93C5FD;border:1px solid rgba(39,181,232,0.25);}
+.ov-chip.src{background:rgba(255,255,255,0.07);color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,0.1);}
+.ov-body{display:grid;grid-template-columns:1fr 270px;background:var(--white);border-radius:0 0 12px 12px;border:1px solid var(--card-border);border-top:none;margin-bottom:24px;}
+.feed{padding:22px 24px;}
+.feed-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:12px;}
+.filter-row{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap;}
+.fpill{font-size:9px;font-weight:600;padding:3px 10px;border-radius:10px;cursor:pointer;border:1px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif;background:transparent;}
+.fpill.all.on{background:var(--navy);color:var(--white);border-color:var(--navy);}
+.fpill.us{background:rgba(59,130,246,0.1);color:#1D4ED8;border-color:rgba(59,130,246,0.25);}
+.fpill.us.on{background:#1D4ED8;color:#fff;}
+.fpill.anz{background:rgba(16,185,129,0.1);color:#065F46;border-color:rgba(16,185,129,0.25);}
+.fpill.anz.on{background:#065F46;color:#fff;}
+.fpill.eu{background:rgba(139,92,246,0.1);color:#4C1D95;border-color:rgba(139,92,246,0.25);}
+.fpill.eu.on{background:#4C1D95;color:#fff;}
+.fpill.amea{background:rgba(245,158,11,0.1);color:#78350F;border-color:rgba(245,158,11,0.25);}
+.fpill.amea.on{background:#78350F;color:#fff;}
+.signal{display:flex;gap:10px;padding:11px 12px;background:var(--white);border-radius:8px;margin-bottom:7px;border:1px solid var(--card-border);cursor:pointer;transition:border-color .15s;}
+.signal:hover{border-color:var(--cyan);}.signal.hidden{display:none;}
+.sig-bar{width:3px;border-radius:2px;flex-shrink:0;align-self:stretch;}
+.sig-bar.erp{background:#27B5E8;}.sig-bar.dig{background:#F05A28;}.sig-bar.aut{background:#F59E0B;}.sig-bar.qe{background:#10B981;}.sig-bar.age{background:#8B5CF6;}
+.sig-content{flex:1;}
+.sig-domain{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
+.sig-domain.erp{color:#27B5E8;}.sig-domain.dig{color:#F05A28;}.sig-domain.aut{color:#F59E0B;}.sig-domain.qe{color:#10B981;}.sig-domain.age{color:#8B5CF6;}
+.sig-title{font-size:11.5px;font-weight:500;color:var(--navy);line-height:1.3;margin-bottom:5px;}
+.sig-meta{display:flex;gap:4px;align-items:center;flex-wrap:wrap;}
+.sig-src{font-size:8px;font-weight:600;padding:1.5px 6px;border-radius:5px;background:rgba(13,33,56,0.06);color:var(--muted);}
+.sig-urg{font-size:8px;font-weight:600;padding:1.5px 6px;border-radius:5px;}
+.urg-cr{background:#FEE2E2;color:#991B1B;}.urg-hi{background:#FEF3C7;color:#92400E;}.urg-ri{background:#D1FAE5;color:#065F46;}
+.reg-tag{font-size:7.5px;font-weight:700;padding:1.5px 5px;border-radius:4px;letter-spacing:.03em;}
+.rt-us{background:rgba(59,130,246,0.12);color:#1D4ED8;}.rt-anz{background:rgba(16,185,129,0.12);color:#065F46;}.rt-eu{background:rgba(139,92,246,0.12);color:#4C1D95;}.rt-amea{background:rgba(245,158,11,0.12);color:#78350F;}
+.heat{background:var(--navy);padding:22px 20px;border-left:1px solid rgba(39,181,232,0.1);border-radius:0 0 12px 0;}
+.heat-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:16px;}
+.heat-row{margin-bottom:11px;}
+.heat-lbl{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
+.heat-name{font-size:10px;font-weight:500;color:rgba(255,255,255,.7);}
+.heat-urg{font-size:8px;font-weight:600;}
+.heat-urg.cr{color:#F87171;}.heat-urg.hi{color:#FCD34D;}.heat-urg.ri{color:#6EE7B7;}
+.heat-bg{background:rgba(255,255,255,.07);border-radius:4px;height:6px;}
+.heat-fill{height:6px;border-radius:4px;}
+.heat-legend{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);}
+.heat-legend-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;}
+.hl-item{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
+.hl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.hl-text{font-size:10px;color:rgba(255,255,255,.45);}
+.sh{background:var(--navy);border-radius:12px;padding:28px 36px 24px;position:relative;overflow:hidden;}
+.sh::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;border-radius:50%;border:1px solid rgba(39,181,232,0.08);}
+.sh-num{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.sh-title{font-family:'DM Serif Display',serif;font-size:26px;color:var(--white);line-height:1.1;margin-bottom:10px;}
+.sh-title span{color:var(--cyan);}
+.sh-desc{font-size:12px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.7;max-width:600px;margin-bottom:14px;}
+.sh-regions{display:flex;gap:6px;flex-wrap:wrap;}
+.reg{font-size:8.5px;font-weight:600;padding:3px 9px;border-radius:10px;letter-spacing:.04em;}
+.reg-us{background:rgba(59,130,246,0.2);color:#93C5FD;border:1px solid rgba(59,130,246,0.28);}
+.reg-anz{background:rgba(16,185,129,0.2);color:#6EE7B7;border:1px solid rgba(16,185,129,0.28);}
+.reg-eu{background:rgba(139,92,246,0.2);color:#C4B5FD;border:1px solid rgba(139,92,246,0.28);}
+.reg-amea{background:rgba(245,158,11,0.2);color:#FCD34D;border:1px solid rgba(245,158,11,0.28);}
+.domain-card{background:var(--white);border-radius:0 0 12px 12px;border:1px solid var(--card-border);border-top:none;margin-bottom:24px;}
+.pq-row{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--card-border);}
+.pq{padding:18px 22px;border-right:1px solid var(--card-border);}
+.pq:last-child{border-right:none;}
+.pq-src{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;display:flex;align-items:center;gap:5px;}
+.pq-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.pq-stat{font-family:'DM Serif Display',serif;font-size:28px;color:var(--navy);line-height:1;margin-bottom:5px;}
+.pq-stat.cy{color:var(--cyan);}.pq-stat.or{color:var(--orange);}
+.pq-desc{font-size:11px;font-weight:300;color:var(--body);line-height:1.55;}
+.sc{display:inline-flex;align-items:center;font-size:8px;font-weight:700;padding:2px 6px;border-radius:6px;letter-spacing:.04em;margin-right:2px;}
+.sc-g{background:#EEEDFE;color:#3C3489;}.sc-m{background:#E1F5EE;color:#085041;}.sc-i{background:#FAECE7;color:#712B13;}
+.sc-f{background:#FBEAF0;color:#72243E;}.sc-d{background:#E6F1FB;color:#0C447C;}.sc-p{background:#FCEBEB;color:#791F1F;}
+.sc-in{background:rgba(232,75,40,0.1);color:#B83E16;border:1px solid rgba(232,75,40,0.18);}
+.sc-ms{background:rgba(0,120,212,0.1);color:#0063B1;border:1px solid rgba(0,120,212,0.18);}
+.sc-nr{background:rgba(245,158,11,0.1);color:#78350F;border:1px solid rgba(245,158,11,0.18);}
+.sc-bo{background:rgba(16,185,129,0.1);color:#065F46;border:1px solid rgba(16,185,129,0.18);}
+.ins{padding:20px 28px;border-bottom:1px solid var(--card-border);}
+.ins-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;}
+.ins-bar{width:3px;border-radius:2px;flex-shrink:0;margin-top:3px;height:44px;}
+.ins-bar.cy{background:var(--cyan);}.ins-bar.or{background:var(--orange);}
+.ins-head-r{flex:1;}
+.ins-src-row{display:flex;gap:4px;margin-bottom:5px;flex-wrap:wrap;}
+.ins-title{font-size:12.5px;font-weight:600;color:var(--navy);line-height:1.35;}
+.ins-body{font-size:11.5px;font-weight:300;color:var(--body);line-height:1.65;margin-bottom:12px;}
+.fopp{background:#EBF4F8;border-left:3px solid var(--cyan);border-radius:0 8px 8px 0;padding:12px 16px;}
+.fopp-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cyan);margin-bottom:4px;}
+.fopp-text{font-size:11.5px;font-weight:400;color:var(--navy-mid);line-height:1.6;}
+.tc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:20px 28px;background:#FAFAFA;}
+.tc{background:var(--white);border-radius:8px;padding:14px 16px;border:1px solid var(--card-border);position:relative;}
+.tc::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;border-radius:8px 8px 0 0;}
+.tc.cy::before{background:var(--cyan);}.tc.or::before{background:var(--orange);}
+.tc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.tc-title{font-size:11.5px;font-weight:600;color:var(--navy);line-height:1.3;flex:1;padding-right:8px;}
+.urgency{font-size:8px;font-weight:600;padding:2px 7px;border-radius:8px;white-space:nowrap;flex-shrink:0;}
+.tc-body{font-size:11px;font-weight:300;color:var(--body);line-height:1.6;margin-bottom:8px;}
+.tc-foot{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid rgba(13,33,56,0.06);}
+.tc-opp{font-size:9px;font-weight:500;color:var(--orange);}
+.reg-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--card-border);}
+.rs{padding:16px 18px;border-right:1px solid var(--card-border);}
+.rs:last-child{border-right:none;}
+.rs-label{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.rs-label.us{color:#3B82F6;}.rs-label.anz{color:#10B981;}.rs-label.eu{color:#8B5CF6;}.rs-label.amea{color:#F59E0B;}
+.rs-ind{font-size:9.5px;font-weight:600;color:var(--navy);margin-bottom:4px;}
+.rs-signal{font-size:10.5px;font-weight:300;color:var(--body);line-height:1.5;}
+.src-legend{padding:12px 28px;border-top:1px solid var(--card-border);display:flex;gap:5px;flex-wrap:wrap;align-items:center;background:#FAFAFA;border-radius:0 0 12px 12px;}
+.src-legend-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-right:4px;}
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <div class="nav-logo"><span class="f">F</span><span class="rest">ortude</span></div>
+  <div class="nav-scroll">
+    <button class="nbtn on" onclick="showTab('overview',this)">Market overview</button>
+    <button class="nbtn" onclick="showTab('erp',this)">ERP</button>
+    <button class="nbtn" onclick="showTab('digital',this)">Digital &amp; AI</button>
+    <button class="nbtn" onclick="showTab('agentic',this)">Agentic AI</button>
+    <button class="nbtn" onclick="showTab('automation',this)">Automation</button>
+    <button class="nbtn" onclick="showTab('qe',this)">Quality engineering</button>
+  </div>
+  <div class="nav-tag">Part 4 — 2026</div>
+</div>
+
+<!-- OVERVIEW -->
+<div id="overview" class="panel active">
+<div class="main">
+  <div class="ov-cover">
+    <div class="ov-label">Fortude — IT Market &amp; Demand Trends 2026</div>
+    <div class="ov-title">Technology signals &amp; <span>demand radar</span></div>
+    <div class="ov-sub">Key trends, market forces and opportunity signals across Fortude's service domains — mapped to Fashion, F&amp;B, Distribution and Manufacturing across Americas, ANZ, UK &amp; EU, and AMEA.</div>
+    <div class="ov-meta">
+      <span class="ov-chip date">Q2 2026</span>
+      <span class="ov-chip src">Sources: Gartner · McKinsey · IDC · Forrester · Deloitte · PwC · Infor · Mordor Intelligence · ECI Solutions · Rootstock · Nucleus Research</span>
+    </div>
+  </div>
+  <div class="ov-body">
+    <div class="feed">
+      <div class="feed-title">Top signals — sorted by urgency</div>
+      <div class="filter-row">
+        <button class="fpill all on" onclick="filterSignals('all',this)">All regions</button>
+        <button class="fpill us" onclick="filterSignals('us',this)">Americas</button>
+        <button class="fpill anz" onclick="filterSignals('anz',this)">ANZ</button>
+        <button class="fpill eu" onclick="filterSignals('eu',this)">UK &amp; EU</button>
+        <button class="fpill amea" onclick="filterSignals('amea',this)">AMEA</button>
+      </div>
+      <div class="signal" data-regions="us anz eu amea"><div class="sig-bar erp"></div><div class="sig-content"><div class="sig-domain erp">ERP — Infor &amp; Dynamics</div><div class="sig-title">Infor named Gartner Magic Quadrant Leader for Cloud ERP — narrow partner network creates structural scarcity advantage for Fortude</div><div class="sig-meta"><span class="sig-src">Gartner 2025</span><span class="sig-src">6sense</span><span class="sig-urg urg-cr">Critical</span><span class="reg-tag rt-us">Americas</span><span class="reg-tag rt-anz">ANZ</span><span class="reg-tag rt-eu">UK &amp; EU</span><span class="reg-tag rt-amea">AMEA</span></div></div></div>
+      <div class="signal" data-regions="eu amea"><div class="sig-bar erp"></div><div class="sig-content"><div class="sig-domain erp">ERP — Fashion &amp; F&amp;B</div><div class="sig-title">EU Digital Product Passport for textiles mandatory from 2027 — ERP and supply chain data infrastructure required now</div><div class="sig-meta"><span class="sig-src">EU Commission</span><span class="sig-src">McKinsey</span><span class="sig-urg urg-cr">Critical</span><span class="reg-tag rt-eu">UK &amp; EU</span><span class="reg-tag rt-amea">AMEA</span></div></div></div>
+      <div class="signal" data-regions="anz"><div class="sig-bar dig"></div><div class="sig-content"><div class="sig-domain dig">Digital &amp; AI</div><div class="sig-title">ANZ digital transformation growing at 26% CAGR 2026–2031 — fastest-growth region in Fortude's portfolio</div><div class="sig-meta"><span class="sig-src">Mordor Intelligence</span><span class="sig-urg urg-cr">Critical</span><span class="reg-tag rt-anz">ANZ</span></div></div></div>
+      <div class="signal" data-regions="us anz eu amea"><div class="sig-bar age"></div><div class="sig-content"><div class="sig-domain age">Agentic AI</div><div class="sig-title">40% of enterprise apps to include task-specific AI agents by end 2026 — up from less than 5% in 2025</div><div class="sig-meta"><span class="sig-src">Gartner</span><span class="sig-src">Deloitte</span><span class="sig-urg urg-cr">Critical</span><span class="reg-tag rt-us">Americas</span><span class="reg-tag rt-anz">ANZ</span><span class="reg-tag rt-eu">UK &amp; EU</span><span class="reg-tag rt-amea">AMEA</span></div></div></div>
+      <div class="signal" data-regions="us anz eu"><div class="sig-bar erp"></div><div class="sig-content"><div class="sig-domain erp">ERP — Manufacturing</div><div class="sig-title">94% of manufacturers now using AI — ERP platform consolidation cited as #1 priority by 49% of respondents in 2026</div><div class="sig-meta"><span class="sig-src">Rootstock 2026</span><span class="sig-src">ECI Solutions</span><span class="sig-urg urg-cr">Critical</span><span class="reg-tag rt-us">Americas</span><span class="reg-tag rt-anz">ANZ</span><span class="reg-tag rt-eu">UK &amp; EU</span></div></div></div>
+      <div class="signal" data-regions="us anz eu amea"><div class="sig-bar erp"></div><div class="sig-content"><div class="sig-domain erp">ERP — Dynamics</div><div class="sig-title">Microsoft enforcing Dynamics 365 F&amp;SCM user licensing from January 2026 — immediate compliance review trigger across all regions</div><div class="sig-meta"><span class="sig-src">Microsoft</span><span class="sig-urg urg-cr">Critical</span><span class="reg-tag rt-us">Americas</span><span class="reg-tag rt-anz">ANZ</span><span class="reg-tag rt-eu">UK &amp; EU</span><span class="reg-tag rt-amea">AMEA</span></div></div></div>
+      <div class="signal" data-regions="us anz eu amea"><div class="sig-bar qe"></div><div class="sig-content"><div class="sig-domain qe">Quality engineering</div><div class="sig-title">80% of software testing will use AI-augmented tools by 2026 — Testing-as-a-Service the fastest-growing delivery model</div><div class="sig-meta"><span class="sig-src">Gartner</span><span class="sig-src">Thinksys</span><span class="sig-urg urg-hi">High</span><span class="reg-tag rt-us">Americas</span><span class="reg-tag rt-anz">ANZ</span><span class="reg-tag rt-eu">UK &amp; EU</span><span class="reg-tag rt-amea">AMEA</span></div></div></div>
+      <div class="signal" data-regions="us eu amea"><div class="sig-bar aut"></div><div class="sig-content"><div class="sig-domain aut">Intelligent automation</div><div class="sig-title">RPA market growing from $35B in 2026 to $247B by 2035 as it evolves into the agentic AI execution layer</div><div class="sig-meta"><span class="sig-src">Precedence Research</span><span class="sig-src">Blue Prism</span><span class="sig-urg urg-hi">High</span><span class="reg-tag rt-us">Americas</span><span class="reg-tag rt-eu">UK &amp; EU</span></div></div></div>
+    </div>
+    <div class="heat">
+      <div class="heat-title">Opportunity heat map</div>
+      <div class="heat-row"><div class="heat-lbl"><span class="heat-name">ERP — Infor &amp; Dynamics</span><span class="heat-urg cr">Critical</span></div><div class="heat-bg"><div class="heat-fill" style="width:96%;background:#27B5E8;"></div></div></div>
+      <div class="heat-row"><div class="heat-lbl"><span class="heat-name">Digital &amp; AI advisory</span><span class="heat-urg cr">Critical</span></div><div class="heat-bg"><div class="heat-fill" style="width:93%;background:#F05A28;"></div></div></div>
+      <div class="heat-row"><div class="heat-lbl"><span class="heat-name">Agentic AI</span><span class="heat-urg cr">Critical</span></div><div class="heat-bg"><div class="heat-fill" style="width:90%;background:#8B5CF6;"></div></div></div>
+      <div class="heat-row"><div class="heat-lbl"><span class="heat-name">Data &amp; analytics</span><span class="heat-urg hi">High</span></div><div class="heat-bg"><div class="heat-fill" style="width:84%;background:#F59E0B;"></div></div></div>
+      <div class="heat-row"><div class="heat-lbl"><span class="heat-name">Quality engineering</span><span class="heat-urg hi">High</span></div><div class="heat-bg"><div class="heat-fill" style="width:78%;background:#10B981;"></div></div></div>
+      <div class="heat-row"><div class="heat-lbl"><span class="heat-name">Intelligent automation</span><span class="heat-urg hi">High</span></div><div class="heat-bg"><div class="heat-fill" style="width:72%;background:#F59E0B;"></div></div></div>
+      <div class="heat-row"><div class="heat-lbl"><span class="heat-name">Digital advisory</span><span class="heat-urg ri">Rising</span></div><div class="heat-bg"><div class="heat-fill" style="width:65%;background:#27B5E8;"></div></div></div>
+      <div class="heat-legend">
+        <div class="heat-legend-title">Region legend</div>
+        <div class="hl-item"><div class="hl-dot" style="background:#3B82F6;"></div><span class="hl-text">Americas</span></div>
+        <div class="hl-item"><div class="hl-dot" style="background:#10B981;"></div><span class="hl-text">ANZ</span></div>
+        <div class="hl-item"><div class="hl-dot" style="background:#8B5CF6;"></div><span class="hl-text">UK &amp; EU</span></div>
+        <div class="hl-item"><div class="hl-dot" style="background:#F59E0B;"></div><span class="hl-text">AMEA</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ERP -->
+<div id="erp" class="panel">
+<div class="main">
+  <div class="sh">
+    <div class="sh-num">Service domain 01</div>
+    <div class="sh-title">ERP — Infor M3, <span>CloudSuite</span> &amp; Dynamics 365</div>
+    <div class="sh-desc">Fortude is one of a small number of globally capable Infor specialists. The platform's intentionally narrow partner network creates structural leverage — clients in Fashion, F&amp;B, Distribution and Manufacturing have limited implementation choices, and fewer still who can activate the AI layer embedded in Infor OS, Coleman and GenAI on top.</div>
+    <div class="sh-regions">
+      <span class="reg reg-us">Americas — Fashion · Distribution · Manufacturing</span>
+      <span class="reg reg-anz">ANZ — F&amp;B · Distribution · Manufacturing</span>
+      <span class="reg reg-eu">UK &amp; EU — Fashion · F&amp;B · Distribution · Manufacturing</span>
+      <span class="reg reg-amea">AMEA — Fashion · F&amp;B · Distribution · Manufacturing</span>
+    </div>
+  </div>
+  <div class="domain-card">
+    <div class="pq-row">
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#3C3489;"></div>Gartner — 2025</div><div class="pq-stat cy">Leader</div><div class="pq-desc">Infor named a Leader in the 2025 Gartner Magic Quadrant for Cloud ERP for Product-Centric Enterprises — validating the platform to sceptical buyers across all regions</div></div>
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#712B13;"></div>Nucleus Research</div><div class="pq-stat">37%</div><div class="pq-desc">reduction in integration costs and complexity for Infor customers deploying AI — alongside 30% faster AI deployment and 10–20% improved model accuracy</div></div>
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#085041;"></div>6sense — 2026</div><div class="pq-stat or">58%</div><div class="pq-desc">of Infor ERP's global customer base is in the United States — with the UK and France as the next two largest markets, confirming Fortude's geographic focus is aligned with Infor's actual installed base</div></div>
+    </div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar cy"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-in">INFOR</span><span class="sc sc-g">GARTNER</span><span class="sc sc-nr">NUCLEUS RESEARCH</span></div><div class="ins-title">Infor's narrow partner ecosystem is Fortude's most durable commercial advantage</div></div></div><div class="ins-body">Unlike SAP or Microsoft Dynamics with thousands of certified partners, Infor's implementation ecosystem is intentionally thin. Clients committing to CloudSuite Fashion, Food &amp; Beverage, Distribution or Industrial have limited choice of partners who can implement well — and even fewer who can activate Coleman AI, the GenAI Assistant and Birst analytics post go-live. Nearly 70% of companies globally struggle to realise AI value due to fragmented data and siloed systems. The configuration, data readiness and change management layer is where most Infor projects stall — and where Fortude's depth creates relationships that are genuinely difficult for clients to walk away from.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">Position as the long-term activation partner for Infor's AI roadmap — not just implementation. Clients who go live without this layer leave measurable ROI untouched. Switching implementation partners mid-journey is the single biggest project risk a client can take on, making Fortude the natural incumbent for every subsequent phase.</div></div></div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar or"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-in">INFOR</span><span class="sc sc-g">GARTNER</span></div><div class="ins-title">Infor's AI roadmap — from GenAI to autonomous enterprise — requires specialist partners at every stage</div></div></div><div class="ins-body">Infor's platform now includes the GenAI Assistant (conversational AI trained on each company's own data), Coleman AI for predictive and prescriptive use cases, and Value+ solutions for enterprise automations, insights and advanced workspaces. For F&amp;B specifically, Infor's stated roadmap moves from Industry Cloud ERP as the data foundation through GenAI Assistants, AI Augmentation for recipe and yield optimisation, Process Mining, and ultimately AI agents operating with minimal human intervention. Infor has also launched new micro-vertical, role-based AI agents infused directly into CloudSuite processes for F&amp;B, fashion and distribution. Each stage requires a specialist partner to configure, test, govern and embed — which is exactly Fortude's capability.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">Use Infor's published AI roadmap as a structured client conversation tool — mapping where each client sits on the maturity curve and what the next investment phase should look like. This reframes every existing ERP relationship as an ongoing advisory engagement rather than a closed implementation project.</div></div></div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar cy"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-ms">MICROSOFT</span><span class="sc sc-g">GARTNER</span></div><div class="ins-title">Dynamics 365 licensing enforcement creates an immediate outreach trigger across all four regions</div></div></div><div class="ins-body">From January 2026, Microsoft enforced user licensing for Dynamics 365 F&amp;SCM — creating compliance pressure and a natural review moment for clients on legacy configurations. The global ERP software market was $81.3B in 2026, growing at 12% CAGR to $225.4B by 2035, with cloud-native deployment now at 55%+ of new implementations. For Fortude's secondary Dynamics practice, this is an active door-opener across all four regions, particularly in mid-market manufacturing and distribution where configuration debt accumulates. The Europe ERP market alone is $26.6B in 2026, growing at 9.56% CAGR through 2035.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">Use the licensing enforcement moment as a structured outreach trigger with existing and prospective Dynamics clients. Frame it as a compliance health-check that leads naturally into an optimisation and AI-readiness conversation.</div></div></div>
+    <div class="tc-grid">
+      <div class="tc cy"><div class="tc-head"><div class="tc-title">European manufacturing: 96% prioritising efficiency through technology in 2026</div><div class="urgency urg-cr">Critical</div></div><div class="tc-body">84% of European manufacturers are still in early stages of digitalisation. 72% use ERP to improve costing, 65% for production planning — but only 37% for forecasting. For UK manufacturing specifically, the sector is valued at £210bn and the government is targeting £39bn in advanced manufacturing investment by 2035. The untapped potential in strategic ERP data use is enormous across the region.</div><div class="tc-foot"><div><span class="sc sc-nr">ECI SOLUTIONS</span><span class="sc sc-g">MORDOR</span></div><div class="tc-opp">↳ UK &amp; EU manufacturing signal</div></div></div>
+      <div class="tc or"><div class="tc-head"><div class="tc-title">AMEA manufacturers pursuing digital-first at scale — Infor already active in the region</div><div class="urgency urg-hi">High</div></div><div class="tc-body">71% of MEA manufacturers are pursuing a digital-first approach. Infor already operates with manufacturing clients across UAE and Saudi Arabia. Middle East digital transformation is growing at 25.25% CAGR to $179.7B by 2030, driven by government-backed manufacturing modernisation programmes. F&amp;B supply chains and apparel manufacturing are key targets alongside the industrial base.</div><div class="tc-foot"><div><span class="sc sc-in">INFOR</span><span class="sc sc-i">MORDOR</span></div><div class="tc-opp">↳ AMEA growth signal</div></div></div>
+      <div class="tc cy"><div class="tc-head"><div class="tc-title">ANZ manufacturing SMEs shifting to cloud ERP — Infor M3 expanding in mid-market factories</div><div class="urgency urg-hi">High</div></div><div class="tc-body">Manufacturing SMEs in ANZ are actively adopting cloud-native supply chain systems, with Infor M3 coverage expanding to mid-market factories through channel partners. 45% of ANZ businesses report siloed systems limiting growth. ANZ digital transformation market growing at 26.05% CAGR to $150.6B by 2031 — manufacturing is a core end-user segment alongside F&amp;B.</div><div class="tc-foot"><div><span class="sc sc-i">MORDOR INTELLIGENCE</span></div><div class="tc-opp">↳ ANZ manufacturing signal</div></div></div>
+      <div class="tc or"><div class="tc-head"><div class="tc-title">Americas tariffs and trade volatility driving urgency for supply chain systems investment</div><div class="urgency urg-cr">Critical</div></div><div class="tc-body">US tariffs are reshaping global fashion, distribution and manufacturing supply chains. 39% of manufacturers expect higher raw material costs tied to trade pressures. 61% plan to increase enterprise software spend in the next 12 months. Operational and production performance is the top IT investment driver at 40% — directly aligned with what Infor CloudSuite delivers.</div><div class="tc-foot"><div><span class="sc sc-m">McKINSEY</span><span class="sc sc-nr">ROOTSTOCK 2026</span></div><div class="tc-opp">↳ Americas urgency signal</div></div></div>
+    </div>
+    <div class="reg-strip">
+      <div class="rs"><div class="rs-label us">Americas</div><div class="rs-ind">Fashion · Distribution · Manufacturing</div><div class="rs-signal">US tariffs reshaping global supply chains. Dynamics licensing enforcement creates outreach opportunity. 61% of manufacturers increasing software spend in 2026. Steve Madden-scale complexity demands multi-entity, multi-site Infor depth.</div></div>
+      <div class="rs"><div class="rs-label anz">ANZ</div><div class="rs-ind">F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">Enterprise F&amp;B (Bega-scale) requiring lot traceability and yield optimisation in CloudSuite. Manufacturing SMEs adopting cloud-native supply chain systems. Infor M3 expanding in mid-market factories. AUD 172.3B IT spend forecast 2026.</div></div>
+      <div class="rs"><div class="rs-label eu">UK &amp; EU</div><div class="rs-ind">Fashion · F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">EU DPP for textiles from 2027. 84% of EU manufacturers in early digitalisation stages. Europe ERP market $26.6B at 9.56% CAGR. UK government targeting £39bn in advanced manufacturing investment by 2035.</div></div>
+      <div class="rs"><div class="rs-label amea">AMEA</div><div class="rs-ind">Fashion · F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">71% of MEA manufacturers pursuing digital-first. Infor active with UAE and KSA manufacturing clients. Middle East DX at 25.25% CAGR. Apparel manufacturing modernisation across South Asia (Brandix-scale) driving Infor demand.</div></div>
+    </div>
+    <div class="src-legend"><span class="src-legend-label">Sources</span><span class="sc sc-g">Gartner</span><span class="sc sc-in">Infor</span><span class="sc sc-nr">Nucleus Research</span><span class="sc sc-ms">Microsoft</span><span class="sc sc-i">IDC / Mordor</span><span class="sc sc-m">McKinsey</span><span class="sc sc-nr">ECI Solutions</span><span class="sc sc-nr">Rootstock</span><span class="sc sc-bo">6sense</span></div>
+  </div>
+</div>
+</div>
+
+<!-- DIGITAL & AI -->
+<div id="digital" class="panel">
+<div class="main">
+  <div class="sh">
+    <div class="sh-num">Service domain 02</div>
+    <div class="sh-title">Digital — Strategy, Transformation, <span>Data, Analytics &amp; AI</span></div>
+    <div class="sh-desc">Digital is Fortude's priority growth practice. The market is timing this well — enterprises are moving from isolated AI pilots to full-scale production deployment, and demand for trusted advisory partners who can connect strategy through to data, AI and measurable outcomes has never been higher. Fortude's ERP heritage provides a natural data foundation that pure-play digital firms cannot replicate.</div>
+    <div class="sh-regions"><span class="reg reg-us">Americas</span><span class="reg reg-anz">ANZ</span><span class="reg reg-eu">UK &amp; EU</span><span class="reg reg-amea">AMEA</span></div>
+  </div>
+  <div class="domain-card">
+    <div class="pq-row">
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#3C3489;"></div>Business Research Insights</div><div class="pq-stat cy">$116B</div><div class="pq-desc">AI consulting market by 2035, growing from $14.07B in 2026 at 26.49% CAGR — the fastest-growing segment in professional services globally</div></div>
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#085041;"></div>Mordor Intelligence — 2026</div><div class="pq-stat">26%</div><div class="pq-desc">CAGR for the ANZ digital transformation market 2026–2031, growing from $47.3B to $150.6B — the fastest-growth region in Fortude's entire portfolio</div></div>
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#712B13;"></div>IDC — 2026</div><div class="pq-stat or">$4T</div><div class="pq-desc">global digital transformation investment projected by 2028, accounting for approximately 70% of total ITC spend — with manufacturing holding the largest end-user share in Europe at 19.83%</div></div>
+    </div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar cy"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-g">GARTNER</span><span class="sc sc-d">DELOITTE</span><span class="sc sc-p">PWC</span></div><div class="ins-title">The AI governance gap is the most valuable advisory space in 2026 — strategy is outrunning operational control</div></div></div><div class="ins-body">42% of companies believe their AI strategy is highly prepared, but only 30% say the same about risk and governance. Gartner predicts more than 40% of agentic AI projects will be cancelled by 2027 due to escalating costs, unclear business value and inadequate risk controls. The EU AI Act creates formal compliance obligations most organisations are not equipped to meet. In fashion, up to 90% of transformative AI projects are stuck at pilot stage due to structural and cultural barriers. In F&amp;B, 60% of AI initiatives will struggle to reach production scale due to data quality gaps. The failure is not caused by models — it is caused by absent governance frameworks.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">A governance-first Digital practice differentiates Fortude from pure-play AI implementers who skip the controls layer. EU AI Act compliance, responsible AI frameworks and model auditing are in structural demand — especially from Fortude's existing Infor client base who are beginning their AI journey on top of ERP data that Fortude already understands.</div></div></div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar or"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-i">IDC</span><span class="sc sc-g">GARTNER</span><span class="sc sc-m">McKINSEY</span></div><div class="ins-title">Data quality is the #1 blocker for AI — and ERP-sourced data is Fortude's natural entry point for data advisory</div></div></div><div class="ins-body">Companies with strong data integration achieve $3.7x average ROI from AI versus $1x for those without — top AI leaders achieve $10.3x (IDC, 4,000+ businesses surveyed). 60% of AI initiatives globally will struggle to reach production scale due to AI-ready data gaps. Gartner estimates poor data quality costs enterprises $12.9M per year. Fortude's ERP implementation work creates the cleanest, most structured enterprise data available — which is the exact foundation every analytics and AI project needs. This creates a natural and defensible data advisory service that organic-digital firms cannot replicate.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">Position data readiness assessment as the natural next step after every ERP go-live. The client's Infor data is already structured and governed by Fortude — turning it into analytics-ready, AI-ready infrastructure is a short, high-value engagement that creates the pull-through for every subsequent Digital service across all four regions.</div></div></div>
+    <div class="tc-grid">
+      <div class="tc cy"><div class="tc-head"><div class="tc-title">ANZ — fastest-growing digital advisory market in Fortude's portfolio</div><div class="urgency urg-cr">Critical</div></div><div class="tc-body">Australia management consulting market at $9.43B in 2026, digital transformation the largest segment at 19.94% share growing at 8.02% CAGR. Government mandates requiring 40% of public sector roles to incorporate AI tools. Australia IT services market growing from $36.7B to $84.2B by 2034. Queensland AUD 1B Digital Economy Strategy mandating cloud-first architectures and AI-enabled workflows.</div><div class="tc-foot"><div><span class="sc sc-i">MORDOR</span><span class="sc sc-i">IMARC</span></div><div class="tc-opp">↳ ANZ growth signal</div></div></div>
+      <div class="tc or"><div class="tc-head"><div class="tc-title">UK &amp; EU — $442B digital transformation market, manufacturing the largest end-user segment</div><div class="urgency urg-hi">High</div></div><div class="tc-body">Europe digital transformation at $442.11B in 2026 growing at 9.38% CAGR to $692B by 2031. Manufacturing holds 19.83% of European digital transformation spend. UK digital transformation at $70.86B growing at 14.62% CAGR. Generative AI platforms forecast at 23.6% CAGR — the fastest technology segment. EU Digital Decade targets 75% enterprise adoption of cloud, AI and big data by 2030.</div><div class="tc-foot"><div><span class="sc sc-i">MORDOR INTELLIGENCE</span></div><div class="tc-opp">↳ UK &amp; EU market size</div></div></div>
+      <div class="tc cy"><div class="tc-head"><div class="tc-title">Industry-specific AI outperforms generic AI in Fortude's core verticals</div><div class="urgency urg-hi">High</div></div><div class="tc-body">Generic AI struggles with fashion supply chain complexity, F&amp;B shelf-life rules, allergens, catch weights and seasonal variables. Industry-specific AI — including Infor Coleman and GenAI — delivers far better outcomes in manufacturing, distribution, fashion and F&amp;B. Clients need advisory partners who understand both industry logic and the AI layer. This is Fortude's unique position.</div><div class="tc-foot"><div><span class="sc sc-in">INFOR</span><span class="sc sc-m">McKINSEY</span></div><div class="tc-opp">↳ Cross-sell from ERP</div></div></div>
+      <div class="tc or"><div class="tc-head"><div class="tc-title">AMEA — Middle East digital transformation at 25.25% CAGR, F&amp;B and manufacturing the targets</div><div class="urgency urg-ri">Rising</div></div><div class="tc-body">Middle East digital transformation growing to $179.7B by 2030. UAE 2026 identified as "the performance year" — moving from digital slogans to measurable business outcomes. Traditional manufacturing SMEs and F&amp;B supply chains across the region identified as key targets for AI and data advisory. 9 in 10 African organisations suffering negative impacts from AI skills gaps, creating structural advisory demand.</div><div class="tc-foot"><div><span class="sc sc-i">MORDOR</span><span class="sc sc-i">KHALEEJ TIMES</span></div><div class="tc-opp">↳ AMEA growth signal</div></div></div>
+    </div>
+    <div class="reg-strip">
+      <div class="rs"><div class="rs-label us">Americas</div><div class="rs-ind">All sectors</div><div class="rs-signal">North America holds 38% of AI consulting market share. 68% of large US businesses integrating AI analytics for operational decision-making. US federal AI Action Plan reducing regulatory barriers for AI in enterprise systems.</div></div>
+      <div class="rs"><div class="rs-label anz">ANZ</div><div class="rs-ind">F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">Fastest-growing region at 26.05% CAGR. AUD 172.3B IT spending forecast 2026. 40% of public sector roles mandated to incorporate AI tools. Manufacturing, F&amp;B and distribution are core end-user segments in ANZ digital transformation.</div></div>
+      <div class="rs"><div class="rs-label eu">UK &amp; EU</div><div class="rs-ind">Fashion · F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">EU Digital Decade targets 75% enterprise cloud/AI/data adoption by 2030. EUR 200B InvestAI vehicle. EU AI Act compliance creating sustained advisory demand. Manufacturing holds 19.83% of European DX spend.</div></div>
+      <div class="rs"><div class="rs-label amea">AMEA</div><div class="rs-ind">Fashion · F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">Middle East DX $58.3B at 25.25% CAGR. UAE and KSA government funding manufacturing digital transformation. 9 in 10 African organisations impacted by AI skills gaps — advisory and upskilling demand is structural.</div></div>
+    </div>
+    <div class="src-legend"><span class="src-legend-label">Sources</span><span class="sc sc-g">Gartner</span><span class="sc sc-m">McKinsey</span><span class="sc sc-i">IDC</span><span class="sc sc-d">Deloitte</span><span class="sc sc-p">PwC</span><span class="sc sc-i">Mordor Intelligence</span><span class="sc sc-in">Infor</span><span class="sc sc-i">IMARC Group</span></div>
+  </div>
+</div>
+</div>
+
+<!-- AGENTIC AI -->
+<div id="agentic" class="panel">
+<div class="main">
+  <div class="sh">
+    <div class="sh-num">Service domain 03</div>
+    <div class="sh-title">Agentic AI — <span>from pilots to production</span></div>
+    <div class="sh-desc">Agentic AI is the breakout category of 2026. The market is moving decisively from experimentation to operational deployment — and the organisations winning are those with clean data architectures, rigorous governance, and trusted implementation partners who understand both business processes and the AI layer. Fortude's cross-domain capability across ERP, data and QE positions it to build and govern these systems end-to-end.</div>
+    <div class="sh-regions"><span class="reg reg-us">Americas</span><span class="reg reg-anz">ANZ</span><span class="reg reg-eu">UK &amp; EU</span><span class="reg reg-amea">AMEA</span></div>
+  </div>
+  <div class="domain-card">
+    <div class="pq-row">
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#3C3489;"></div>Gartner — Aug 2025</div><div class="pq-stat cy">40%</div><div class="pq-desc">of enterprise apps will include task-specific AI agents by end 2026, up from less than 5% in 2025 — with agentic AI potentially generating 30% of enterprise software revenue by 2035</div></div>
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#085041;"></div>McKinsey Digital</div><div class="pq-stat">$4.4T</div><div class="pq-desc">annual value AI agents could add across enterprise use cases — including supply chain, finance and HR, the core functions of Fortude's Infor client base across all four regions</div></div>
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#712B13;"></div>Deloitte State of AI 2026</div><div class="pq-stat or">74%</div><div class="pq-desc">of enterprises expected to use agentic AI within two years, up from 23% today — signalling 2026 as the year agentic AI enters the mainstream enterprise roadmap</div></div>
+    </div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar cy"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-g">GARTNER</span><span class="sc sc-d">DELOITTE</span></div><div class="ins-title">40%+ of agentic AI projects will be cancelled by 2027 — governance is the differentiator, not the model</div></div></div><div class="ins-body">The failure rate is not caused by the technology — it is caused by escalating costs, unclear business value and inadequate risk controls. Strategy confidence is rapidly outrunning operational control: 42% of companies believe their AI strategy is highly prepared, but only 30% say the same about governance. Organisations winning with AI agents in 2026 are those with clean data architectures, rigorous monitoring and clear accountability frameworks — not necessarily those using the most advanced models. The implementation partner who builds the governance layer is the partner clients cannot afford to lose.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">Lead every agentic AI conversation with governance. Fortude's ERP data heritage means clients already have the structured foundation that most agentic AI projects lack. Combine this with a governance-first deployment approach — model auditing, EU AI Act compliance, human oversight frameworks — and Fortude occupies a position that pure-play AI firms cannot replicate.</div></div></div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar or"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-m">McKINSEY</span><span class="sc sc-i">IDC</span><span class="sc sc-in">INFOR</span></div><div class="ins-title">Multi-agent systems in manufacturing, distribution and fashion are the near-term use case — ERP data is the foundation</div></div></div><div class="ins-body">In manufacturing and distribution, proven 2026 agentic use cases include supply chain planning (AI investment shifted +19 points to 35%), predictive maintenance, demand forecasting and autonomous inventory management. In fashion, AI agents are deployed for trend forecasting, inventory risk reduction and sourcing optimisation. Infor's own roadmap for F&amp;B describes AI agents operating with minimal human intervention across production, yield and logistics. 80%+ of organisations believe AI agents are the new enterprise apps, triggering reconsideration of existing packaged application investments. Fortude's Infor implementations provide the exact data substrate these agents need to function reliably — creating a compounding land-and-expand motion across all four regions.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">The ERP to Data to Agentic AI value chain is Fortude's most defensible growth narrative. Clients who trust Fortude for Infor implementation are natural buyers of agentic AI built on top of that same data. Competitors without ERP heritage cannot replicate this starting position.</div></div></div>
+    <div class="tc-grid">
+      <div class="tc cy"><div class="tc-head"><div class="tc-title">Infor launching micro-vertical AI agents embedded directly in CloudSuite</div><div class="urgency urg-cr">Critical</div></div><div class="tc-body">Infor has announced new role-based AI agents infused directly into Infor ERP processes for F&amp;B, fashion and distribution — designed to help teams move faster, reduce errors and amplify expertise. These require specialist partners to configure, test, govern and embed into client workflows. This is an immediate revenue opportunity for Fortude's combined ERP and AI practice across all four regions.</div><div class="tc-foot"><div><span class="sc sc-in">INFOR</span></div><div class="tc-opp">↳ Immediate Infor cross-sell</div></div></div>
+      <div class="tc or"><div class="tc-head"><div class="tc-title">By 2028, 90% of B2B buying will be AI agent intermediated</div><div class="urgency urg-ri">Rising</div></div><div class="tc-body">Gartner predicts AI agent intermediation will push over $15 trillion of B2B spend through AI agent exchanges, reprogramming procurement. Traditional SEO and PPC will give way to agent engine optimisation — reshaping how fashion, F&amp;B and distribution companies transact with buyers and suppliers. Fashion companies using LLMs for product discovery and styling advice are already experiencing this shift.</div><div class="tc-foot"><div><span class="sc sc-g">GARTNER STRATEGIC PREDICTIONS</span></div><div class="tc-opp">↳ Commercial model shift</div></div></div>
+      <div class="tc cy"><div class="tc-head"><div class="tc-title">Low-code agentic platforms democratising deployment — governance gaps widening fast</div><div class="urgency urg-hi">High</div></div><div class="tc-body">Low-code platforms are enabling business users to deploy AI agents without engineering teams. This accelerates adoption but creates serious governance risk — ungoverned GenAI in commercial applications is forecast to cost B2B companies $10B+ in enterprise value (Forrester). Centre of Excellence design for agentic AI is in structural demand across all industries Fortude serves.</div><div class="tc-foot"><div><span class="sc sc-f">FORRESTER</span><span class="sc sc-g">GARTNER</span></div><div class="tc-opp">↳ Governance advisory</div></div></div>
+      <div class="tc or"><div class="tc-head"><div class="tc-title">Citigroup raises global AI capex forecast to $8.9 trillion 2026–2030</div><div class="urgency urg-hi">High</div></div><div class="tc-body">Reuters reported in March 2026 that Citigroup raised its global AI infrastructure capex forecast to $8.9 trillion, up from $8 trillion. This signals sustained enterprise investment creating demand for implementation partners who can convert capex into operational value across manufacturing, fashion, F&amp;B and distribution — not just deploy the technology.</div><div class="tc-foot"><div><span class="sc sc-i">REUTERS / CITIGROUP</span></div><div class="tc-opp">↳ Market momentum signal</div></div></div>
+    </div>
+    <div class="reg-strip">
+      <div class="rs"><div class="rs-label us">Americas</div><div class="rs-ind">Fashion · Distribution · Manufacturing</div><div class="rs-signal">US leads AI agent adoption — Salesforce reports 282% jump in AI adoption. Fashion AI use cases: trend forecasting and inventory optimisation. Distribution and manufacturing deploying agents for supply chain planning and demand forecasting at scale.</div></div>
+      <div class="rs"><div class="rs-label anz">ANZ</div><div class="rs-ind">F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">ANZ DX at 26% CAGR creates fertile agentic AI market. F&amp;B manufacturers beginning autonomous enterprise journey via Infor roadmap. 34% of ANZ mid-market businesses prioritising AI tools alongside data and analytics in next 5 years.</div></div>
+      <div class="rs"><div class="rs-label eu">UK &amp; EU</div><div class="rs-ind">Fashion · F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">EU AI Act creating compliance-driven governance demand across fashion, F&amp;B and manufacturing. Smart factory technologies in Europe moving from pilots to mainstream. Fashion brands using AI agents for DPP compliance data generation and supply chain traceability.</div></div>
+      <div class="rs"><div class="rs-label amea">AMEA</div><div class="rs-ind">Fashion · F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">UAE 2026 framed as "the performance year" for AI. Traditional manufacturing SMEs and F&amp;B supply chains are key agentic AI targets. AI governance readiness remains low — creating significant advisory demand. Apparel manufacturing scale (Brandix-level) suited to multi-agent deployment.</div></div>
+    </div>
+    <div class="src-legend"><span class="src-legend-label">Sources</span><span class="sc sc-g">Gartner</span><span class="sc sc-m">McKinsey</span><span class="sc sc-d">Deloitte</span><span class="sc sc-f">Forrester</span><span class="sc sc-in">Infor</span><span class="sc sc-i">IDC</span><span class="sc sc-i">Reuters</span></div>
+  </div>
+</div>
+</div>
+
+<!-- AUTOMATION -->
+<div id="automation" class="panel">
+<div class="main">
+  <div class="sh">
+    <div class="sh-num">Service domain 04</div>
+    <div class="sh-title">Intelligent Automation — <span>RPA, Hyperautomation &amp; Process Mining</span></div>
+    <div class="sh-desc">RPA is not declining — it is evolving into the execution layer of agentic AI. The shift from standalone bots to orchestrated hyperautomation platforms is creating a dramatically larger addressable market, and the move toward services-dominant revenue models plays directly to Fortude's offshore delivery capability and cross-industry ERP expertise.</div>
+    <div class="sh-regions"><span class="reg reg-us">Americas</span><span class="reg reg-anz">ANZ</span><span class="reg reg-eu">UK &amp; EU</span><span class="reg reg-amea">AMEA</span></div>
+  </div>
+  <div class="domain-card">
+    <div class="pq-row">
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#712B13;"></div>Precedence Research — 2026</div><div class="pq-stat cy">$247B</div><div class="pq-desc">RPA market by 2035, growing from $35.27B in 2026 — fuelled by AI-powered automation and convergence with agentic platforms across manufacturing, distribution, fashion and F&amp;B</div></div>
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#085041;"></div>UiPath / McKinsey 2026</div><div class="pq-stat">42%</div><div class="pq-desc">faster process execution achieved by organisations applying hyperautomation, alongside up to 25% productivity gains — nearly two-thirds of global businesses are now embedding automation into daily workflows</div></div>
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#3C3489;"></div>Gartner</div><div class="pq-stat or">$38B</div><div class="pq-desc">hyperautomation market by 2030, with RPA and process mining as leading components — growing as organisations move from isolated bots to end-to-end intelligent automation pipelines</div></div>
+    </div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar cy"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-bo">BLUE PRISM</span><span class="sc sc-d">DELOITTE / UIPATH</span></div><div class="ins-title">RPA is becoming the execution layer for agentic AI — not being replaced by it</div></div></div><div class="ins-body">In July 2025, Deloitte and UiPath launched an agentic GBS solution integrating GenAI, workflow orchestration, RPA and machine learning — confirming that bots and agents are complementary, not competing. Blue Prism's 2026 prediction: RPA becomes an integrated execution layer within agentic platforms, with bots as the reliable foundation upon which AI agents stand. Finance and accounting automation (AP/AR, reconciliation, reporting) are the highest-volume processes within Fortude's ERP client base across all four regions, delivering measurable ROI within weeks of deployment. Infor OS natively includes RPA capabilities — creating a direct pull-through path from any CloudSuite engagement.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">Position RPA and hyperautomation as the natural next layer after ERP go-live — particularly targeting AP/AR automation, financial reconciliation and inventory management processes where Fortude already understands the Infor data model. This is a short commercial conversation with a fast payback cycle that every Infor client is a candidate for.</div></div></div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar or"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-g">GARTNER</span><span class="sc sc-f">FORRESTER</span></div><div class="ins-title">Process mining is the emerging entry point — enabling automation aligned with actual business goals</div></div></div><div class="ins-body">Process mining tools are taking centre stage in 2026, providing data-driven insights into how processes actually execute — capturing event logs from enterprise systems, visualising workflows and identifying bottlenecks. When integrated with automation platforms, process mining enables continuous improvement. Crucially, process mining requires access to the same ERP event log data that Fortude implementations generate — making it a natural upsell from any Infor engagement. Around 80% of IT teams already use low-code automation tools, creating Centre of Excellence and governance demand that organisations cannot self-manage at scale.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">Lead with process mining as the discovery engagement before automation deployment — using Infor event logs to identify the highest-ROI automation candidates. This creates an evidence-based sales motion clients trust, and builds the business case for Centre of Excellence design and bot governance services across all four regions.</div></div></div>
+    <div class="tc-grid">
+      <div class="tc cy"><div class="tc-head"><div class="tc-title">Manufacturing and distribution are automation's highest-ROI sectors globally</div><div class="urgency urg-hi">High</div></div><div class="tc-body">Finance and accounting automation (AP/AR, reconciliation) and supply chain automation (demand forecasting, inventory optimisation) are the processes with the fastest payback cycles across manufacturing and distribution. These are also the core operational processes within Fortude's Infor client base across all four regions — creating a natural and defensible automation cross-sell.</div><div class="tc-foot"><div><span class="sc sc-i">PRECEDENCE RESEARCH</span></div><div class="tc-opp">↳ Cross-sell to ERP base</div></div></div>
+      <div class="tc or"><div class="tc-head"><div class="tc-title">Intelligent Document Processing accelerating in F&amp;B and fashion supply chains</div><div class="urgency urg-hi">High</div></div><div class="tc-body">IDP enables businesses to turn unstructured documents — supplier invoices, delivery notes, compliance certificates, product specifications — into machine-readable automation data. In F&amp;B this supports allergen compliance and traceability automation. In fashion it supports supplier due diligence and Digital Product Passport data collection. Both are live operational pain points in Fortude's client base across UK &amp; EU and AMEA.</div><div class="tc-foot"><div><span class="sc sc-bo">BLUE PRISM</span><span class="sc sc-f">FORRESTER</span></div><div class="tc-opp">↳ F&amp;B and fashion use case</div></div></div>
+      <div class="tc cy"><div class="tc-head"><div class="tc-title">Low-code democratisation creating CoE demand organisations cannot self-manage</div><div class="urgency urg-ri">Rising</div></div><div class="tc-body">80% of IT teams already use low-code automation tools. By 2026, 80% of low-code users will be outside IT. This democratisation is outpacing governance — creating strong demand for Centre of Excellence design, bot governance frameworks and automation pipeline prioritisation. Organisations need external advisory to manage scale without creating ungoverned technical debt across manufacturing and distribution operations.</div><div class="tc-foot"><div><span class="sc sc-g">GARTNER</span></div><div class="tc-opp">↳ Managed automation advisory</div></div></div>
+      <div class="tc or"><div class="tc-head"><div class="tc-title">Cloud-native RPA reducing barriers for ANZ and AMEA mid-market manufacturing</div><div class="urgency urg-ri">Rising</div></div><div class="tc-body">Cloud-native RPA platforms are making automation accessible to mid-market organisations across ANZ and AMEA — eliminating infrastructure investment and enabling subscription-based deployment. This expands the addressable market beyond large enterprises. ANZ manufacturing SMEs and AMEA F&amp;B supply chains are natural targets where Fortude's Infor relationships provide the ideal entry point.</div><div class="tc-foot"><div><span class="sc sc-i">IDC</span><span class="sc sc-f">FORRESTER</span></div><div class="tc-opp">↳ ANZ &amp; AMEA growth</div></div></div>
+    </div>
+    <div class="reg-strip">
+      <div class="rs"><div class="rs-label us">Americas</div><div class="rs-ind">Fashion · Distribution · Manufacturing</div><div class="rs-signal">US leads automation adoption — 39% of manufacturers automating 50%+ of network activities. Finance and accounting automation highest ROI in distribution and manufacturing. Tariff-driven supply chain restructuring increasing demand for automated visibility and planning.</div></div>
+      <div class="rs"><div class="rs-label anz">ANZ</div><div class="rs-ind">F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">Manufacturing and F&amp;B SMEs adopting low-code automation to offset labour shortages. Infor OS built-in RPA creating pull-through from ERP engagements. 35%+ of Australian businesses using AI or automation tools — large enterprises nearing 60% adoption.</div></div>
+      <div class="rs"><div class="rs-label eu">UK &amp; EU</div><div class="rs-ind">Fashion · F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">EU AI Act governance requirements driving structured automation programmes. Germany Manufacturing-X vouchers subsidising automation for SMEs. Fashion DPP compliance creating IDP demand. UK government 25% tax relief on robotics accelerating manufacturing adoption.</div></div>
+      <div class="rs"><div class="rs-label amea">AMEA</div><div class="rs-ind">Fashion · F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">Traditional manufacturing SMEs and F&amp;B supply chains are key automation targets across UAE and South Asia. Low-code platforms reducing technical barriers. Governance and CoE advisory demand is high given rapid adoption with limited internal capability.</div></div>
+    </div>
+    <div class="src-legend"><span class="src-legend-label">Sources</span><span class="sc sc-g">Gartner</span><span class="sc sc-f">Forrester</span><span class="sc sc-d">Deloitte</span><span class="sc sc-bo">Blue Prism</span><span class="sc sc-i">UiPath / Precedence Research</span><span class="sc sc-m">McKinsey</span></div>
+  </div>
+</div>
+</div>
+
+<!-- QE -->
+<div id="qe" class="panel">
+<div class="main">
+  <div class="sh">
+    <div class="sh-num">Service domain 05</div>
+    <div class="sh-title">Quality Engineering — <span>AI-augmented testing</span></div>
+    <div class="sh-desc">Quality engineering is undergoing its most significant disruption in 25 years. AI is shifting QE from a delivery gate into a strategic accelerator — and the emergence of AI-generated code, agentic systems and complex ERP configurations means demand for specialist QE partners is growing structurally. Fortude's Infor ERP testing capability — including Fortest — is a highly defensible niche that generic QA firms cannot replicate.</div>
+    <div class="sh-regions"><span class="reg reg-us">Americas</span><span class="reg reg-anz">ANZ</span><span class="reg reg-eu">UK &amp; EU</span><span class="reg reg-amea">AMEA</span></div>
+  </div>
+  <div class="domain-card">
+    <div class="pq-row">
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#3C3489;"></div>Gartner — 2026</div><div class="pq-stat cy">80%</div><div class="pq-desc">of software testing will rely on AI-augmented tools by 2026 — up from 15% in early 2023. Organisations failing to adopt will face a significant competitive disadvantage per Gartner Principal Analyst</div></div>
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#085041;"></div>Tricentis — Jan 2026</div><div class="pq-stat">40%</div><div class="pq-desc">of all code written in 2025 was generated by AI — fundamentally changing what needs to be tested, how AI systems behave in production, and what governance is required</div></div>
+      <div class="pq"><div class="pq-src"><div class="pq-dot" style="background:#712B13;"></div>Thinksys QA Report 2026</div><div class="pq-stat or">$112B</div><div class="pq-desc">global software testing market by 2034, growing from $55.8B at 7.2% CAGR — Testing-as-a-Service with outcome-based SLAs is the fastest-growing delivery model globally</div></div>
+    </div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar cy"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-g">GARTNER</span><span class="sc sc-m">McKINSEY</span><span class="sc sc-bo">TRICENTIS</span></div><div class="ins-title">AI-generated code requires AI-assisted testing — a structural growth loop for Fortude's QE practice</div></div></div><div class="ins-body">As AI tools generate an increasing share of enterprise code — including Infor GenAI-generated configurations, automations and process scripts — traditional manual testing cannot keep pace. Fewer than 20% of enterprises feel confident validating GenAI behaviour in production (McKinsey). AI-first test automation uses machine learning to analyse historical test data, identify redundant cases, predict risk and prioritise high-impact scenarios — reducing manual testing effort by up to 45% while improving coverage. Gartner estimates organisations implementing true end-to-end automation experience up to 50% fewer production incidents. For Fortude, every Infor GenAI deployment and every automation rollout across all four regions creates a testing requirement that only a partner with Infor-specific QE depth can service properly.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">Position QE as a natural pull-through from every ERP, automation and AI engagement — building it into the statement of work rather than leaving it as a separate procurement decision. Fortude's Fortest tool, built specifically for Infor ERP testing, is a direct competitive differentiator that Columbus and Apex cannot replicate.</div></div></div>
+    <div class="ins"><div class="ins-head"><div class="ins-bar or"></div><div class="ins-head-r"><div class="ins-src-row"><span class="sc sc-g">GARTNER</span><span class="sc sc-i">IDC</span><span class="sc sc-nr">THINKSYS</span></div><div class="ins-title">Testing-as-a-Service is displacing T&amp;M — the model that structurally favours Fortude's offshore delivery</div></div></div><div class="ins-body">Managed QA with elastic capacity and outcome-based SLAs is the fastest-growing delivery model in the QE market. 77.7% of QE teams have adopted AI-first quality engineering in 2026. Automation testing growing from $28.1B in 2023 to $55.2B by 2028 at 14.5% CAGR, driven by CI/CD pipeline integration. The TaaS model structurally favours partners with scalable offshore delivery capability — which Fortude's South Asian base provides at a cost point that domestic QE firms in the US, UK and ANZ cannot compete with.</div><div class="fopp"><div class="fopp-label">Fortude opportunity</div><div class="fopp-text">Lead with TaaS as the commercial model in new QE conversations. Outcome-based SLAs tied to incident reduction and release confidence metrics make the ROI case tangible for regional heads presenting to CFOs. Pitch QE not as a cost but as a delivery risk reduction instrument — especially relevant for ERP go-lives and AI deployments where failed testing has catastrophic operational consequences.</div></div></div>
+    <div class="tc-grid">
+      <div class="tc cy"><div class="tc-head"><div class="tc-title">Fortest — Fortude's proprietary Infor testing tool is a direct and defensible differentiator</div><div class="urgency urg-cr">Critical</div></div><div class="tc-body">Fortest is purpose-built for Infor ERP testing — covering functional, regression and performance testing specific to M3 and CloudSuite configurations. In a market where generic QA firms struggle with Infor-specific test design, a proprietary testing tool built for the platform is a compelling differentiator. Columbus and Apex do not have an equivalent. This is Fortude's to own.</div><div class="tc-foot"><div><span class="sc sc-in">FORTUDE</span></div><div class="tc-opp">↳ Unique differentiator</div></div></div>
+      <div class="tc or"><div class="tc-head"><div class="tc-title">Validating GenAI and agentic systems requires new QE disciplines — fewer than 20% confident</div><div class="urgency urg-hi">High</div></div><div class="tc-body">GenAI outputs are probabilistic, context-sensitive and vary with prompts. Traditional test cases cannot reliably validate bias, hallucinations or ethical boundaries in production. McKinsey 2025: fewer than 20% of enterprises feel confident validating GenAI behaviour. This creates specialist demand for AI model QE — a discipline that is early-stage globally and commands premium rates across all four of Fortude's regions.</div><div class="tc-foot"><div><span class="sc sc-m">McKINSEY</span><span class="sc sc-g">GARTNER</span></div><div class="tc-opp">↳ AI QE premium service</div></div></div>
+      <div class="tc cy"><div class="tc-head"><div class="tc-title">Shift-left QE embedding testing earlier in ERP and AI delivery cycles</div><div class="urgency urg-hi">High</div></div><div class="tc-body">89% of organisations expect AI-driven risk analysis to become a core part of QA decision-making. Shift-left practices move testing into design and configuration phases — catching defects before go-live. For ERP implementations, this reduces the cost of late-stage rework by 30–50x. Fortude's ability to embed QE from day one of any Infor engagement is a delivery quality argument with a quantifiable ROI.</div><div class="tc-foot"><div><span class="sc sc-g">GARTNER</span><span class="sc sc-nr">NARWAL AI</span></div><div class="tc-opp">↳ Embedded QE model</div></div></div>
+      <div class="tc or"><div class="tc-head"><div class="tc-title">Compliance mandates driving QE demand in F&amp;B, fashion and manufacturing</div><div class="urgency urg-hi">High</div></div><div class="tc-body">FSMA 204 compliance (US &amp; ANZ), EU DPP for textiles and F&amp;B traceability mandates require ERP systems that function correctly under regulatory audit. A failed traceability workflow in enterprise F&amp;B carries financial penalties and recall risk. This makes QE for compliance-critical ERP configurations a non-optional, recurring service across Fortude's regulated client sectors in all four regions.</div><div class="tc-foot"><div><span class="sc sc-in">FDA</span><span class="sc sc-nr">EU COMMISSION</span></div><div class="tc-opp">↳ Compliance-driven QE</div></div></div>
+    </div>
+    <div class="reg-strip">
+      <div class="rs"><div class="rs-label us">Americas</div><div class="rs-ind">Fashion · Distribution · Manufacturing</div><div class="rs-signal">Fashion and distribution clients deploying AI-powered inventory and supply chain tools — all requiring GenAI validation and production monitoring. 61% of manufacturers increasing tech spend in 2026 with QE a natural component of any implementation budget.</div></div>
+      <div class="rs"><div class="rs-label anz">ANZ</div><div class="rs-ind">F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">Enterprise F&amp;B (Bega-scale) requiring rigorous traceability testing for compliance. B2G e-invoicing in PINT A-NZ format mandated from 2025 — ERP compliance testing required. Manufacturing SMEs adopting cloud ERP and automation creating QE demand across the mid-market.</div></div>
+      <div class="rs"><div class="rs-label eu">UK &amp; EU</div><div class="rs-ind">Fashion · F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">EU AI Act requires formal validation of AI systems — creating ongoing QE demand. EU DPP for textiles from 2027 requires tested traceability data pipelines. 84% of UK &amp; EU manufacturers in early digitalisation stages — QE is often absent from transformation programmes until a go-live failure forces it.</div></div>
+      <div class="rs"><div class="rs-label amea">AMEA</div><div class="rs-ind">Fashion · F&amp;B · Distribution · Manufacturing</div><div class="rs-signal">Apparel manufacturing scale (Brandix-level) requires rigorous multi-site ERP testing. F&amp;B compliance testing growing alongside regulatory modernisation. Offshore QE delivery from South Asia is a natural advantage for Fortude in cost-sensitive AMEA markets.</div></div>
+    </div>
+    <div class="src-legend"><span class="src-legend-label">Sources</span><span class="sc sc-g">Gartner</span><span class="sc sc-m">McKinsey</span><span class="sc sc-bo">Tricentis</span><span class="sc sc-i">IDC</span><span class="sc sc-nr">Thinksys</span><span class="sc sc-nr">Narwal AI</span></div>
+  </div>
+</div>
+</div>
+
+<script>
+function showTab(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nbtn').forEach(b=>b.classList.remove('on'));document.getElementById(id).classList.add('active');btn.classList.add('on');window.scrollTo(0,0);}
+function filterSignals(region,btn){document.querySelectorAll('.fpill').forEach(p=>p.classList.remove('on'));btn.classList.add('on');document.querySelectorAll('.signal').forEach(s=>{if(region==='all'){s.classList.remove('hidden');return;}const regions=s.dataset.regions||'';s.classList.toggle('hidden',!regions.includes(region));});}
+</script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortude Knowledge Repository</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body { display: flex; flex-direction: column; min-height: 100vh; }
+
+        .choice-hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #1A2B45 100%);
+            padding: 80px 40px 64px;
+            text-align: center;
+            border-bottom: 4px solid var(--cyan);
+            flex-shrink: 0;
+        }
+        .choice-hero h1 {
+            color: var(--white);
+            font-size: 48px;
+            font-weight: 300;
+            line-height: 1.15;
+            margin: 0 0 14px;
+        }
+        .choice-hero p {
+            color: rgba(255,255,255,0.55);
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .choice-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 64px 24px;
+            flex: 1;
+        }
+        .choice-label {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        .choice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .choice-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px 32px;
+            text-decoration: none;
+            color: var(--navy);
+            transition: all 0.25s;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .choice-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+        }
+        .choice-card.practices::before { background: var(--cyan); }
+        .choice-card.enablers::before  { background: var(--orange); }
+
+        .choice-card:hover {
+            box-shadow: 0 8px 32px rgba(13,33,56,0.12);
+            transform: translateY(-3px);
+        }
+
+        .choice-icon {
+            width: 52px; height: 52px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+        }
+        .choice-card.practices .choice-icon { background: rgba(39,181,232,0.1); }
+        .choice-card.enablers  .choice-icon { background: rgba(240,90,40,0.1); }
+
+        .choice-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+        .choice-desc {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .choice-subs {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding-top: 4px;
+            border-top: 1px solid var(--border);
+        }
+        .choice-sub-item::before {
+            content: '';
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            background: var(--cyan);
+        }
+        .choice-sub-item {
+            font-size: 12px;
+            color: var(--body);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 3px 5px;
+            border-radius: 4px;
+            transition: all 0.15s;
+            text-decoration: none;
+        }
+        .choice-sub-item:hover {
+            background: rgba(39,181,232,0.07);
+            color: var(--navy);
+        }
+
+        .choice-arrow {
+            margin-top: auto;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .choice-card.practices .choice-arrow { color: var(--cyan); }
+        .choice-card.enablers  .choice-arrow { color: var(--orange); }
+
+        @media (max-width: 640px) {
+            .choice-grid { grid-template-columns: 1fr; }
+            .choice-hero h1 { font-size: 34px; }
+            .choice-section { padding: 40px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="global-nav" style="position:relative;">
+        <div class="nav-top">
+            <a href="index.html" class="nav-brand"><span class="brand-f">F</span>ortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+        </div>
+    </nav>
+
+    <!-- Search overlay -->
+    <div id="searchOverlay" style="display:none;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;position:absolute;top:52px;right:24px;width:320px;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+        <div id="searchResults" style="padding:6px 0;"></div>
+    </div>
+
+    <!-- Hero -->
+    <section class="choice-hero">
+        <h1>Fortude <span style="color:var(--cyan); font-weight:600;">Knowledge Repository</span></h1>
+        <p>Collateral, intelligence and resources for practices and enablement teams across the organisation</p>
+    </section>
+
+    <!-- Choice -->
+    <main class="choice-section">
+        <p class="choice-label">Where would you like to go?</p>
+        <div class="choice-grid">
+
+            <a href="practices/index.html" class="choice-card practices">
+                <div class="choice-icon">⚙️</div>
+                <div class="choice-title">Practices</div>
+                <p class="choice-desc">Collateral organised by practice area — products, services, and delivery resources for each Fortude capability.</p>
+                <div class="choice-subs">
+                    <a href="practices/infor-m3-cloudsuite.html" class="choice-sub-item">Infor M3 &amp; CloudSuite</a>
+                    <a href="practices/business-central.html" class="choice-sub-item">Business Central &amp; Dynamics 365</a>
+                    <a href="practices/data-ai.html" class="choice-sub-item">Data &amp; AI</a>
+                    <a href="practices/automation.html" class="choice-sub-item">Automation</a>
+                    <a href="practices/low-code.html" class="choice-sub-item">Low Code Application Development</a>
+                    <a href="practices/managed-services.html" class="choice-sub-item">Managed Services</a>
+                    <a href="practices/advisory.html" class="choice-sub-item">Digital &amp; AI Advisory</a>
+                </div>
+                <div class="choice-arrow">Browse Practices →</div>
+            </a>
+
+            <a href="enablers/index.html" class="choice-card enablers">
+                <div class="choice-icon">📣</div>
+                <div class="choice-title">Enablers</div>
+                <p class="choice-desc">Intelligence, sales, presales and marketing collateral to support regional leadership and go-to-market teams.</p>
+                <div class="choice-subs">
+                    <a href="enablers/insights-intelligence.html" class="choice-sub-item">Insights &amp; Intelligence</a>
+                    <a href="enablers/sales.html" class="choice-sub-item">Sales</a>
+                    <a href="enablers/presales.html" class="choice-sub-item">Presales</a>
+                    <a href="enablers/marketing.html" class="choice-sub-item">Marketing</a>
+                    <a href="enablers/partners.html" class="choice-sub-item">Partners</a>
+                </div>
+                <div class="choice-arrow">Browse Enablers →</div>
+            </a>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v2.0</p>
+    </footer>
+
+    <script>
+    const SEARCH_INDEX = [
+        {t:"AP & CO RPA Playbook", k:"rpa playbook infor automation ap co", url:"reports/rpa-playbook/index.html", cat:"I&I — Product Bridge"},
+        {t:"I&I March — Agentic AI Strategy", k:"agentic ai strategy cloudsuite march infor", url:"reports/agentic-ai-strategy/index.html", cat:"I&I — Unplugged"},
+        {t:"I&I April — IT Market Trends 2026", k:"market trends 2026 enterprise it april", url:"reports/it-market-trends/index.html", cat:"I&I — Unplugged"},
+        {t:"Agentic AI Use Cases for Manufacturing", k:"agentic ai manufacturing infor m3 use cases", url:"reports/report2_manufacturing_use_cases.html", cat:"I&I — Unplugged"},
+        {t:"Copilot Roadmap for Fortude's Digital Transformation", k:"copilot roadmap microsoft digital transformation", url:"reports/report3_copilot_roadmap.html", cat:"I&I — Unplugged"},
+        {t:"Fortest 4.0 & Copilot", k:"fortest copilot product roadmap testing 4.0", url:"reports/report4_fortest_copilot.html", cat:"I&I — Market Research"},
+        {t:"Infor M3 & CloudSuite", k:"infor m3 cloudsuite erp fortest charlie", url:"practices/infor-m3-cloudsuite.html", cat:"Practice"},
+        {t:"Business Central & Dynamics 365", k:"business central dynamics 365 microsoft erp", url:"practices/business-central.html", cat:"Practice"},
+        {t:"Data & AI", k:"data ai charlie charliex analytics", url:"practices/data-ai.html", cat:"Practice"},
+        {t:"Automation", k:"automation agentic rpa intelligent", url:"practices/automation.html", cat:"Practice"},
+        {t:"Low Code Application Development", k:"low code app development ui ux integration", url:"practices/low-code.html", cat:"Practice"},
+        {t:"Managed Services", k:"managed services application testing", url:"practices/managed-services.html", cat:"Practice"},
+        {t:"Digital & AI Advisory", k:"advisory digital maturity assessment ai realization", url:"practices/advisory.html", cat:"Practice"},
+        {t:"Insights & Intelligence", k:"insights intelligence unplugged product bridge market research", url:"enablers/insights-intelligence.html", cat:"Enabler"},
+        {t:"Sales", k:"sales playbook battlecard case study objection", url:"enablers/sales.html", cat:"Enabler"},
+        {t:"Presales", k:"presales proposal sow demo maturity assessment", url:"enablers/presales.html", cat:"Enabler"},
+        {t:"Marketing", k:"marketing webinar white paper blog infographic event brand", url:"enablers/marketing.html", cat:"Enabler"},
+        {t:"Partners", k:"partners co-sell alliance programme", url:"enablers/partners.html", cat:"Enabler"},
+    ];
+
+    const input = document.getElementById('globalSearch');
+    const overlay = document.getElementById('searchOverlay');
+    const results = document.getElementById('searchResults');
+
+    input.addEventListener('input', function() {
+        const q = this.value.trim().toLowerCase();
+        if (!q) { overlay.style.display='none'; return; }
+        const hits = SEARCH_INDEX.filter(r => r.t.toLowerCase().includes(q) || r.k.includes(q));
+        if (!hits.length) {
+            results.innerHTML = '<div style="padding:12px 16px;font-size:12px;color:#8A9BAB;">No results found</div>';
+        } else {
+            results.innerHTML = hits.map(h =>
+                `<a href="${h.url}" style="display:flex;align-items:center;gap:10px;padding:9px 14px;text-decoration:none;border-bottom:1px solid rgba(13,33,56,0.06);">
+                    <span style="font-size:9px;font-weight:700;background:rgba(39,181,232,0.1);color:#0C6E8E;padding:2px 7px;border-radius:3px;white-space:nowrap;">${h.cat}</span>
+                    <span style="font-size:12px;font-weight:600;color:#0D2138;">${h.t}</span>
+                </a>`
+            ).join('');
+        }
+        overlay.style.display = 'block';
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!overlay.contains(e.target) && e.target !== input) overlay.style.display='none';
+    });
+    </script>
+</body>
+</html>

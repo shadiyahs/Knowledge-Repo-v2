@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing — Fortude Repository</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <nav class="global-nav">
+        <div class="nav-top">
+            <a href="../index.html" class="nav-brand"><span class="brand-f">F</span>ortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral...">
+        </div>
+        <div class="nav-tabs">
+            <a href="../practices/index.html" class="nav-tab">Practices</a>
+            <a href="index.html" class="nav-tab active">Enablers</a>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        <a href="index.html">Enablers</a>
+        <span>/</span>
+        <span>Marketing</span>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <a href="index.html" class="hero-back">← Back to Enablers</a>
+            <div class="hero-eyebrow">Enabler — Marketing</div>
+            <h1 style="display:flex;align-items:center;gap:12px;">
+                <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--purple);flex-shrink:0;margin-bottom:2px;"></span>
+                Marketing
+            </h1>
+            <p>Webinar kits, white papers, thought leadership, brochures, infographics, event kits and brand assets</p>
+        </div>
+    </section>
+
+    <div class="sub-tabs-bar">
+        <div class="sub-tab active" onclick="switchTab(this,'webinar-kits')">Webinar Kits</div>
+        <div class="sub-tab" onclick="switchTab(this,'white-papers')">White Papers &amp; Trend Reports</div>
+        <div class="sub-tab" onclick="switchTab(this,'thought-leadership')">Thought Leadership Blogs</div>
+        <div class="sub-tab" onclick="switchTab(this,'brochures')">Brochures &amp; Case Studies</div>
+        <div class="sub-tab" onclick="switchTab(this,'infographics')">Infographics</div>
+        <div class="sub-tab" onclick="switchTab(this,'event-kits')">Event Kits</div>
+        <div class="sub-tab" onclick="switchTab(this,'brand-assets')">Brand Style Guide &amp; Assets</div>
+    </div>
+
+    <div class="sub-panel active" id="panel-webinar-kits"><div class="container"><div class="cards-grid"></div></div></div>
+    <div class="sub-panel" id="panel-white-papers"><div class="container"><div class="cards-grid"></div></div></div>
+    <div class="sub-panel" id="panel-thought-leadership"><div class="container"><div class="cards-grid"></div></div></div>
+    <div class="sub-panel" id="panel-brochures"><div class="container"><div class="cards-grid"></div></div></div>
+    <div class="sub-panel" id="panel-infographics"><div class="container"><div class="cards-grid"></div></div></div>
+    <div class="sub-panel" id="panel-event-kits"><div class="container"><div class="cards-grid"></div></div></div>
+    <div class="sub-panel" id="panel-brand-assets"><div class="container"><div class="cards-grid"></div></div></div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v2.0</p>
+    </footer>
+
+    <script>
+    function switchTab(el, panel) {
+        document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('panel-' + panel).classList.add('active');
+    }
+    </script>
+</body>
+</html>

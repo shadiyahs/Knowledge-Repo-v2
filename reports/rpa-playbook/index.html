@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP &amp; CO RPA Playbook — Fortude Repository</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        .report-header { background: linear-gradient(135deg, var(--navy) 0%, #1A2B45 100%); padding: 56px 40px; border-bottom: 4px solid var(--orange); }
+        .report-header-content { max-width: 1200px; margin: 0 auto; }
+        .report-eyebrow { color: var(--orange); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+        .report-header h1 { color: var(--white); font-size: 36px; line-height: 1.2; margin: 0 0 14px; font-weight: 300; }
+        .report-header h1 span { color: var(--orange); font-weight: 600; }
+        .report-subtitle { color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.65; margin: 0 0 28px; max-width: 660px; }
+        .meta-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+        .meta-label { font-size: 10px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; font-weight: 700; }
+        .meta-value { font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 500; }
+        .report-body { max-width: 1200px; margin: 0 auto; padding: 48px 24px; display: grid; grid-template-columns: 1fr 300px; gap: 40px; }
+        .report-main h2 { color: var(--navy); font-size: 20px; margin: 0 0 16px; font-weight: 600; }
+        .report-main p { margin: 0 0 20px; line-height: 1.7; color: var(--body); }
+        .report-main h3 { color: var(--navy); font-size: 16px; margin: 24px 0 10px; font-weight: 600; }
+        .report-main ul { list-style: none; padding: 0; margin: 0 0 20px; }
+        .report-main li { padding: 8px 0; border-bottom: 1px solid rgba(13,33,56,0.06); font-size: 13px; color: var(--body); line-height: 1.6; }
+        .report-main li strong { color: var(--navy); }
+        .key-finding { background: rgba(240,90,40,0.06); border-left: 4px solid var(--orange); padding: 16px; border-radius: 8px; margin: 24px 0; }
+        .key-finding-title { font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+        .key-finding p { font-size: 13px; color: var(--body); margin: 0; line-height: 1.6; }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-box { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+        .sidebar-title { color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 14px; }
+        .topic-tag { background: #F5F5F5; color: var(--navy); font-size: 12px; padding: 6px 8px; border-radius: 4px; text-align: center; display: block; margin-bottom: 6px; }
+        .related-link { padding: 10px 12px; background: var(--ice); border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--cyan); font-size: 12px; display: block; margin-bottom: 6px; transition: all 0.2s; }
+        .related-link:hover { background: rgba(39,181,232,0.06); border-color: var(--cyan); }
+        @media (max-width: 768px) {
+            .report-body { grid-template-columns: 1fr; }
+            .meta-grid { grid-template-columns: repeat(2,1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="global-nav">
+        <div class="nav-top">
+            <a href="../../index.html" class="nav-brand"><span class="brand-f">F</span>ortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral...">
+        </div>
+        <div class="nav-tabs">
+            <a href="../../practices/index.html" class="nav-tab">Practices</a>
+            <a href="../../enablers/index.html" class="nav-tab active">Enablers</a>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span>/</span>
+        <a href="../../enablers/index.html">Enablers</a>
+        <span>/</span>
+        <a href="../../enablers/insights-intelligence.html">Insights &amp; Intelligence</a>
+        <span>/</span>
+        <span>AP &amp; CO RPA Playbook</span>
+    </div>
+
+    <section class="report-header">
+        <div class="report-header-content">
+            <div class="report-eyebrow">Product Bridge • Technical Playbook</div>
+            <h1>AP &amp; CO <span>RPA Playbook</span></h1>
+            <p class="report-subtitle">Technical reference guide for AP and CO RPA implementation in Infor, covering configuration standards, workflow architecture, governance and operational best practices.</p>
+            <div class="meta-grid">
+                <div><div class="meta-label">Category</div><div class="meta-value">I&amp;I — Product Bridge</div></div>
+                <div><div class="meta-label">Type</div><div class="meta-value">Technical Playbook</div></div>
+                <div><div class="meta-label">Version</div><div class="meta-value">v6</div></div>
+                <div><div class="meta-label">Audience</div><div class="meta-value">Technical &amp; Delivery</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="report-body">
+        <div class="report-main">
+            <h2>About This Playbook</h2>
+            <p>This technical playbook provides a comprehensive reference for implementing Robotic Process Automation within Accounts Payable (AP) and Commercial Operations (CO) processes in the Infor environment. It consolidates six versions of accumulated best practice into a single definitive guide.</p>
+
+            <h3>Key Topics Covered</h3>
+            <ul>
+                <li><strong>Architecture Overview</strong> — RPA component design and integration patterns for Infor</li>
+                <li><strong>AP Process Automation</strong> — Invoice processing, matching and exception workflows</li>
+                <li><strong>CO Process Automation</strong> — Order management, billing and reconciliation flows</li>
+                <li><strong>Configuration Standards</strong> — Environment setup, bot configuration and deployment</li>
+                <li><strong>Governance &amp; Controls</strong> — Audit, compliance and change management framework</li>
+                <li><strong>Troubleshooting Guide</strong> — Common failure patterns and resolution steps</li>
+            </ul>
+
+            <div class="key-finding">
+                <div class="key-finding-title">💡 Key Insight</div>
+                <p>Standardising RPA configuration across AP and CO using this playbook's reference architecture reduces implementation time by an estimated 40% and significantly lowers post-go-live support overhead.</p>
+            </div>
+
+            <h3>Ideal For</h3>
+            <ul>
+                <li><strong>Solution Architects</strong> — Designing RPA integrations within Infor CloudSuite</li>
+                <li><strong>Implementation Consultants</strong> — Hands-on configuration and deployment reference</li>
+                <li><strong>Project Managers</strong> — Understanding scope, risks and delivery milestones</li>
+                <li><strong>Pre-sales Teams</strong> — Demonstrating Fortude's RPA capability and methodology</li>
+            </ul>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-box">
+                <h4 class="sidebar-title">Quick Actions</h4>
+                <a href="full-report.html" class="btn btn-primary" style="display:block;margin-bottom:8px;">📄 View Full Report</a>
+                <button class="btn btn-secondary">⬇ Download PDF</button>
+            </div>
+            <div class="sidebar-box">
+                <h4 class="sidebar-title">Topics</h4>
+                <span class="topic-tag">RPA</span>
+                <span class="topic-tag">Infor CloudSuite</span>
+                <span class="topic-tag">Accounts Payable</span>
+                <span class="topic-tag">Automation</span>
+                <span class="topic-tag">Governance</span>
+            </div>
+            <div class="sidebar-box">
+                <h4 class="sidebar-title">Related Reports</h4>
+                <a href="../agentic-ai-strategy/index.html" class="related-link">I&amp;I March →</a>
+                <a href="../it-market-trends/index.html" class="related-link">I&amp;I April →</a>
+            </div>
+            <div class="sidebar-box">
+                <h4 class="sidebar-title">Back To</h4>
+                <a href="../../enablers/insights-intelligence.html" class="related-link">← Insights &amp; Intelligence</a>
+            </div>
+        </aside>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v2.0</p>
+    </footer>
+
+</body>
+</html>

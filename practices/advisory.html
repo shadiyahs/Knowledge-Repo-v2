@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital &amp; AI Advisory — Fortude Repository</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <nav class="global-nav">
+        <div class="nav-top">
+            <a href="../index.html" class="nav-brand"><span class="brand-f">F</span>ortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral...">
+        </div>
+        <div class="nav-tabs">
+            <a href="index.html" class="nav-tab active">Practices</a>
+            <a href="../enablers/index.html" class="nav-tab">Enablers</a>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        <a href="index.html">Practices</a>
+        <span>/</span>
+        <span>Digital &amp; AI Advisory</span>
+    </div>
+
+    <section class="hero" style="border-bottom-color:#D85A30;">
+        <div class="hero-content">
+            <a href="index.html" class="hero-back">← Back to Practices</a>
+            <div class="hero-eyebrow">Practice Area</div>
+            <h1 style="display:flex;align-items:center;gap:12px;">
+                <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#D85A30;flex-shrink:0;margin-bottom:2px;"></span>
+                Digital &amp; AI Advisory
+            </h1>
+            <p>Strategic frameworks, maturity assessments and consulting services to guide enterprise transformation decisions</p>
+        </div>
+    </section>
+
+    <div class="sub-tabs-bar">
+        <div class="sub-tab active" onclick="switchTab(this,'frameworks')">Frameworks</div>
+        <div class="sub-tab" onclick="switchTab(this,'accelerators')">Accelerators</div>
+        <div class="sub-tab" onclick="switchTab(this,'services')">Services</div>
+    </div>
+
+    <div class="sub-panel active" id="panel-frameworks">
+        <div class="container">
+            <div class="fw-group">
+                <div class="fw-group-header">
+                    <span class="fw-badge dmm">Digital Maturity Model</span>
+                    <div>
+                        <div class="fw-group-title">Digital Maturity Model</div>
+                        <div class="fw-group-desc">Assessment frameworks for measuring and benchmarking digital readiness</div>
+                    </div>
+                </div>
+                <div class="fw-section">
+                    <div class="fw-section-label">Digital Maturity Assessment</div>
+                    <div class="cards-grid"></div>
+                </div>
+                <div class="fw-section">
+                    <div class="fw-section-label">Digital Maturity Index &amp; Heatmaps</div>
+                    <div class="cards-grid"></div>
+                </div>
+                <div class="fw-section">
+                    <div class="fw-section-label">DIY Pulse Assessment</div>
+                    <div class="cards-grid"></div>
+                </div>
+                <div class="fw-section">
+                    <div class="fw-section-label">Pulse Assessments</div>
+                    <div class="cards-grid"></div>
+                </div>
+            </div>
+            <div class="fw-group">
+                <div class="fw-group-header">
+                    <span class="fw-badge arm">AI Realization Model</span>
+                    <div>
+                        <div class="fw-group-title">AI Realization Model</div>
+                        <div class="fw-group-desc">Tiered AI readiness assessment toolkits from self-serve to full deep-dive</div>
+                    </div>
+                </div>
+                <div class="fw-section">
+                    <div class="fw-section-label arm-accent">DIY</div>
+                    <div class="cards-grid"></div>
+                </div>
+                <div class="fw-section">
+                    <div class="fw-section-label arm-accent">A Check <span style="font-weight:400;color:var(--muted);">(Light)</span></div>
+                    <div class="cards-grid"></div>
+                </div>
+                <div class="fw-section">
+                    <div class="fw-section-label arm-accent">B Check <span style="font-weight:400;color:var(--muted);">(Intermediate)</span></div>
+                    <div class="cards-grid"></div>
+                </div>
+                <div class="fw-section">
+                    <div class="fw-section-label arm-accent">C Check <span style="font-weight:400;color:var(--muted);">(Heavy)</span></div>
+                    <div class="cards-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-panel" id="panel-accelerators">
+        <div class="container">
+            <div class="fw-section">
+                <div class="fw-section-label">Industry Specific Accelerators</div>
+                <div class="cards-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-panel" id="panel-services">
+        <div class="container">
+            <div class="fw-section"><div class="fw-section-label">Fractional CIO</div><div class="cards-grid"></div></div>
+            <div class="fw-section"><div class="fw-section-label">Portfolio, Program &amp; Project Management (PPPM)</div><div class="cards-grid"></div></div>
+            <div class="fw-section"><div class="fw-section-label">Organisational Change Management (OCM)</div><div class="cards-grid"></div></div>
+            <div class="fw-section"><div class="fw-section-label">Cybersecurity &amp; Compliance Consulting</div><div class="cards-grid"></div></div>
+            <div class="fw-section"><div class="fw-section-label">Enterprise Architecture</div><div class="cards-grid"></div></div>
+            <div class="fw-section"><div class="fw-section-label">Integrations &amp; Extensions Strategy</div><div class="cards-grid"></div></div>
+            <div class="fw-section"><div class="fw-section-label">ICT Infrastructure Consulting</div><div class="cards-grid"></div></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v2.0</p>
+    </footer>
+
+    <script>
+    function switchTab(el, panel) {
+        document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('panel-' + panel).classList.add('active');
+    }
+    document.getElementById('panel-frameworks').classList.add('active');
+    </script>
+</body>
+</html>

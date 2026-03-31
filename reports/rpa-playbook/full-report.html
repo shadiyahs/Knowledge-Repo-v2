@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortude × Infor CloudSuite — RPA Development Playbook</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F1520;--bg2:#111D2A;--bg3:#0C1218;--bg4:#0A0F1A;
+  --border:#1C2540;--border2:#232E4A;
+  --text:#DDE3EE;--text-muted:#5A6A8A;--text-dim:#3A4A6A;
+  --ap:#6BC894;--ap-badge:#7EC84A;--ap-border:#4BAA74;--ap-bg:#0E1E14;--ap-hdr:#111D10;
+  --co:#5AC0E0;--co-badge:#4AB0D4;--co-border:#4A9EC4;--co-bg:#0C1A24;--co-hdr:#0E1A24;
+  --gap-text:#C8A040;--gap-arrow:#C88A20;--gap-bg:#1E1700;--gap-hdr:#0D1410;
+  --pain-text:#E05030;--pain-bg:#2A1000;
+  --dec-bg:#14182A;--dec-text:#8898B8;
+  --tech-bg:#1A2030;--tech-border:#2A3A5A;--tech-text:#4A6A9A;
+  --ph1:#C8F04B;--ph2:#4BD4F0;--ph3:#F0A44B;--ph4:#D44BF0;--ph5:#F04B7A;--ph6:#4BF0A4;
+  --aud-biz:#FFC107;--aud-func:#17A2B8;--aud-tech:#DC3545;
+}
+body{background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;min-height:100vh;}
+button{font-family:inherit;cursor:pointer;}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#0A0F1A}::-webkit-scrollbar-thumb{background:#1C2540;border-radius:3px}
+
+/* HEADER */
+.header{border-bottom:1px solid var(--border);padding:22px 40px 0;background:#0C1018;position:sticky;top:0;z-index:50;}
+.header-eyebrow{font-size:9px;font-family:monospace;letter-spacing:.22em;color:var(--text-dim);text-transform:uppercase;margin-bottom:5px;}
+.header-title{font-size:22px;font-weight:normal;color:#EEF2FA;margin-bottom:3px;}
+.header-sub{font-size:12px;color:var(--text-muted);font-family:monospace;margin-bottom:14px;}
+.tabs{display:flex;gap:0;}
+.tab-btn{padding:9px 22px;background:transparent;border:none;border-bottom:2px solid transparent;font-size:12px;font-family:monospace;letter-spacing:.06em;color:#556;transition:all .18s;}
+.tab-btn.active{border-bottom-color:var(--ph1);color:var(--ph1);}
+.tab-btn:hover:not(.active){color:#AAB;border-bottom-color:#2A3550;}
+
+/* MAIN */
+.main{padding:28px 40px;max-width:1160px;margin:0 auto;}
+
+/* FILTER BAR */
+.filter-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;}
+.filter-desc{font-size:13px;color:#778;line-height:1.65;max-width:520px;}
+.filter-btns{display:flex;gap:5px;}
+.filter-btn{padding:5px 13px;border-radius:2px;font-size:11px;font-family:monospace;border:1px solid var(--border2);background:transparent;color:var(--text-muted);transition:all .15s;}
+.filter-btn.active-all{border-color:var(--ph1);background:#C8F04B18;color:var(--ph1);}
+.filter-btn.active-ap{border-color:var(--ap-badge);background:#7EC84A18;color:var(--ap-badge);}
+.filter-btn.active-co{border-color:var(--co-badge);background:#4AB0D418;color:var(--co-badge);}
+.filter-btn:hover:not(.active-all):not(.active-ap):not(.active-co){border-color:#3A4A6A;color:#99A;}
+
+/* LEGEND */
+.legend{display:flex;gap:18px;margin-bottom:20px;}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:10px;font-family:monospace;color:#446;}
+.legend-dot{width:7px;height:7px;border-radius:2px;}
+
+/* GROUP HEADER */
+.group-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;margin-top:28px;}
+.group-bar{width:3px;height:16px;border-radius:2px;}
+.group-label{font-size:11px;font-family:monospace;letter-spacing:.12em;text-transform:uppercase;}
+.group-count{font-size:11px;color:#3A4A5A;font-family:monospace;}
+
+/* SCENARIO CARD */
+.s-card{border-radius:5px;overflow:hidden;margin-bottom:14px;}
+.s-card-ap{border:1px solid #4BAA7430;}
+.s-card-co{border:1px solid #4A9EC430;}
+.s-card-hdr{padding:12px 16px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:background .15s;user-select:none;}
+.s-card-hdr:hover{background:#FFFFFF06;}
+.s-badge-ap{font-size:9px;font-family:monospace;font-weight:bold;padding:2px 7px;border-radius:2px;background:#1C3A0A;color:#7EC84A;border:1px solid #3A6015;flex-shrink:0;}
+.s-badge-co{font-size:9px;font-family:monospace;font-weight:bold;padding:2px 7px;border-radius:2px;background:#0A1E30;color:#4AB0D4;border:1px solid #1A4A70;flex-shrink:0;}
+.s-title{font-size:13px;color:#EEF2FA;flex:1;}
+.s-uc{font-size:8px;font-family:monospace;letter-spacing:.12em;opacity:.35;text-transform:uppercase;}
+.s-toggle{font-size:15px;width:18px;text-align:center;transition:transform .2s;flex-shrink:0;}
+.s-toggle.open{transform:rotate(45deg);}
+.s-toggle-ap{color:var(--ap-badge);}
+.s-toggle-co{color:var(--co-badge);}
+
+/* CARD BODY */
+.s-body{display:none;}
+.s-body.open{display:block;}
+.s-section{padding:14px 16px;}
+.s-section-gap{background:var(--gap-hdr);border-bottom:1px solid var(--border);}
+.s-section-gap-ap{background:#0D1410;}
+.s-section-gap-co{background:#0C1520;}
+.s-section-auto-ap{background:#0C1510;}
+.s-section-auto-co{background:#0C1420;}
+.s-sec-label{display:flex;align-items:center;gap:7px;margin-bottom:10px;}
+.s-sec-dot-gap{width:7px;height:7px;border-radius:50%;background:var(--gap-arrow);flex-shrink:0;}
+.s-sec-dot-auto{width:7px;height:7px;border-radius:50%;background:var(--ap-border);flex-shrink:0;}
+.s-sec-dot-auto-co{background:var(--co-border);}
+.s-sec-title{font-size:9px;font-family:monospace;letter-spacing:.15em;text-transform:uppercase;}
+.s-sec-title-gap{color:#8A6010;}
+.s-sec-title-auto-ap{color:#2A7A54;}
+.s-sec-title-auto-co{color:#2A6A80;}
+.tech-pill{display:inline-flex;align-items:center;gap:5px;font-size:8px;font-family:monospace;padding:2px 9px;border-radius:3px;background:var(--tech-bg);border:1px solid var(--tech-border);color:var(--tech-text);margin-bottom:10px;line-height:1.5;}
+.tech-chain{color:#6A8AB0;}
+svg.flow{width:100%;display:block;}
+
+/* PLAYBOOK */
+.pb-layout{display:flex;gap:0;min-height:70vh;}
+.pb-sidebar{width:220px;flex-shrink:0;border-right:1px solid var(--border);padding-top:6px;position:sticky;top:71px;max-height:calc(100vh - 71px);overflow-y:auto;}
+.pb-sidebar-btn{width:100%;padding:12px 16px;background:transparent;border:none;border-left:2px solid transparent;text-align:left;display:flex;align-items:center;gap:10px;transition:all .15s;cursor:pointer;}
+.pb-sidebar-btn:hover:not(.pb-sidebar-active){background:#FFFFFF06;border-left-color:#1E2840;}
+.pb-sidebar-active{border-left-color:currentColor;}
+.pb-sidebar-icon{font-size:16px;flex-shrink:0;}
+.pb-sidebar-num{font-size:9px;font-family:monospace;color:var(--text-dim);}
+.pb-sidebar-name{font-size:12px;color:var(--text);}
+.pb-content{flex:1;padding:28px 32px;min-width:0;}
+.pb-phase-header{margin-bottom:22px;}
+.pb-phase-title{font-size:18px;font-weight:normal;margin-bottom:6px;display:flex;align-items:center;gap:12px;}
+.pb-phase-icon{font-size:22px;}
+.pb-phase-summary{font-size:13px;color:#88A;line-height:1.7;max-width:680px;margin-bottom:14px;}
+.pb-audience-tabs{display:flex;gap:5px;margin-bottom:18px;}
+.pb-aud-btn{padding:5px 14px;border-radius:3px;font-size:11px;font-family:monospace;border:1px solid var(--border2);background:transparent;color:var(--text-muted);transition:all .15s;cursor:pointer;}
+.pb-aud-btn:hover{border-color:#3A4A6A;color:#99A;}
+.pb-aud-active-all{border-color:#8899BB;background:rgba(136,153,187,0.12);color:#DDE3EE;}
+.pb-aud-active-biz{border-color:#FFC107;background:rgba(255,193,7,0.15);color:#FFC107;font-weight:bold;}
+.pb-aud-active-func{border-color:#17A2B8;background:rgba(23,162,184,0.15);color:#17A2B8;font-weight:bold;}
+.pb-aud-active-tech{border-color:#DC3545;background:rgba(220,53,69,0.15);color:#DC3545;font-weight:bold;}
+
+/* STEP ACCORDION */
+.step-list{display:flex;flex-direction:column;gap:5px;}
+.step-item{border-radius:4px;overflow:hidden;border:1px solid var(--border);}
+.step-item.open{border-color:rgba(200,200,200,0.15);}
+.step-hdr{width:100%;display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:transparent;border:none;text-align:left;gap:12px;cursor:pointer;}
+.step-hdr:hover{background:#FFFFFF05;}
+.step-num{font-size:10px;font-family:monospace;color:var(--text-dim);flex-shrink:0;width:20px;}
+.step-title{font-size:13px;color:#CCC;flex:1;}
+.step-title.open{color:#F0EDE8;}
+.step-aud{display:flex;gap:4px;flex-shrink:0;}
+.step-badge{font-size:8px;padding:2px 6px;border-radius:2px;font-family:monospace;font-weight:bold;}
+.step-badge-business{background:rgba(255,193,7,0.15);color:#FFC107;border:1px solid rgba(255,193,7,0.5);}
+.step-badge-functional{background:rgba(23,162,184,0.15);color:#17A2B8;border:1px solid rgba(23,162,184,0.5);}
+.step-badge-technical{background:rgba(220,53,69,0.15);color:#DC3545;border:1px solid rgba(220,53,69,0.5);}
+.step-toggle-ph{font-size:13px;margin-left:6px;transition:transform .2s;}
+.step-toggle-ph.open{transform:rotate(45deg);}
+.step-body{display:none;padding:0 16px 16px 36px;}
+.step-body.open{display:block;}
+.step-detail{font-size:12px;color:#AAA;line-height:1.75;padding:7px 0;border-bottom:1px solid #1A2030;display:flex;gap:8px;}
+.step-detail:last-child{border-bottom:none;}
+.step-bullet{color:var(--phase-col,#666);flex-shrink:0;margin-top:3px;font-size:9px;}
+
+/* SCENARIO SUB-FLOW in playbook */
+.scen-subflow{margin:8px 0 14px;padding:12px 14px;border-radius:4px;background:#0A0F18;border:1px solid var(--border);}
+.scen-subflow-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.scen-para{font-size:11px;color:#6A7A6A;font-family:monospace;line-height:1.75;margin-bottom:8px;}
+.scen-para-co{color:#5A7080;}
+.api-inline{color:#4A6A50;}
+.api-inline-co{color:#3A6880;}
+
+/* EMPTY STATE */
+.empty-state{padding:28px 0;text-align:center;color:var(--text-dim);font-size:13px;}
+
+/* ABBREVIATIONS MODAL */
+.abbr-btn{position:fixed;bottom:28px;right:28px;z-index:200;background:#1C2540;border:1px solid #2A3A5A;color:#8898B8;font-size:11px;font-family:monospace;letter-spacing:.08em;padding:8px 14px;border-radius:3px;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:6px;}
+.abbr-btn:hover{background:#232E4A;border-color:#4A6A9A;color:#C8D8F0;}
+.abbr-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;justify-content:center;align-items:center;}
+.abbr-overlay.open{display:flex;}
+.abbr-modal{background:#0F1520;border:1px solid #1C2540;border-radius:6px;width:min(820px,92vw);max-height:82vh;display:flex;flex-direction:column;overflow:hidden;}
+.abbr-modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid #1C2540;flex-shrink:0;}
+.abbr-modal-title{font-size:13px;font-family:monospace;letter-spacing:.12em;text-transform:uppercase;color:#8898B8;}
+.abbr-close{background:transparent;border:none;color:#4A5A7A;font-size:18px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:2px;transition:color .15s;}
+.abbr-close:hover{color:#C8D8F0;}
+.abbr-search{padding:10px 22px;border-bottom:1px solid #1C2540;flex-shrink:0;}
+.abbr-search input{width:100%;background:#0A0F1A;border:1px solid #1C2540;border-radius:3px;color:#DDE3EE;font-family:monospace;font-size:12px;padding:7px 12px;outline:none;transition:border-color .15s;}
+.abbr-search input:focus{border-color:#2A3A5A;}
+.abbr-search input::placeholder{color:#3A4A6A;}
+.abbr-body{overflow-y:auto;padding:14px 22px 20px;}
+.abbr-group{margin-bottom:20px;}
+.abbr-group-label{font-size:9px;font-family:monospace;letter-spacing:.18em;text-transform:uppercase;color:#3A5A7A;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #0F1A28;}
+.abbr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:4px;}
+.abbr-row{display:flex;align-items:baseline;gap:10px;padding:5px 8px;border-radius:3px;transition:background .12s;}
+.abbr-row:hover{background:#0C1420;}
+.abbr-row[style*="display:none"]{display:none!important;}
+.abbr-term{font-size:10px;font-family:monospace;font-weight:bold;color:#C8D8F0;min-width:110px;flex-shrink:0;}
+.abbr-def{font-size:11px;color:#5A7A9A;line-height:1.5;}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#0A0F1A}::-webkit-scrollbar-thumb{background:#1C2540;border-radius:3px}
+@media(max-width:760px){
+  .header,.main{padding-left:18px;padding-right:18px;}
+  .pb-layout{flex-direction:column;}
+  .pb-sidebar{width:100%;position:static;max-height:none;border-right:none;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;}
+  .pb-sidebar-btn{width:auto;}
+}
+</style>
+</head>
+<body>
+<div id="root">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">FORTUDE × INFOR CLOUDSUITE</div>
+  <h1 class="header-title">RPA Development Playbook</h1>
+  <p class="header-sub">15 automation scenarios &middot; 6 delivery phases &middot; AP Invoice + Customer Order</p>
+  <div class="tabs">
+    <button class="tab-btn active" id="tab-scenarios" onclick="showTab('scenarios')">Automation Scenarios</button>
+    <button class="tab-btn" id="tab-playbook" onclick="showTab('playbook')">Development Playbook</button>
+  </div>
+</div>
+
+<!-- SCENARIOS TAB -->
+<div class="main" id="section-scenarios">
+  <div class="filter-bar">
+    <p class="filter-desc">15 scenarios spanning both use cases — each showing the CloudSuite gap and the RPA automation that closes it, including the API calls the bot makes.</p>
+    <div class="filter-btns">
+      <button class="filter-btn active-all" id="fb-all" onclick="filterScenarios('All')">All</button>
+      <button class="filter-btn" id="fb-ap" onclick="filterScenarios('AP Invoice')">AP Invoice <span style="opacity:.5;margin-left:3px">(8)</span></button>
+      <button class="filter-btn" id="fb-co" onclick="filterScenarios('Customer Order')">Customer Order <span style="opacity:.5;margin-left:3px">(7)</span></button>
+    </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#C88A20"></div>Gap in CloudSuite</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4BAA74"></div>AP Automation</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4A9EC4"></div>CO Automation</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--tech-bg);border:1px solid var(--tech-border)"></div>API / Technical detail</div>
+  </div>
+  <div id="scenarios-list"></div>
+</div>
+
+<!-- PLAYBOOK TAB -->
+<div style="display:none" id="section-playbook">
+  <div class="pb-layout">
+    <div class="pb-sidebar" id="pb-sidebar"></div>
+    <div class="pb-content" id="pb-content"></div>
+  </div>
+</div>
+
+<!-- ABBREVIATIONS BUTTON -->
+<button class="abbr-btn" onclick="openAbbr()">⊞ Abbreviations</button>
+
+<!-- ABBREVIATIONS MODAL -->
+<div class="abbr-overlay" id="abbr-overlay" onclick="closeAbbrOutside(event)">
+  <div class="abbr-modal" id="abbr-modal">
+    <div class="abbr-modal-hdr">
+      <span class="abbr-modal-title">Abbreviations &amp; Glossary</span>
+      <button class="abbr-close" onclick="closeAbbr()">✕</button>
+    </div>
+    <div class="abbr-search"><input type="text" id="abbr-filter" placeholder="Search abbreviation or term…" oninput="filterAbbr(this.value)"/></div>
+    <div class="abbr-body" id="abbr-body"></div>
+  </div>
+</div>
+
+</div><!-- #root -->
+
+<script>
+/* ══════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════ */
+
+const SCENARIOS = [
+  {
+    id:"AP-1", uc:"AP Invoice", label:"Invoice Ingestion & Data Capture",
+    gapSteps:[
+      {label:"Invoices arrive",detail:"email · PDF · fax · portal",n1:"No central inbox",n2:"Inconsistent formats"},
+      {label:"Staff reads & types",detail:"manual data entry",n1:"No OCR or auto-capture",n2:"~5 min per invoice"},
+      {label:"Enter in CloudSuite",detail:"navigate multiple screens",n1:"No auto-population",n2:"Backlog at high volume"}
+    ],
+    pain:{label:"Invoices pile up",detail:"payment delays & errors",n1:"Late payment penalties",n2:"Missed early-pay discounts"},
+    techPill:"RPA Email Activities → Infor IDP OCR → variable mapping → APS450MI/AddInvoice",
+    flowType:"linear",
+    autoSteps:[
+      {label:"1. Watch inbox",desc:"Bot polls shared AP inbox",api:"RPA Email Activity",trig:"Trigger: every 15 min"},
+      {label:"2. Read the PDF",desc:"OCR reads each invoice",api:"Infor IDP · vendor templates",trig:"Per-vendor templates"},
+      {label:"3. Sort the data",desc:"Maps fields to variables",api:"IDP → bot variables",trig:"Vendor · inv# · lines · tax"},
+      {label:"4. Post to system",desc:"Writes into CloudSuite AP",api:"APS450MI / AddInvoice",trig:"HTTP Request activity"}
+    ],
+    outcome:{label:"✓ Done",desc:"Invoice in CS · AP flow starts",api:"Zero manual entry",trig:"Exceptions only to staff"},
+    pbPara:"Build a bot that monitors the shared AP inbox on a 15-minute schedule using RPA Email Activities. When invoice attachments are detected, they are passed to Infor IDP for OCR extraction using per-vendor templates. Extracted fields (vendor ID, invoice number, date, line items, tax, total) are mapped to bot variables then written into CloudSuite via <span class='api-inline'>APS450MI/AddInvoice</span> — replacing all manual keying entirely."
+  },
+  {
+    id:"AP-2", uc:"AP Invoice", label:"Vendor Master Validation",
+    gapSteps:[
+      {label:"Invoice arrives",detail:"supplier ID on document",n1:"Staff must validate",n2:"Against vendor master"},
+      {label:"Look up vendor",detail:"navigate to vendor master",n1:"Several screens to check",n2:"No automated lookup"},
+      {label:"Check terms & bank",detail:"payment terms · bank details",n1:"Can be missing or stale",n2:"Causes payment failures"}
+    ],
+    pain:{label:"Bad vendor posted",detail:"errors reach payment run",n1:"Double-payment risk",n2:"Delayed reconciliation"},
+    techPill:"CRS620MI/GetBasicData → If-Else logic → proceed or exception queue + notify",
+    flowType:"binary",
+    preSteps:[
+      {label:"1. Query vendor master",desc:"Bot looks up supplier",api:"CRS620MI/GetBasicData",trig:"HTTP Request · vendor ID"}
+    ],
+    dec:{label:"Vendor found?",detail:"ID · payment terms · bank"},
+    yes:{label:"Continue to PO matching ✓",detail:"Proceeds automatically",api:"Processing continues"},
+    no:{label:"Hold & alert AP team ⚠",detail:"Invoice queued for review",api:"Exception log · email sent"},
+    pbPara:"Build a validation step that calls <span class='api-inline'>CRS620MI/GetBasicData</span> to look up the vendor in CloudSuite's master. An If-Else branch checks: matched vendor proceeds to PO matching; an unrecognised vendor triggers the exception queue and sends an immediate notification to the AP team, preventing a bad record from ever reaching the payment run."
+  },
+  {
+    id:"AP-3", uc:"AP Invoice", label:"Two-Way & Three-Way PO Matching",
+    gapSteps:[
+      {label:"Invoice arrives",detail:"from vendor",n1:"PO must be checked",n2:"Manual panel navigation"},
+      {label:"Open PO screens",detail:"navigate PPS200 + panels",n1:"PO + GRN to compare",n2:"Multiple programs"},
+      {label:"Compare manually",detail:"quantities · prices · terms",n1:"Error-prone at volume",n2:"No tolerance rules"}
+    ],
+    pain:{label:"Mis-matches pile up",detail:"AP team overwhelmed",n1:"Month-end bottleneck",n2:"Payments delayed"},
+    techPill:"PPS200MI/GetHead+Lines → MWS420MI/GetGoodsReceipt → tolerance comparison → three-way route",
+    flowType:"threeway",
+    preSteps:[
+      {label:"1. Retrieve PO",desc:"Fetches PO header & lines",api:"PPS200MI/GetHead+Lines",trig:"PO# from invoice"},
+      {label:"2. Retrieve receipt",desc:"Gets goods receipt data",api:"MWS420MI/GetGoodsReceipt",trig:"GRN quantities & dates"}
+    ],
+    dec:{label:"Invoice vs PO vs GRN?",detail:"PPS200MI · MWS420MI · tolerances"},
+    outcomes:[
+      {label:"✓ Auto-approved",detail:"Full match · no human needed",col:"#4BAA74"},
+      {label:"Flagged for AP review",detail:"Within tolerance · context sent",col:"#4A9EC4"},
+      {label:"⚠ Exception queue",detail:"Out of tolerance · full log",col:"#C88A20"}
+    ],
+    pbPara:"The bot calls <span class='api-inline'>PPS200MI/GetHead+Lines</span> to retrieve the purchase order and <span class='api-inline'>MWS420MI/GetGoodsReceipt</span> for the goods receipt note. It compares invoice quantities and prices against PO tolerances line-by-line. Full matches are auto-approved; within-tolerance variances are flagged for AP review with full context; out-of-tolerance discrepancies are routed to the exception queue with a complete comparison log."
+  },
+  {
+    id:"AP-4", uc:"AP Invoice", label:"Exception Handling & Escalation",
+    gapSteps:[
+      {label:"Invoice fails matching",detail:"PO mismatch or data error",n1:"No structured exception queue",n2:"Manual triage needed"},
+      {label:"Staff investigates",detail:"chases PO owner by email",n1:"No SLA tracking",n2:"No visibility on aging"},
+      {label:"Resolves manually",detail:"closes exception by hand",n1:"No consistent process",n2:"No audit trail"}
+    ],
+    pain:{label:"Exceptions age unresolved",detail:"blocking payment runs",n1:"Month-end backlogs",n2:"Finance under pressure"},
+    techPill:"Try-Catch blocks → exception classifier → structured log write → email/Teams alert + SLA timer",
+    flowType:"linear",
+    autoSteps:[
+      {label:"1. Catch all errors",desc:"Wraps all bot logic",api:"Try-Catch activity block",trig:"Every AP flow covered"},
+      {label:"2. Classify type",desc:"Determines exception type",api:"If-Else type router",trig:"5 defined categories"},
+      {label:"3. Log the detail",desc:"Writes to exception store",api:"Write to exception log",trig:"Timestamped + typed"},
+      {label:"4. Alert & track",desc:"Notifies named owner",api:"Send Email/Teams msg",trig:"Per exception type"}
+    ],
+    outcome:{label:"✓ SLA tracked",desc:"Owner notified in time",api:"Structured exception log",trig:"Resolution monitored"},
+    pbPara:"Implement <span class='api-inline'>Try-Catch</span> activity wrappers around all matching logic in every AP bot flow. On any catch, the bot classifies the exception by type (missing PO, price variance, unrecognised vendor, duplicate, over-limit), writes a structured entry to the exception log with a timestamp and record reference, and triggers a notification to the named owner for that exception type — with an SLA countdown starting on dispatch."
+  },
+  {
+    id:"AP-5", uc:"AP Invoice", label:"Multi-Level Approval Routing",
+    gapSteps:[
+      {label:"Invoice approved for payment",detail:"but needs sign-off",n1:"No automated routing",n2:"Manual email chains used"},
+      {label:"Finance emails approver",detail:"attach invoice · await reply",n1:"No threshold rules",n2:"Approver varies by cost centre"},
+      {label:"Chase if no response",detail:"manual follow-up",n1:"No SLA enforcement",n2:"Spreadsheet tracking"}
+    ],
+    pain:{label:"Approvals stall",detail:"payments miss deadlines",n1:"Early-pay discounts lost",n2:"Supplier relations affected"},
+    techPill:"Amount + cost centre → decision tree → APS450MI/UpdInvoice status codes → SLA escalation",
+    flowType:"binaryWide",
+    preSteps:[
+      {label:"1. Read invoice fields",desc:"Amount + cost centre code",api:"Variables from IDP output",trig:"Agreed threshold rules"},
+      {label:"2. Apply routing rules",desc:"Decision tree maps approver",api:"If-Else threshold logic",trig:"Agreed in design phase"},
+      {label:"3. Send for approval",desc:"Routes to correct tier",api:"APS450MI/UpdInvoice status",trig:"Notification dispatched"}
+    ],
+    dec:{label:"Approved within SLA?",detail:"SLA window from design phase"},
+    yes:{label:"✓ Proceeds to payment",detail:"Status confirmed in CS",api:"APS450MI confirmation"},
+    no:{label:"⚠ Escalate upward",detail:"Next approver notified",api:"SLA clock resets"},
+    pbPara:"Build a configurable decision tree that reads the invoice amount and cost centre from the extracted data. The tree routes to the correct approver tier automatically, then calls <span class='api-inline'>APS450MI/UpdInvoice</span> with the appropriate status codes to update the record in CloudSuite. A secondary scheduled bot checks for outstanding approvals and escalates automatically if no response has been received within the agreed SLA window."
+  },
+  {
+    id:"AP-6", uc:"AP Invoice", label:"Duplicate Invoice Detection",
+    gapSteps:[
+      {label:"Invoice submitted",detail:"vendor or email",n1:"May have been submitted before",n2:"No automatic check"},
+      {label:"AP staff processes",detail:"enters into CloudSuite",n1:"Relies on memory",n2:"High volume = high risk"},
+      {label:"Posted to AP",detail:"payment awaits",n1:"Duplicate not caught",n2:"About to double-pay"}
+    ],
+    pain:{label:"Duplicate payment sent",detail:"cash lost · vendor confusion",n1:"Reconciliation nightmare",n2:"Audit finding risk"},
+    techPill:"APS450MI/LstInvoiceLines vendor+inv# filter → exists check → reject or proceed to post",
+    flowType:"binary",
+    preSteps:[
+      {label:"1. Read key fields",desc:"Vendor ID + invoice number",api:"From IDP extraction output",trig:"Unique record key"},
+      {label:"2. Search CS records",desc:"Queries existing AP invoices",api:"APS450MI/LstInvoiceLines",trig:"Filter: vendor + inv#"}
+    ],
+    dec:{label:"Duplicate found?",detail:"Match on vendor + invoice number"},
+    yes:{label:"⚠ Reject & notify vendor",detail:"Duplicate flag logged",api:"Exception log · email sent"},
+    no:{label:"✓ Proceed to post",detail:"Clean record confirmed",api:"APS450MI/AddInvoice"},
+    pbPara:"Before posting any invoice, the bot calls <span class='api-inline'>APS450MI/LstInvoiceLines</span> filtered by vendor ID and invoice number. If a matching record already exists in CloudSuite, the incoming invoice is automatically rejected with a duplicate flag — the vendor is notified and the record is written to the exception log. Only confirmed-unique invoices proceed to the AddInvoice call, protecting the payment run from duplicate disbursements."
+  },
+  {
+    id:"AP-7", uc:"AP Invoice", label:"Payment Scheduling & Execution",
+    gapSteps:[
+      {label:"Invoices approved",detail:"awaiting payment",n1:"No auto-scheduling",n2:"Manual payment runs"},
+      {label:"AP team batches",detail:"groups by due date",n1:"Early-pay windows missed",n2:"Manual grouping errors"},
+      {label:"Initiates payment run",detail:"in CloudSuite manually",n1:"No discount optimisation",n2:"Late payments happen"}
+    ],
+    pain:{label:"Penalties & lost discounts",detail:"preventable cash leakage",n1:"Supplier trust eroded",n2:"Finance KPIs missed"},
+    techPill:"APS450MI/LstInvoices (approved) → due date calc → group by bank run → APS450MI/UpdInvoice",
+    flowType:"linear",
+    autoSteps:[
+      {label:"1. Find approved invoices",desc:"Queries all approved AP",api:"APS450MI/LstInvoices",trig:"Status: approved filter"},
+      {label:"2. Calculate due dates",desc:"From payment terms in CS",api:"Due date = inv date + terms",trig:"Early pay discount check"},
+      {label:"3. Group by bank run",desc:"Batches by schedule",api:"Group by bank & currency",trig:"Optimise for discounts"},
+      {label:"4. Update & schedule",desc:"Sets payment dates in CS",api:"APS450MI/UpdInvoice",trig:"Triggers bank file gen"}
+    ],
+    outcome:{label:"✓ Run scheduled",desc:"Payments auto-queued",api:"APS450MI dates updated",trig:"Discounts captured"},
+    pbPara:"The bot calls <span class='api-inline'>APS450MI/LstInvoices</span> to retrieve all approved invoices, then computes payment due dates from the payment terms stored in CloudSuite. It groups invoices by bank run schedule and currency, checking for early-payment discount windows before batching. Payment dates are updated via <span class='api-inline'>APS450MI/UpdInvoice</span> and the bank file generation is triggered automatically — eliminating manual scheduling entirely."
+  },
+  {
+    id:"AP-8", uc:"AP Invoice", label:"AP Reconciliation & Audit Trail",
+    gapSteps:[
+      {label:"Month-end arrives",detail:"AP team under pressure",n1:"Manual data extracts",n2:"Multiple CloudSuite modules"},
+      {label:"Extract AP data",detail:"invoices · payments · holds",n1:"No single report",n2:"Spreadsheet assembly"},
+      {label:"Cross-check GL",detail:"compare AP to ledger",n1:"Tedious & error-prone",n2:"Hours of manual work"}
+    ],
+    pain:{label:"Month-end delayed",detail:"late close · audit gaps",n1:"Finance team overtime",n2:"Audit finding risk"},
+    techPill:"APS450MI/LstInvoices period → GLS200MI/LstTransactions → Excel activities → email Finance",
+    flowType:"linear",
+    autoSteps:[
+      {label:"1. Extract AP data",desc:"All invoices for period",api:"APS450MI/LstInvoices",trig:"Date range + status filter"},
+      {label:"2. Extract GL postings",desc:"Same period from ledger",api:"GLS200MI/LstTransactions",trig:"Matching date range"},
+      {label:"3. Compare records",desc:"AP vs GL line by line",api:"Bot comparison logic",trig:"Flags all variances"},
+      {label:"4. Generate report",desc:"Creates Excel workbook",api:"Excel Write activities",trig:"Structured + formatted"}
+    ],
+    outcome:{label:"✓ Report sent",desc:"Finance team emailed",api:"Audit-ready output",trig:"Month-end close ready"},
+    pbPara:"A scheduled end-of-month bot calls <span class='api-inline'>APS450MI/LstInvoices</span> for the period and simultaneously queries GL postings via <span class='api-inline'>GLS200MI/LstTransactions</span>. The bot compares AP entries against GL postings line by line, flags any variances, and generates a structured Excel reconciliation workbook using Excel Write activities. The completed report is emailed directly to the Finance team — producing an audit-ready output with zero manual effort."
+  },
+  {
+    id:"CO-9", uc:"Customer Order", label:"Multi-Format Order Ingestion",
+    gapSteps:[
+      {label:"Orders arrive",detail:"email · PDF · CSV · EDI",n1:"No standard format",n2:"Many sources & layouts"},
+      {label:"CSR identifies format",detail:"reads document manually",n1:"No auto-routing",n2:"Time wasted before entry"},
+      {label:"Re-keys into CloudSuite",detail:"multi-panel entry",n1:"Throughput bottleneck",n2:"Error-prone at volume"}
+    ],
+    pain:{label:"Orders backlogged",detail:"customers wait longer",n1:"CSR team overwhelmed",n2:"Peak periods worst hit"},
+    techPill:"Email Activity → format detect → IDP OCR (PDF) or file parse (CSV/XML/EDI) → validate → CO-11",
+    flowType:"linearWide",
+    autoSteps:[
+      {label:"1. Watch order inbox",desc:"Bot monitors shared inbox",api:"RPA Email Activity",trig:"Trigger: on arrival"},
+      {label:"2. Detect format",desc:"Identifies attachment type",api:"MIME type + extension",trig:"PDF / CSV / XML / EDI"},
+      {label:"3. Extract order data",desc:"OCR or parse by format",api:"IDP (PDF) · file parse (CSV)",trig:"Per-vendor templates"},
+      {label:"4. Validate & route",desc:"Field validation before entry",api:"Required field checks",trig:"Pass to CO-11 bot"}
+    ],
+    outcome:{label:"✓ Data ready",desc:"All formats handled",api:"Passed to CO-11 entry bot",trig:"Zero re-keying needed"},
+    pbPara:"Build a format-aware ingestion bot that monitors the shared order inbox using RPA Email Activities. On attachment detection, it identifies the format via MIME type and extension — routing PDFs and images to <span class='api-inline-co'>Infor IDP</span> for OCR extraction and structured formats (CSV, XML, EDI) to file parsing activities. Extracted order data is validated for required fields before being passed to the CO-11 order entry bot."
+  },
+  {
+    id:"CO-10", uc:"Customer Order", label:"Customer Master & Credit Validation",
+    gapSteps:[
+      {label:"Order arrives",detail:"customer ID present",n1:"Customer must be validated",n2:"Before any entry begins"},
+      {label:"CSR looks up customer",detail:"CRS610 + credit screens",n1:"Multiple panels to check",n2:"Credit limit not automated"},
+      {label:"Checks credit manually",detail:"current exposure + limit",n1:"No automated decision",n2:"Can miss holds"}
+    ],
+    pain:{label:"Bad order entered",detail:"credit hold discovered late",n1:"Fulfilment begun in error",n2:"Wasted warehouse effort"},
+    techPill:"CRS610MI/GetBasicData → CRS610MI/GetCreditInfo → credit decision → proceed or CSR exception",
+    flowType:"binary",
+    preSteps:[
+      {label:"1. Verify customer",desc:"Looks up customer master",api:"CRS610MI/GetBasicData",trig:"Customer ID required"},
+      {label:"2. Check credit",desc:"Retrieves credit exposure",api:"CRS610MI/GetCreditInfo",trig:"Limit vs current exposure"}
+    ],
+    dec:{label:"Credit available?",detail:"Customer master · credit limit"},
+    yes:{label:"✓ Proceed to order entry",detail:"CO-11 bot triggered",api:"Validation passed"},
+    no:{label:"⚠ Hold + notify CSR",detail:"Order queued for review",api:"Exception log · CSR email"},
+    pbPara:"The bot calls <span class='api-inline-co'>CRS610MI/GetBasicData</span> to verify the customer exists and retrieve master data, then calls <span class='api-inline-co'>CRS610MI/GetCreditInfo</span> to check the credit limit against current exposure. Clear credit results trigger the CO-11 order entry bot automatically. Credit holds route the order to the exception queue with an immediate CSR notification — ensuring no bad orders enter the fulfilment pipeline."
+  },
+  {
+    id:"CO-11", uc:"Customer Order", label:"Automated Order Entry into CloudSuite",
+    gapSteps:[
+      {label:"Order validated",detail:"ready for entry",n1:"M3 requires multi-panel nav",n2:"OIS100 + OIS101 screens"},
+      {label:"CSR opens CloudSuite",detail:"navigates 4+ panels",n1:"Header · lines · pricing · delivery",n2:"10–15 min per order"},
+      {label:"Types each line item",detail:"item · qty · price · whs",n1:"No batch entry capability",n2:"Error-prone at volume"}
+    ],
+    pain:{label:"Order backlog grows",detail:"CSR resource exhausted",n1:"Customers wait longer",n2:"Peak periods worst hit"},
+    techPill:"OIS100MI/AddBatchHead header → OIS101MI/AddBatchLine × N lines → order number confirmed",
+    flowType:"linear",
+    autoSteps:[
+      {label:"1. Create header",desc:"Opens order in CloudSuite",api:"OIS100MI/AddBatchHead",trig:"Customer · type · date · addr"},
+      {label:"2. Add each line",desc:"Loops all product lines",api:"OIS101MI/AddBatchLine",trig:"Item · qty · price · whs"},
+      {label:"3. Confirm order",desc:"Validates order created",api:"API response: order number",trig:"CO type from rules"},
+      {label:"4. Log reference",desc:"Stores for next steps",api:"Bot variable: order number",trig:"Pass to CO-12 + CO-13"}
+    ],
+    outcome:{label:"✓ Order live",desc:"Full order in CloudSuite",api:"Zero manual entry",trig:"Acknowledgement triggered"},
+    pbPara:"The bot chains <span class='api-inline-co'>OIS100MI/AddBatchHead</span> to create the order header (customer, CO type, delivery date, address) followed by looped calls to <span class='api-inline-co'>OIS101MI/AddBatchLine</span> for each product line from the extracted document (item number, quantity, agreed price, warehouse). The CO type is assigned based on customer and order profile rules agreed during the design phase. The order number from the API response is stored as a bot variable and passed to the CO-12 and CO-13 bots."
+  },
+  {
+    id:"CO-12", uc:"Customer Order", label:"Pricing & Availability Validation",
+    gapSteps:[
+      {label:"Order entered",detail:"price check needed",n1:"Agreed price must be verified",n2:"Against CS price list"},
+      {label:"CSR checks pricing",detail:"OIS017 price list screens",n1:"Manual comparison",n2:"No tolerance rules"},
+      {label:"Checks stock manually",detail:"MMS080 availability",n1:"No simultaneous check",n2:"Stock not confirmed"}
+    ],
+    pain:{label:"Price errors shipped",detail:"or stock shortfalls",n1:"Customer disputes arise",n2:"Margin eroded silently"},
+    techPill:"OIS017MI/GetAgreement → MMS080MI/GetItmWhsBasic → price + stock compare → three-way route",
+    flowType:"threeway",
+    preSteps:[
+      {label:"1. Get price list",desc:"Retrieves customer pricing",api:"OIS017MI/GetAgreement",trig:"Customer-specific list"},
+      {label:"2. Check stock",desc:"Queries warehouse levels",api:"MMS080MI/GetItmWhsBasic",trig:"Per item per warehouse"}
+    ],
+    dec:{label:"Price & stock OK?",detail:"OIS017MI · MMS080MI · tolerances"},
+    outcomes:[
+      {label:"✓ Order confirmed",detail:"Proceeds automatically",col:"#4BAA74"},
+      {label:"⚠ Price flag to CSR",detail:"Variance above threshold",col:"#4A9EC4"},
+      {label:"⚠ Backorder flag",detail:"Insufficient stock detected",col:"#C88A20"}
+    ],
+    pbPara:"The bot calls <span class='api-inline-co'>OIS017MI/GetAgreement</span> to retrieve the customer-specific price agreement and compares it against extracted order line prices within an agreed tolerance. Simultaneously, it calls <span class='api-inline-co'>MMS080MI/GetItmWhsBasic</span> to check warehouse availability for each order line. Clean orders proceed automatically; price variances above threshold are flagged for CSR review before confirmation; stock shortfalls trigger a backorder notification to the customer."
+  },
+  {
+    id:"CO-13", uc:"Customer Order", label:"Order Acknowledgement & Communication",
+    gapSteps:[
+      {label:"Order created in CS",detail:"customer unaware",n1:"No auto-notification",n2:"CSR must draft manually"},
+      {label:"CSR writes email",detail:"order# · lines · EDD",n1:"5+ min per order",n2:"Inconsistent format"},
+      {label:"Send confirmation",detail:"manually dispatched",n1:"Errors in order details",n2:"Delays in busy periods"}
+    ],
+    pain:{label:"Poor order experience",detail:"customers call to chase",n1:"CSR time consumed",n2:"Brand perception hit"},
+    techPill:"OIS100MI response → extract order number → compose email → Send Email activity → customer",
+    flowType:"linearWide",
+    autoSteps:[
+      {label:"1. Read order number",desc:"Extracts from API response",api:"OIS100MI response body",trig:"CS order reference"},
+      {label:"2. Build confirmation",desc:"Composes branded email",api:"Bot variable assembly",trig:"Order# · lines · EDD"},
+      {label:"3. Get delivery date",desc:"Estimated date from CS",api:"OIS100MI/GetHead date",trig:"Confirmed in system"},
+      {label:"4. Send to customer",desc:"Dispatches email direct",api:"Send Email activity",trig:"< 1 min from entry"}
+    ],
+    outcome:{label:"✓ Sent",desc:"Customer notified < 1 min",api:"Acknowledgement logged",trig:"~5 min → under 1 min"},
+    pbPara:"On successful order creation via OIS100MI, the bot extracts the CloudSuite order number from the API response body. It assembles a branded order acknowledgement including the order number, confirmed line items, quantities, and estimated delivery date — retrieved via <span class='api-inline-co'>OIS100MI/GetHead</span> — and dispatches it to the customer using the Send Email activity. The full acknowledgement is logged against the order for audit purposes."
+  },
+  {
+    id:"CO-14", uc:"Customer Order", label:"Order Status Monitoring & Exception Alerts",
+    gapSteps:[
+      {label:"Orders in fulfilment",detail:"open in CloudSuite",n1:"No proactive monitoring",n2:"Manual review needed"},
+      {label:"CSR checks orders",detail:"OIS300 status panels",n1:"Reactive not proactive",n2:"Exceptions found late"},
+      {label:"Manually notifies",detail:"customer + internal team",n1:"No SLA tracking",n2:"Inconsistent comms"}
+    ],
+    pain:{label:"Customers chase delays",detail:"rather than being told",n1:"CSR effort wasted",n2:"Customer satisfaction drops"},
+    techPill:"OIS300MI/LstOrderLines → filter exception status codes → dual notification if flagged",
+    flowType:"binary",
+    preSteps:[
+      {label:"1. Query open orders",desc:"All active order lines",api:"OIS300MI/LstOrderLines",trig:"Scheduled: twice daily"},
+      {label:"2. Filter by status",desc:"Scans for exception codes",api:"Status code filter logic",trig:"Delay / short-ship / hold"}
+    ],
+    dec:{label:"Exception found?",detail:"Status codes indicate issues"},
+    yes:{label:"⚠ Alert customer + CSR",detail:"Dual notification sent",api:"Send Email × 2 recipients"},
+    no:{label:"✓ No action needed",detail:"Clean order queue",api:"Next scheduled run"},
+    pbPara:"A scheduled bot calls <span class='api-inline-co'>OIS300MI/LstOrderLines</span> twice daily to retrieve all open orders, then filters the results by status codes indicating delays, short-ships, or fulfilment holds. For any flagged order, the bot dispatches a customer-facing notification email and an internal CSR alert simultaneously — proactively managing exceptions before customers need to chase. Clean order queues require no action; the bot logs its run and awaits the next scheduled trigger."
+  },
+  {
+    id:"CO-15", uc:"Customer Order", label:"Order-to-Invoice Hand-off",
+    gapSteps:[
+      {label:"Order shipped",detail:"despatch confirmed",n1:"No auto invoice trigger",n2:"Finance must act manually"},
+      {label:"Finance checks despatch",detail:"verify shipment complete",n1:"Lag between ship & bill",n2:"Extends order-to-cash"},
+      {label:"Generates invoice",detail:"manually in CloudSuite",n1:"Delayed billing cycle",n2:"Cash flow impact"}
+    ],
+    pain:{label:"Order-to-cash delayed",detail:"billing lags despatch",n1:"DSO (debtor days) increases",n2:"Cash flow forecasting harder"},
+    techPill:"ION BOD ConfirmShipment event → OIS180MI/TriggerInvoice → invoice generated → route to customer",
+    flowType:"linear",
+    autoSteps:[
+      {label:"1. Detect despatch",desc:"Monitors ION BOD events",api:"ION ConfirmShipment BOD",trig:"Real-time event trigger"},
+      {label:"2. Trigger invoicing",desc:"Calls invoice generation",api:"OIS180MI/TriggerInvoice",trig:"From despatch advice"},
+      {label:"3. Invoice created",desc:"CS generates invoice",api:"CloudSuite invoice flow",trig:"Auto from despatch data"},
+      {label:"4. Route to customer",desc:"Sends via agreed channel",api:"Email or customer portal",trig:"PDF attachment"}
+    ],
+    outcome:{label:"✓ Invoiced",desc:"Order-to-cash closed",api:"Zero manual billing",trig:"Sent within minutes"},
+    pbPara:"The bot monitors for <span class='api-inline-co'>ConfirmShipment BOD</span> events from Infor ION. On receipt of a despatch confirmation, it immediately calls <span class='api-inline-co'>OIS180MI/TriggerInvoice</span> to generate the invoice from the despatch advice in CloudSuite — no human action required. The generated invoice is routed to the customer via the agreed channel (email PDF or customer portal upload), completing the order-to-cash cycle automatically within minutes of goods leaving the warehouse."
+  }
+];
+
+const PHASES = [
+  {
+    id:"discovery", label:"Discovery & Assessment", num:"01", color:"#C8F04B", icon:"◎",
+    summary:"Understand the customer's exact process, volume, and system configuration before a single line of bot logic is written.",
+    steps:[
+      {title:"Stakeholder Identification & Kickoff",audience:["Business","Functional"],details:["Identify executive sponsor, AP/Finance process owner, Order Management lead, and IT/infrastructure contact at the customer","Run a kickoff workshop to align on goals, timeline, and scope — covering all 15 automation scenarios","Agree on communication cadence and escalation paths for the engagement"]},
+      {title:"Process Mapping — As-Is Documentation",audience:["Functional"],details:["For AP: Document full invoice lifecycle — from inbox receipt through to payment posting in CloudSuite. Capture every manual step, every screen touched, and every person involved","For Orders: Document the full order intake journey — from email/EDI receipt through multi-panel M3 entry, credit check, pricing validation, confirmation, and acknowledgement","Use swimlane process maps to make handoffs between people, systems, and departments visible","Capture decision logic at each step (e.g., 'if invoice > $10,000, route to CFO for approval')"]},
+      {title:"Volume & Complexity Analysis",audience:["Business","Functional"],details:["Measure monthly invoice volumes and order volumes — broken down by type, source format, and originating vendor/customer","Identify peak periods (month-end, quarter-end) where automation delivers most relief","Classify exception rates: what % of invoices fail PO matching? What % of orders have pricing discrepancies?","Score each scenario using an automation suitability matrix: Volume × Rule-Based Nature × Stability × Error Rate"]},
+      {title:"CloudSuite Environment Audit",audience:["Technical"],details:["Confirm active CloudSuite version (M3 CE, LN, FSM) and tenant URL","Verify ION API Gateway is licensed and accessible — test connectivity from Fortude's environment","Enumerate available M3 API programs: APS450MI (AP Invoice), OIS100MI (Customer Order Header), OIS101MI (Order Lines), CRS610MI (Customer Master), PPS200MI (PO matching)","Confirm Infor Document Processor (IDP) licence is active and configured for OCR","Confirm Infor OS version supports the RPA Mastermind component required for unattended execution","Identify whether Dev, Test, and Production environments are separated","Confirm SMTP/email server access for invoice inbox monitoring bot"]},
+      {title:"Data Quality Assessment",audience:["Functional","Technical"],details:["Audit vendor master completeness in CloudSuite: are supplier IDs, payment terms, and bank details current?","Audit customer master: are credit limits, ship-to addresses, and pricing agreements up to date?","Assess item master and PO data quality — incomplete POs are the #1 cause of matching bot failure","Flag data remediation requirements before development begins"]},
+      {title:"Prioritisation & Roadmap",audience:["Business","Functional"],details:["Rank 15 automation scenarios by: ROI potential, implementation complexity, and risk","Recommend a phased delivery sequence — typically starting with high-volume, low-exception scenarios before tackling complex exception handling","Produce a Discovery Report with scenario-by-scenario automation suitability scores and recommended build order","Agree commercial scope and timeline with customer stakeholders"]}
+    ]
+  },
+  {
+    id:"design", label:"Solution Design", num:"02", color:"#4BD4F0", icon:"◈",
+    summary:"Architect the full technical and functional solution for each automation scenario — defining exactly what the bot does, how it integrates with CloudSuite, and what happens when things go wrong.",
+    steps:[
+      {title:"To-Be Process Design — Per Scenario",audience:["Functional"],details:["Produce a To-Be workflow diagram for each of the 15 automation scenarios — showing exactly which steps the bot handles versus which require human review","For AP: Define the full flow from email inbox monitoring → OCR extraction → vendor lookup → PO matching → approval routing → payment scheduling","For Orders: Define the flow from order inbox monitoring → data extraction → customer/credit validation → M3 order entry → pricing check → acknowledgement dispatch","Mark every decision point: what constitutes a 'clean' record the bot can process automatically, versus an exception requiring human intervention"]},
+      {title:"Exception Handling Framework",audience:["Business","Functional"],details:["Define exception categories for AP: missing PO, price variance above threshold, unrecognised vendor, duplicate invoice detected, over-credit-limit","Define exception categories for Orders: unrecognised customer, pricing mismatch, item not found in CloudSuite, insufficient stock, credit hold","For each exception type: define who gets notified, via what channel (email/Teams/Infor Ming.le), with what SLA for resolution","Design exception queues in CloudSuite or a middleware layer so human reviewers have a structured worklist"]},
+      {title:"Integration Architecture Design",audience:["Technical"],details:["Select integration method per scenario: ION REST API (preferred for data reads/writes), UI automation via RPA Studio browser/H5 client (for panels without API coverage), IDP (for document OCR), email activities (for inbox monitoring)","Map API endpoints per scenario — e.g., APS450MI/AddInvoice for AP posting, OIS100MI/AddBatchHead + OIS101MI/AddBatchLine for order entry, CRS610MI/GetBasicData for customer validation, MMS080MI/GetItmWhsBasic for stock availability","Design OAuth 2.0 token management: service account creation in Infor OS, .ionapi credential file generation, token refresh handling in bot logic","Define ION BOD (Business Object Document) event triggers where applicable — e.g., trigger downstream bot on SyncInvoice BOD receipt","Design data transformation layer: maps extracted OCR/email data fields to CloudSuite API input parameters"]},
+      {title:"IDP Template Design (AP Invoice Scenarios)",audience:["Technical","Functional"],details:["Identify the top vendor invoice formats by volume — each format may require a dedicated IDP extraction template","Design field extraction templates in IDP for: invoice number, invoice date, vendor ID/name, PO number, line items, quantities, unit prices, tax amounts, total amount, payment terms, bank details","Define confidence threshold rules: what OCR confidence score triggers auto-processing vs. manual review?","Test templates against a representative sample of real invoices (minimum 50 per template) before bot build begins"]},
+      {title:"Attended vs. Unattended Execution Design",audience:["Technical","Functional"],details:["Classify each scenario: unattended (fully automated, scheduler-triggered, no user needed) vs. attended (user-triggered, runs in foreground for complex edge cases)","AP Invoice scenarios 1–8: predominantly unattended — bots run on schedule (e.g., every 15 minutes) processing the invoice queue","Order scenarios 9–15: predominantly unattended for standard orders; attended mode available for CSR-triggered processing of complex/bespoke orders","Design Mastermind schedules: configure execution frequency, concurrency limits, and RDP session allocation per bot in the Infor OS RPA Management UI"]},
+      {title:"Security & Access Design",audience:["Technical"],details:["Create dedicated bot service accounts in Infor OS — separate accounts per function (AP bot, Order bot) following principle of least privilege","Define role assignments in CloudSuite: AP bot needs APS450, APS100 access; Order bot needs OIS100, OIS101, CRS610 access","Store credentials in Mastermind's encrypted credential store — never hardcode in bot flows","Design bot activity logging: every API call, every decision branch, every exception must write to a structured log for audit purposes","Define data retention policy for extracted invoice and order data processed outside CloudSuite"]},
+      {title:"Design Sign-Off",audience:["Business","Functional"],details:["Present To-Be process designs and exception handling rules to customer AP and Order Management leads for sign-off","Confirm all business rules (approval thresholds, escalation contacts, exception categories) with process owners","Obtain design approval before development begins — changes post-build are expensive"]}
+    ]
+  },
+  {
+    id:"development", label:"Bot Development", num:"03", color:"#F0A44B", icon:"◉",
+    summary:"Build, configure, and unit-test all bot flows in Infor RPA Studio using the agreed design specifications.",
+    steps:[
+      {title:"Development Environment Setup",audience:["Technical"],details:["Install Infor RPA Studio on developer machines and connect to the customer's Mastermind (cloud component) in the Dev tenant","Configure OAuth 2.0 authentication in RPA Studio using the customer's .ionapi credential file — setting ClientID, ClientSecret, token URL from the ION API Gateway","Set up a test inbox/email account for invoice and order ingestion testing","Seed the Dev CloudSuite environment with representative test data: vendors, customers, POs, items, pricing agreements","Create bot service accounts in the Dev tenant and assign appropriate CloudSuite roles"]},
+      {title:"AP Bot Development — Scenarios 1 to 8",audience:["Technical"],details:["AP-1 Invoice Ingestion: Build email monitoring flow using RPA Email Activities, IDP extraction, variable mapping, then APS450MI/AddInvoice HTTP call","AP-2 Vendor Validation: CRS620MI/GetBasicData lookup with If-Else branch — matched proceeds, not found routes to exception queue + notification","AP-3 PO Matching: PPS200MI + MWS420MI retrieval, line-by-line comparison, three-way routing: auto-approve / flag for review / exception","AP-4 Exception Handling: Try-Catch wrappers across all flows, classifier, structured exception log, email/Teams notification, SLA timer","AP-5 Approval Routing: Decision tree on amount + cost centre, APS450MI status update, SLA escalation scheduled bot","AP-6 Duplicate Detection: APS450MI/LstInvoiceLines filter before every post — reject duplicate, proceed if clean","AP-7 Payment Scheduling: APS450MI/LstInvoices approved filter, due date calc, grouping by bank run, APS450MI/UpdInvoice update","AP-8 Reconciliation: Scheduled month-end bot — APS450MI/LstInvoices + GLS200MI/LstTransactions comparison, Excel report, email to Finance"]},
+      {title:"Order Bot Development — Scenarios 9 to 15",audience:["Technical"],details:["CO-9 Order Ingestion: Email monitoring with format detection — PDF to IDP, CSV/XML/EDI to file parsing, field validation, pass to CO-11","CO-10 Customer & Credit Validation: CRS610MI/GetBasicData + CRS610MI/GetCreditInfo, binary route — proceed or exception queue + CSR alert","CO-11 Order Entry into M3: OIS100MI/AddBatchHead for header, looped OIS101MI/AddBatchLine per product line, CO type from design rules","CO-12 Pricing Validation: OIS017MI/GetAgreement price comparison + MMS080MI/GetItmWhsBasic stock check, three-way route — confirm / price flag / backorder","CO-13 Order Acknowledgement: Read OIS100MI response for order number, compose branded email with lines + EDD, Send Email activity","CO-14 Order Status Monitoring: Scheduled OIS300MI/LstOrderLines query, exception status code filter, dual notification if flagged","CO-15 Order-to-Invoice Hand-off: ION ConfirmShipment BOD event listener, OIS180MI/TriggerInvoice call, route invoice to customer"]},
+      {title:"Logging & Audit Trail Implementation",audience:["Technical"],details:["Implement structured logging in every bot flow: log start time, end time, record processed (invoice number / order number), API response codes, decision branch taken, exception type if applicable","Write logs to a persistent store — options: Infor Data Lake, a dedicated Azure SQL / SharePoint list, or a custom CloudSuite IDF table — agreed with customer IT during design","Ensure every bot run produces an immutable audit record suitable for AP audit and order compliance reviews"]},
+      {title:"Bot Publishing to Mastermind",audience:["Technical"],details:["Package completed bot flows from RPA Studio and publish to the customer's Mastermind instance","Create Process definitions in RPA Management UI — assign to robot devices, configure execution mode (attended/unattended), set schedules","Configure concurrency settings: how many simultaneous bot instances can run for AP vs. Order scenarios during peak periods","Set up Mastermind monitoring alerts: notify Fortude's support team on bot failure or prolonged queue buildup"]}
+    ]
+  },
+  {
+    id:"testing", label:"Testing", num:"04", color:"#D44BF0", icon:"◑",
+    summary:"Validate every bot flow against real data and business scenarios in the Test environment before any production deployment.",
+    steps:[
+      {title:"Unit Testing — Per Bot Activity",audience:["Technical"],details:["Test each API call in isolation: verify correct OAuth token acquisition, correct API endpoint targeting, correct parameter mapping, and correct response parsing","Test IDP templates against the full invoice sample set: measure extraction accuracy per field per template","Test all If-Else and Try-Catch branches: simulate API failures, missing data, and timeout scenarios to confirm exception handling fires correctly","Verify log entries are written correctly for every execution path"]},
+      {title:"Integration Testing — End-to-End",audience:["Technical","Functional"],details:["Run complete AP invoice flows from email inbox → IDP extraction → vendor lookup → PO matching → approval → posting in CloudSuite Test environment","Run complete Order flows from email intake → customer validation → M3 order entry → pricing check → acknowledgement email","Verify data integrity: confirm that data extracted from source documents matches exactly what is posted in CloudSuite","Test cross-scenario dependencies: e.g., does an invoice exception correctly block the payment scheduling bot from attempting to pay it?"]},
+      {title:"Exception & Edge Case Testing",audience:["Functional"],details:["Deliberately submit invoices with: no matching PO, price variance above threshold, duplicate invoice number, unrecognised vendor ID, missing mandatory fields","Deliberately submit orders with: credit-held customer, out-of-stock item, unrecognised customer number, pricing below agreed floor price","Verify each exception produces the correct notification, routes to the correct escalation contact, and is logged correctly","Verify that the exception does not block processing of subsequent clean records in the queue"]},
+      {title:"Volume & Performance Testing",audience:["Technical"],details:["Simulate peak-period invoice volumes — run 500+ invoices through the AP bot in a single scheduled run to test queue handling and concurrency","Measure end-to-end processing time per invoice and per order against agreed SLA targets","Verify Mastermind orchestration handles concurrent bot instances without resource contention","Test scheduled triggers: confirm bots fire correctly on configured schedules and handle overlapping runs gracefully"]},
+      {title:"User Acceptance Testing (UAT)",audience:["Business","Functional"],details:["Present bots to customer AP team and Order Management team in a structured UAT session using the Test environment","Walk through real historical invoices and orders as UAT test cases","Customers verify: correct data extraction, correct CloudSuite entries, correct exception notifications, correct acknowledgement emails","Capture all defects and change requests in a UAT issue log","Resolve all critical defects before proceeding to go-live; agree disposition of minor issues (fix now vs. post-go-live)"]},
+      {title:"UAT Sign-Off",audience:["Business"],details:["Obtain formal written sign-off from AP process owner and Order Management lead confirming UAT is complete","Document any agreed post-go-live enhancements","Confirm go-live readiness with IT on infrastructure: Production credentials, Mastermind Production configuration, email account access"]}
+    ]
+  },
+  {
+    id:"golive", label:"Go-Live & Hypercare", num:"05", color:"#F04B7A", icon:"◆",
+    summary:"Deploy bots to Production in a controlled, phased sequence — with Fortude actively monitoring bot performance for the first 2–4 weeks.",
+    steps:[
+      {title:"Production Environment Configuration",audience:["Technical"],details:["Create Production bot service accounts in CloudSuite and Infor OS — separate from Test accounts","Generate Production .ionapi credential file and configure OAuth in Mastermind Production","Publish all bot flows from Staging to Production Mastermind","Configure Production schedules, concurrency limits, and robot device assignments","Confirm SMTP/email access for Production AP inbox and order inbox monitoring","Set up Fortude's monitoring alerts on Production Mastermind — notify on bot failure, queue backlog, or unexpected exception spike"]},
+      {title:"Phased Go-Live Sequence",audience:["Business","Functional"],details:["Wave 1: Deploy AP-3 (PO Matching) and CO-9 (Order Ingestion) — highest volume, clearest rules, lowest risk","Wave 2: Add AP-1 & AP-2 (Invoice Ingestion + Vendor Validation) and CO-11 (Order Entry into M3)","Wave 3: Add approval routing, exception handling, and credit validation bots","Wave 4: Add payment scheduling, acknowledgement, status monitoring, and order-to-invoice bots","Run parallel processing for the first week of each wave: bots process and record decisions, but humans verify outputs before they are treated as final"]},
+      {title:"Hypercare Monitoring",audience:["Technical","Functional"],details:["Fortude monitors all bot runs daily for the first 4 weeks post go-live","Review exception logs each morning: are exception rates within expected range? Are bots failing on unexpected data patterns?","Track KPIs weekly: invoices processed per day (target vs. actual), average processing time per invoice, order entry time, exception rate, bot error rate","Hold weekly hypercare calls with customer stakeholders to review performance and address any emerging issues"]},
+      {title:"Staff Enablement & Training",audience:["Business","Functional"],details:["Train AP team on: how to monitor the exception queue, how to handle escalated exceptions, how to trigger attended bot runs for ad-hoc needs","Train Order Management team on: how to view bot-created orders in CloudSuite, how to handle bot-flagged pricing exceptions, how to interpret order acknowledgement logs","Train IT contact on: Mastermind monitoring dashboard, how to restart a failed bot, how to check bot logs for troubleshooting","Produce a quick-reference runbook for each bot scenario covering: what it does, when it runs, what to do if it fails"]}
+    ]
+  },
+  {
+    id:"governance", label:"Governance & Optimisation", num:"06", color:"#4BF0A4", icon:"◇",
+    summary:"Establish a sustainable operating model that keeps bots running reliably, adapts to CloudSuite changes, and expands automation coverage over time.",
+    steps:[
+      {title:"Bot Ownership Model",audience:["Business"],details:["Assign a named Bot Owner for each automation scenario at the customer — this is the person who approves changes to that bot's business rules","Define Fortude's ongoing role: managed service (Fortude maintains all bots) vs. supported handover (customer team maintains with Fortude on retainer)","Establish a change request process: any change to bot logic (new exception rule, new approval threshold, new vendor format) must go through formal review before deployment"]},
+      {title:"CloudSuite Upgrade Impact Management",audience:["Technical"],details:["Infor releases CloudSuite updates on a regular cadence — UI changes can break screen-based bot activities; API deprecations can break ION API calls","Fortude must subscribe to Infor release notes and assess each release for impact on deployed bot flows before the upgrade is applied to the customer's tenant","Run regression test suite against all bot flows in the Test environment after every CloudSuite upgrade, before Production is updated","Maintain a bot inventory document mapping each bot flow to the specific CloudSuite API endpoints and UI screens it depends on — making impact assessment fast"]},
+      {title:"Performance Reviews & Optimisation",audience:["Business","Functional"],details:["Conduct quarterly bot performance reviews: measure actual ROI (hours saved, error rate reduction, processing time improvement) against pre-automation baseline","Identify optimisation opportunities: are exception rates higher than expected on specific invoice types? Can IDP templates be refined to improve OCR accuracy?","Expand automation scope: use quarterly reviews to identify the next wave of automation opportunities, feeding back into the Discovery & Assessment phase"]},
+      {title:"Annual Security & Compliance Review",audience:["Technical"],details:["Review bot service account permissions annually — remove any access no longer required","Rotate OAuth credentials and service account secrets","Review bot activity logs for anomalous patterns","Validate that bot data handling remains compliant with any applicable regulations (GDPR, SOX, local financial compliance requirements)"]}
+    ]
+  }
+];
+
+/* ══════════════════════════════════════════════════════
+   SVG HELPERS
+══════════════════════════════════════════════════════ */
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// Gap chain SVG — two-pass rendering: rects first, then text on top (prevents clipping)
+function gapSVG(uid, steps, pain){
+  const mc='#C88A20', pt='#E05030';
+  const mid=`gm${uid}`;
+  const pad=13, bw=146, pw=160, ag=12;
+  const xs=[pad, pad+bw+ag, pad+2*(bw+ag), pad+3*(bw+ag)];
+  const ws=[bw,bw,bw,pw];
+  const bh=56;
+  const by=8;
+  const ay=by+bh/2;
+
+  const items=[[...steps, pain]].flat();
+  const isPain=[false,false,false,true];
+
+  // Build clipPath defs per box (4px horizontal margin inside)
+  let clipDefs='';
+  for(let i=0;i<4;i++){
+    clipDefs+=`<clipPath id="gcl${uid}${i}"><rect x="${xs[i]+4}" y="${by}" width="${ws[i]-8}" height="${bh}"/></clipPath>`;
+  }
+
+  // Pass 1: all rects
+  let rects='';
+  for(let i=0;i<4;i++){
+    const isP=isPain[i];
+    const fill=isP?'#2A1000':'#1E1700';
+    const stroke=isP?'rgba(200,64,32,0.35)':'rgba(200,138,32,0.32)';
+    rects+=`<rect x="${xs[i]}" y="${by}" width="${ws[i]}" height="${bh}" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="0.9"/>`;
+  }
+
+  // Pass 2: all text (clipped, renders on top of rects)
+  let texts='';
+  for(let i=0;i<4;i++){
+    const isP=isPain[i];
+    const s=items[i];
+    const cx=xs[i]+ws[i]/2;
+    const tf=isP?pt:'#C8A040';
+    const df=isP?'rgba(224,80,48,0.6)':'rgba(200,160,64,0.6)';
+    texts+=`<text x="${cx}" y="${by+17}" text-anchor="middle" dominant-baseline="central" fill="${tf}" font-size="10" font-family="Georgia,serif" font-weight="500" clip-path="url(#gcl${uid}${i})">${esc(s.label)}</text>`;
+    texts+=`<text x="${cx}" y="${by+37}" text-anchor="middle" dominant-baseline="central" fill="${df}" font-size="8" font-family="monospace" clip-path="url(#gcl${uid}${i})">${esc(s.detail)}</text>`;
+  }
+
+  // Notes below boxes (outside, always visible)
+  let notes='';
+  const ny1=by+bh+14, ny2=ny1+12;
+  for(let i=0;i<4;i++){
+    const isP=isPain[i];
+    const s=items[i];
+    const cx=xs[i]+ws[i]/2;
+    const c1=isP?'#804020':'#7A5010';
+    const c2=isP?'rgba(128,64,32,0.7)':'rgba(122,80,16,0.7)';
+    notes+=`<text x="${cx}" y="${ny1}" text-anchor="middle" dominant-baseline="central" fill="${c1}" font-size="8" font-family="monospace">${esc(s.n1||'')}</text>`;
+    notes+=`<text x="${cx}" y="${ny2}" text-anchor="middle" dominant-baseline="central" fill="${c2}" font-size="7.5" font-family="monospace">${esc(s.n2||'')}</text>`;
+  }
+
+  // Arrows between boxes
+  let arrows='';
+  for(let i=0;i<3;i++){
+    const x1=xs[i]+ws[i]+1, x2=xs[i+1]-1;
+    arrows+=`<line x1="${x1}" y1="${ay}" x2="${x2}" y2="${ay}" stroke="${mc}" stroke-width="0.9" stroke-dasharray="3 2" marker-end="url(#${mid})"/>`;
+  }
+
+  return `<svg class="flow" viewBox="0 0 680 99" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="${mid}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="${mc}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  ${clipDefs}
+</defs>
+${rects}${arrows}${texts}${notes}
+</svg>`;
+}
+
+// Linear auto flow — two-pass: all rects first, then all text on top
+function linearAutoSVG(uid, isAP, steps, outcome, smallLabel){
+  const mc=isAP?'#4BAA74':'#4A9EC4';
+  const mt=isAP?'#6BC894':'#5AC0E0';
+  const bg=isAP?'#0E1E14':'#0C1A24';
+  const obg=isAP?'#122818':'#0E2030';
+  const ot=isAP?'#80E4A4':'#80D0F0';
+  const a1=isAP?'#3A8A60':'#2A7090';
+  const mid=`am${uid}`;
+
+  const pad=11, bw=112, ow=124, ag=10;
+  const bh=82;
+  const by=6;
+  const ay=by+bh/2;
+
+  const xs=[pad, pad+bw+ag, pad+2*(bw+ag), pad+3*(bw+ag)];
+  const ox=pad+4*(bw+ag);
+  const all=[...steps, outcome];
+  const isFinal=[false,false,false,false,true];
+
+  // clipPath defs per box (5px margin each side)
+  let clipDefs='';
+  for(let i=0;i<5;i++){
+    const x=isFinal[i]?ox:xs[i];
+    const w=isFinal[i]?ow:bw;
+    clipDefs+=`<clipPath id="lcl${uid}${i}"><rect x="${x+5}" y="${by}" width="${w-10}" height="${bh}"/></clipPath>`;
+  }
+
+  // Pass 1: all rects
+  let rects='';
+  for(let i=0;i<5;i++){
+    const x=isFinal[i]?ox:xs[i];
+    const w=isFinal[i]?ow:bw;
+    const fill=isFinal[i]?obg:bg;
+    const stroke=isFinal[i]?mc:`${mc}40`;
+    const sw=isFinal[i]?'1.2':'0.8';
+    rects+=`<rect x="${x}" y="${by}" width="${w}" height="${bh}" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+    rects+=`<line x1="${x+8}" y1="${by+46}" x2="${x+w-8}" y2="${by+46}" stroke="${mc}20" stroke-width="0.5"/>`;
+  }
+
+  // Pass 2: all text (with clip-path)
+  let texts='';
+  for(let i=0;i<5;i++){
+    const s=all[i];
+    const x=isFinal[i]?ox:xs[i];
+    const w=isFinal[i]?ow:bw;
+    const cx=x+w/2;
+    const tf=isFinal[i]?ot:mt;
+    const df=isFinal[i]?`rgba(128,228,164,0.55)`:`rgba(${isAP?'107,200,148':'90,192,224'},0.55)`;
+    const af=isFinal[i]?(isAP?'#3A8A60':'#2A7090'):a1;
+    const tf2=isFinal[i]?(isAP?'#2A6A48':'#1A5870'):(isAP?'rgba(58,138,96,0.7)':'rgba(42,112,144,0.7)');
+    const cp=`clip-path="url(#lcl${uid}${i})"`;
+    const labelFs=smallLabel?8:9.5;
+    texts+=`<text x="${cx}" y="${by+15}" text-anchor="middle" dominant-baseline="central" fill="${tf}" font-size="${labelFs}" font-family="Georgia,serif" font-weight="500" ${cp}>${esc(s.label)}</text>`;
+    texts+=`<text x="${cx}" y="${by+30}" text-anchor="middle" dominant-baseline="central" fill="${df}" font-size="7" font-family="monospace" ${cp}>${esc(s.desc)}</text>`;
+    texts+=`<text x="${cx}" y="${by+55}" text-anchor="middle" dominant-baseline="central" fill="${af}" font-size="7" font-family="monospace" ${cp}>${esc(s.api)}</text>`;
+    texts+=`<text x="${cx}" y="${by+68}" text-anchor="middle" dominant-baseline="central" fill="${tf2}" font-size="6.5" font-family="monospace" ${cp}>${esc(s.trig)}</text>`;
+  }
+
+  // Arrows
+  let arrows='';
+  for(let i=0;i<4;i++){
+    const x2=i<3?xs[i+1]-1:ox-1;
+    arrows+=`<line x1="${xs[i]+bw+1}" y1="${ay}" x2="${x2}" y2="${ay}" stroke="${mc}" stroke-width="0.8" marker-end="url(#${mid})"/>`;
+  }
+
+  return `<svg class="flow" viewBox="0 0 680 94" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="${mid}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="${mc}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  ${clipDefs}
+</defs>
+${rects}${arrows}${texts}
+</svg>`;
+}
+
+// Binary branch SVG — two-pass flat rendering
+function binaryAutoSVG(uid, isAP, preSteps, dec, yes, no){
+  const mc=isAP?'#4BAA74':'#4A9EC4';
+  const mt=isAP?'#6BC894':'#5AC0E0';
+  const bg=isAP?'#0E1E14':'#0C1A24';
+  const obg=isAP?'#122818':'#0E2030';
+  const ot=isAP?'#80E4A4':'#80D0F0';
+  const a1=isAP?'#3A8A60':'#2A7090';
+  const mam=`bma${uid}`, mad=`bmd${uid}`, mag=`bmg${uid}`;
+  const n=preSteps.length;
+
+  const bh=76, by=8, ag=10;
+  const ay=by+bh/2;
+  // n=3: tighter sizing so total row fits within 680px viewBox
+  let stepW=n===1?170:n===2?132:88;
+  let totalStepW=n===1?170:n===2?(132*2+ag):(88*3+ag*2);
+  const decW=n===3?136:162, yesW=n===3?154:(n<=2?218:196);
+  const totalRow=totalStepW+ag+decW+ag+yesW;
+  const leftPad=Math.max(6,(680-totalRow)/2);
+  const decX=leftPad+totalStepW+ag;
+  const yesX=decX+decW+ag;
+  const dcx=decX+decW/2;
+
+  const noW=Math.min(decW+48,230), noH=56, noY=by+bh+28;
+  const noCX=dcx;
+
+  // clipPath defs
+  let clipDefs='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag);
+    clipDefs+=`<clipPath id="bcl${uid}s${i}"><rect x="${x+5}" y="${by}" width="${stepW-10}" height="${bh}"/></clipPath>`;
+  }
+  clipDefs+=`<clipPath id="bcl${uid}d"><rect x="${decX+5}" y="${by}" width="${decW-10}" height="${bh}"/></clipPath>`;
+  clipDefs+=`<clipPath id="bcl${uid}y"><rect x="${yesX+5}" y="${by}" width="${yesW-10}" height="${bh}"/></clipPath>`;
+  clipDefs+=`<clipPath id="bcl${uid}n"><rect x="${noCX-noW/2+5}" y="${noY}" width="${noW-10}" height="${noH}"/></clipPath>`;
+
+  // Pass 1: all rects
+  let rects='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag);
+    rects+=`<rect x="${x}" y="${by}" width="${stepW}" height="${bh}" rx="4" fill="${bg}" stroke="${mc}40" stroke-width="0.8"/>`;
+    rects+=`<line x1="${x+8}" y1="${by+44}" x2="${x+stepW-8}" y2="${by+44}" stroke="${mc}18" stroke-width="0.5"/>`;
+  }
+  rects+=`<rect x="${decX}" y="${by}" width="${decW}" height="${bh}" rx="4" fill="#14182A" stroke="rgba(58,74,106,0.25)" stroke-width="0.8"/>`;
+  rects+=`<rect x="${yesX}" y="${by}" width="${yesW}" height="${bh}" rx="4" fill="${obg}" stroke="${mc}" stroke-width="1.1"/>`;
+  rects+=`<line x1="${yesX+8}" y1="${by+44}" x2="${yesX+yesW-8}" y2="${by+44}" stroke="${mc}25" stroke-width="0.5"/>`;
+  rects+=`<rect x="${noCX-noW/2}" y="${noY}" width="${noW}" height="${noH}" rx="4" fill="#1E1700" stroke="rgba(200,138,32,0.3)" stroke-width="0.8"/>`;
+
+  // Arrows
+  let arrows='';
+  for(let i=0;i<n-1;i++){
+    const x1=leftPad+i*(stepW+ag)+stepW;
+    arrows+=`<line x1="${x1+1}" y1="${ay}" x2="${x1+ag-1}" y2="${ay}" stroke="#445566" stroke-width="0.8" marker-end="url(#${mam})"/>`;
+  }
+  arrows+=`<line x1="${leftPad+totalStepW+1}" y1="${ay}" x2="${decX-1}" y2="${ay}" stroke="#445566" stroke-width="0.8" marker-end="url(#${mam})"/>`;
+  arrows+=`<line x1="${decX+decW+1}" y1="${ay}" x2="${yesX-1}" y2="${ay}" stroke="${mc}" stroke-width="0.9" marker-end="url(#${mad})"/>`;
+  arrows+=`<text x="${decX+decW+ag/2+1}" y="${ay-7}" text-anchor="middle" fill="${mc}" font-size="8" font-family="monospace" opacity="0.7">yes</text>`;
+  arrows+=`<line x1="${dcx}" y1="${by+bh+1}" x2="${dcx}" y2="${noY-1}" stroke="#C88A20" stroke-width="0.8" marker-end="url(#${mag})"/>`;
+  arrows+=`<text x="${dcx+6}" y="${by+bh+16}" text-anchor="start" fill="#C88A20" font-size="8" font-family="monospace" opacity="0.7">no</text>`;
+
+  // Pass 2: all text (with clip-path)
+  let texts='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag), cx=x+stepW/2, s=preSteps[i];
+    const cp=`clip-path="url(#bcl${uid}s${i})"`;
+    texts+=`<text x="${cx}" y="${by+14}" text-anchor="middle" dominant-baseline="central" fill="${mt}" font-size="9.5" font-family="Georgia,serif" font-weight="500" ${cp}>${esc(s.label)}</text>`;
+    texts+=`<text x="${cx}" y="${by+28}" text-anchor="middle" dominant-baseline="central" fill="${mt}55" font-size="7" font-family="monospace" ${cp}>${esc(s.desc)}</text>`;
+    texts+=`<text x="${cx}" y="${by+53}" text-anchor="middle" dominant-baseline="central" fill="${a1}" font-size="7" font-family="monospace" ${cp}>${esc(s.api)}</text>`;
+    texts+=`<text x="${cx}" y="${by+65}" text-anchor="middle" dominant-baseline="central" fill="${a1}99" font-size="6.5" font-family="monospace" ${cp}>${esc(s.trig)}</text>`;
+  }
+  const dcp=`clip-path="url(#bcl${uid}d)"`;
+  texts+=`<text x="${dcx}" y="${by+26}" text-anchor="middle" dominant-baseline="central" fill="#8898B8" font-size="10" font-family="Georgia,serif" ${dcp}>${esc(dec.label)}</text>`;
+  texts+=`<text x="${dcx}" y="${by+42}" text-anchor="middle" dominant-baseline="central" fill="rgba(136,152,184,0.5)" font-size="7" font-family="monospace" ${dcp}>${esc(dec.detail)}</text>`;
+  const ycp=`clip-path="url(#bcl${uid}y)"`;
+  const ycx=yesX+yesW/2;
+  texts+=`<text x="${ycx}" y="${by+14}" text-anchor="middle" dominant-baseline="central" fill="${ot}" font-size="9.5" font-family="Georgia,serif" font-weight="500" ${ycp}>${esc(yes.label)}</text>`;
+  texts+=`<text x="${ycx}" y="${by+28}" text-anchor="middle" dominant-baseline="central" fill="${ot}55" font-size="7" font-family="monospace" ${ycp}>${esc(yes.detail)}</text>`;
+  texts+=`<text x="${ycx}" y="${by+53}" text-anchor="middle" dominant-baseline="central" fill="${isAP?'#3A8A60':'#2A7090'}" font-size="7" font-family="monospace" ${ycp}>${esc(yes.api)}</text>`;
+  const ncp=`clip-path="url(#bcl${uid}n)"`;
+  texts+=`<text x="${noCX}" y="${noY+15}" text-anchor="middle" dominant-baseline="central" fill="#C8A040" font-size="9.5" font-family="Georgia,serif" font-weight="500" ${ncp}>${esc(no.label)}</text>`;
+  texts+=`<text x="${noCX}" y="${noY+29}" text-anchor="middle" dominant-baseline="central" fill="rgba(200,160,64,0.55)" font-size="7" font-family="monospace" ${ncp}>${esc(no.detail)}</text>`;
+  texts+=`<text x="${noCX}" y="${noY+43}" text-anchor="middle" dominant-baseline="central" fill="#7A5010" font-size="7" font-family="monospace" ${ncp}>${esc(no.api)}</text>`;
+
+  const vh=noY+noH+8;
+  return `<svg class="flow" viewBox="0 0 680 ${vh}" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="${mam}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#445566" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  <marker id="${mad}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="${mc}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  <marker id="${mag}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#C88A20" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  ${clipDefs}
+</defs>
+${rects}${arrows}${texts}
+</svg>`;
+}
+// Three-way branch SVG — two-pass flat rendering
+function threewayAutoSVG(uid, isAP, preSteps, dec, outcomes){
+  const mc=isAP?'#4BAA74':'#4A9EC4';
+  const mt=isAP?'#6BC894':'#5AC0E0';
+  const bg=isAP?'#0E1E14':'#0C1A24';
+  const a1=isAP?'#3A8A60':'#2A7090';
+  const mam=`tma${uid}`;
+  const n=preSteps.length;
+  const bh=76, by=8, ag=10;
+  const ay=by+bh/2;
+
+  const decW=220;
+  let stepW=n===1?170:132;
+  let totalStepW=n===1?170:n*(132+ag)-ag;
+  const totalRow=totalStepW+ag+decW;
+  const leftPad=Math.max(6,(680-totalRow)/2);
+  const decX=leftPad+totalStepW+ag;
+  const dcx=decX+decW/2;
+
+  // clipPath defs
+  let clipDefs='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag);
+    clipDefs+=`<clipPath id="tcl${uid}s${i}"><rect x="${x+5}" y="${by}" width="${stepW-10}" height="${bh}"/></clipPath>`;
+  }
+  clipDefs+=`<clipPath id="tcl${uid}d"><rect x="${decX+5}" y="${by}" width="${decW-10}" height="${bh}"/></clipPath>`;
+
+  // Pass 1: rects
+  let rects='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag);
+    rects+=`<rect x="${x}" y="${by}" width="${stepW}" height="${bh}" rx="4" fill="${bg}" stroke="${mc}40" stroke-width="0.8"/>`;
+    rects+=`<line x1="${x+8}" y1="${by+44}" x2="${x+stepW-8}" y2="${by+44}" stroke="${mc}18" stroke-width="0.5"/>`;
+  }
+  rects+=`<rect x="${decX}" y="${by}" width="${decW}" height="${bh}" rx="4" fill="#14182A" stroke="rgba(58,74,106,0.25)" stroke-width="0.8"/>`;
+
+  // Three outcome boxes
+  const outW=188, outY=by+bh+26, outH=52, outGap=(680-3*outW)/4;
+  const outXs=[outGap, outGap*2+outW, outGap*3+outW*2];
+  const busY=outY-12;
+  for(let i=0;i<3;i++){
+    rects+=`<rect x="${outXs[i]}" y="${outY}" width="${outW}" height="${outH}" rx="4" fill="#0C1218" stroke="${outcomes[i].col}55" stroke-width="0.9"/>`;
+    clipDefs+=`<clipPath id="tcl${uid}o${i}"><rect x="${outXs[i]+5}" y="${outY}" width="${outW-10}" height="${outH}"/></clipPath>`;
+  }
+
+  // Arrows
+  let arrows='';
+  for(let i=0;i<n-1;i++){
+    const x1=leftPad+i*(stepW+ag)+stepW;
+    arrows+=`<line x1="${x1+1}" y1="${ay}" x2="${x1+ag-1}" y2="${ay}" stroke="#445566" stroke-width="0.8" marker-end="url(#${mam})"/>`;
+  }
+  arrows+=`<line x1="${leftPad+totalStepW+1}" y1="${ay}" x2="${decX-1}" y2="${ay}" stroke="#445566" stroke-width="0.8" marker-end="url(#${mam})"/>`;
+  arrows+=`<line x1="${dcx}" y1="${by+bh+1}" x2="${dcx}" y2="${busY}" stroke="#2A3050" stroke-width="0.6" stroke-dasharray="3 2"/>`;
+  arrows+=`<line x1="${outXs[0]+outW/2}" y1="${busY}" x2="${outXs[2]+outW/2}" y2="${busY}" stroke="#2A3050" stroke-width="0.6" stroke-dasharray="3 2"/>`;
+  for(let i=0;i<3;i++){
+    const ocx=outXs[i]+outW/2;
+    arrows+=`<line x1="${ocx}" y1="${busY}" x2="${ocx}" y2="${outY-1}" stroke="${outcomes[i].col}" stroke-width="0.8" marker-end="url(#${mam})"/>`;
+  }
+
+  // Pass 2: text
+  let texts='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag), cx=x+stepW/2, s=preSteps[i];
+    const cp=`clip-path="url(#tcl${uid}s${i})"`;
+    texts+=`<text x="${cx}" y="${by+14}" text-anchor="middle" dominant-baseline="central" fill="${mt}" font-size="9.5" font-family="Georgia,serif" font-weight="500" ${cp}>${esc(s.label)}</text>`;
+    texts+=`<text x="${cx}" y="${by+28}" text-anchor="middle" dominant-baseline="central" fill="${mt}55" font-size="7" font-family="monospace" ${cp}>${esc(s.desc)}</text>`;
+    texts+=`<text x="${cx}" y="${by+53}" text-anchor="middle" dominant-baseline="central" fill="${a1}" font-size="7" font-family="monospace" ${cp}>${esc(s.api)}</text>`;
+    texts+=`<text x="${cx}" y="${by+65}" text-anchor="middle" dominant-baseline="central" fill="${a1}99" font-size="6.5" font-family="monospace" ${cp}>${esc(s.trig)}</text>`;
+  }
+  const dcp=`clip-path="url(#tcl${uid}d)"`;
+  texts+=`<text x="${dcx}" y="${by+26}" text-anchor="middle" dominant-baseline="central" fill="#8898B8" font-size="10" font-family="Georgia,serif" ${dcp}>${esc(dec.label)}</text>`;
+  texts+=`<text x="${dcx}" y="${by+42}" text-anchor="middle" dominant-baseline="central" fill="rgba(136,152,184,0.5)" font-size="7" font-family="monospace" ${dcp}>${esc(dec.detail)}</text>`;
+  for(let i=0;i<3;i++){
+    const ocx=outXs[i]+outW/2, o=outcomes[i];
+    const ocp=`clip-path="url(#tcl${uid}o${i})"`;
+    texts+=`<text x="${ocx}" y="${outY+16}" text-anchor="middle" dominant-baseline="central" fill="${o.col}" font-size="10" font-family="Georgia,serif" ${ocp}>${esc(o.label)}</text>`;
+    texts+=`<text x="${ocx}" y="${outY+32}" text-anchor="middle" dominant-baseline="central" fill="${o.col}66" font-size="7.5" font-family="monospace" ${ocp}>${esc(o.detail)}</text>`;
+  }
+
+  const vh=outY+outH+8;
+  return `<svg class="flow" viewBox="0 0 680 ${vh}" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="${mam}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#445566" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  ${clipDefs}
+</defs>
+${rects}${arrows}${texts}
+</svg>`;
+}
+
+// Linear wide-box SVG — viewBox 800px so each box is ~130px wide; all text fits inside
+function linearAutoSVGWide(uid, isAP, steps, outcome){
+  const mc=isAP?'#4BAA74':'#4A9EC4';
+  const mt=isAP?'#6BC894':'#5AC0E0';
+  const bg=isAP?'#0E1E14':'#0C1A24';
+  const obg=isAP?'#122818':'#0E2030';
+  const ot=isAP?'#80E4A4':'#80D0F0';
+  const a1=isAP?'#3A8A60':'#2A7090';
+  const mid=`aw${uid}`;
+
+  const pad=45, bw=130, ow=142, ag=12;
+  const bh=82, by=6, ay=by+bh/2;
+  const xs=[pad, pad+bw+ag, pad+2*(bw+ag), pad+3*(bw+ag)];
+  const ox=pad+4*(bw+ag);
+  const all=[...steps, outcome];
+  const isFinal=[false,false,false,false,true];
+
+  // clipPath defs per box (5px margin each side)
+  let clipDefs='';
+  for(let i=0;i<5;i++){
+    const x=isFinal[i]?ox:xs[i];
+    const w=isFinal[i]?ow:bw;
+    clipDefs+=`<clipPath id="lw${uid}${i}"><rect x="${x+5}" y="${by}" width="${w-10}" height="${bh}"/></clipPath>`;
+  }
+
+  // Pass 1: all rects
+  let rects='';
+  for(let i=0;i<5;i++){
+    const x=isFinal[i]?ox:xs[i];
+    const w=isFinal[i]?ow:bw;
+    const fill=isFinal[i]?obg:bg;
+    const stroke=isFinal[i]?mc:`${mc}40`;
+    rects+=`<rect x="${x}" y="${by}" width="${w}" height="${bh}" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="${isFinal[i]?'1.2':'0.8'}"/>`;
+    rects+=`<line x1="${x+8}" y1="${by+46}" x2="${x+w-8}" y2="${by+46}" stroke="${mc}20" stroke-width="0.5"/>`;
+  }
+
+  // Pass 2: all text
+  let texts='';
+  for(let i=0;i<5;i++){
+    const s=all[i];
+    const x=isFinal[i]?ox:xs[i];
+    const w=isFinal[i]?ow:bw;
+    const cx=x+w/2;
+    const tf=isFinal[i]?ot:mt;
+    const df=isFinal[i]?`rgba(128,228,164,0.55)`:`rgba(${isAP?'107,200,148':'90,192,224'},0.55)`;
+    const af=isFinal[i]?(isAP?'#3A8A60':'#2A7090'):a1;
+    const tf2=isFinal[i]?(isAP?'#2A6A48':'#1A5870'):(isAP?'rgba(58,138,96,0.7)':'rgba(42,112,144,0.7)');
+    const cp=`clip-path="url(#lw${uid}${i})"`;
+    texts+=`<text x="${cx}" y="${by+15}" text-anchor="middle" dominant-baseline="central" fill="${tf}" font-size="9.5" font-family="Georgia,serif" font-weight="500" ${cp}>${esc(s.label)}</text>`;
+    texts+=`<text x="${cx}" y="${by+30}" text-anchor="middle" dominant-baseline="central" fill="${df}" font-size="7" font-family="monospace" ${cp}>${esc(s.desc)}</text>`;
+    texts+=`<text x="${cx}" y="${by+55}" text-anchor="middle" dominant-baseline="central" fill="${af}" font-size="7" font-family="monospace" ${cp}>${esc(s.api)}</text>`;
+    texts+=`<text x="${cx}" y="${by+68}" text-anchor="middle" dominant-baseline="central" fill="${tf2}" font-size="6.5" font-family="monospace" ${cp}>${esc(s.trig)}</text>`;
+  }
+
+  // Arrows
+  let arrows='';
+  for(let i=0;i<4;i++){
+    const x2=i<3?xs[i+1]-1:ox-1;
+    arrows+=`<line x1="${xs[i]+bw+1}" y1="${ay}" x2="${x2}" y2="${ay}" stroke="${mc}" stroke-width="0.8" marker-end="url(#${mid})"/>`;
+  }
+
+  return `<svg class="flow" viewBox="0 0 800 94" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="${mid}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="${mc}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  ${clipDefs}
+</defs>
+${rects}${arrows}${texts}
+</svg>`;
+}
+// Binary wide-box SVG — viewBox 880px, stepW=130; all text fits inside even for n=3
+function binaryAutoSVGWide(uid, isAP, preSteps, dec, yes, no){
+  const mc=isAP?'#4BAA74':'#4A9EC4';
+  const mt=isAP?'#6BC894':'#5AC0E0';
+  const bg=isAP?'#0E1E14':'#0C1A24';
+  const obg=isAP?'#122818':'#0E2030';
+  const ot=isAP?'#80E4A4':'#80D0F0';
+  const a1=isAP?'#3A8A60':'#2A7090';
+  const mam=`bwma${uid}`, mad=`bwmd${uid}`, mag=`bwmg${uid}`;
+  const n=preSteps.length;
+
+  const bh=76, by=8, ag=10, ay=by+bh/2;
+  const stepW=130;
+  const totalStepW=n*stepW+(n-1)*ag;
+  const decW=155, yesW=165;
+  const totalRow=totalStepW+ag+decW+ag+yesW;
+  const leftPad=Math.max(8,(880-totalRow)/2);
+  const decX=leftPad+totalStepW+ag;
+  const yesX=decX+decW+ag;
+  const dcx=decX+decW/2;
+  const noW=Math.min(decW+50,230), noH=56, noY=by+bh+28;
+  const noCX=dcx;
+
+  let clipDefs='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag);
+    clipDefs+=`<clipPath id="bw${uid}s${i}"><rect x="${x+5}" y="${by}" width="${stepW-10}" height="${bh}"/></clipPath>`;
+  }
+  clipDefs+=`<clipPath id="bw${uid}d"><rect x="${decX+5}" y="${by}" width="${decW-10}" height="${bh}"/></clipPath>`;
+  clipDefs+=`<clipPath id="bw${uid}y"><rect x="${yesX+5}" y="${by}" width="${yesW-10}" height="${bh}"/></clipPath>`;
+  clipDefs+=`<clipPath id="bw${uid}n"><rect x="${noCX-noW/2+5}" y="${noY}" width="${noW-10}" height="${noH}"/></clipPath>`;
+
+  let rects='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag);
+    rects+=`<rect x="${x}" y="${by}" width="${stepW}" height="${bh}" rx="4" fill="${bg}" stroke="${mc}40" stroke-width="0.8"/>`;
+    rects+=`<line x1="${x+8}" y1="${by+44}" x2="${x+stepW-8}" y2="${by+44}" stroke="${mc}18" stroke-width="0.5"/>`;
+  }
+  rects+=`<rect x="${decX}" y="${by}" width="${decW}" height="${bh}" rx="4" fill="#14182A" stroke="rgba(58,74,106,0.25)" stroke-width="0.8"/>`;
+  rects+=`<rect x="${yesX}" y="${by}" width="${yesW}" height="${bh}" rx="4" fill="${obg}" stroke="${mc}" stroke-width="1.1"/>`;
+  rects+=`<line x1="${yesX+8}" y1="${by+44}" x2="${yesX+yesW-8}" y2="${by+44}" stroke="${mc}25" stroke-width="0.5"/>`;
+  rects+=`<rect x="${noCX-noW/2}" y="${noY}" width="${noW}" height="${noH}" rx="4" fill="#1E1700" stroke="rgba(200,138,32,0.3)" stroke-width="0.8"/>`;
+
+  let arrows='';
+  for(let i=0;i<n-1;i++){
+    const x1=leftPad+i*(stepW+ag)+stepW;
+    arrows+=`<line x1="${x1+1}" y1="${ay}" x2="${x1+ag-1}" y2="${ay}" stroke="#445566" stroke-width="0.8" marker-end="url(#${mam})"/>`;
+  }
+  arrows+=`<line x1="${leftPad+totalStepW+1}" y1="${ay}" x2="${decX-1}" y2="${ay}" stroke="#445566" stroke-width="0.8" marker-end="url(#${mam})"/>`;
+  arrows+=`<line x1="${decX+decW+1}" y1="${ay}" x2="${yesX-1}" y2="${ay}" stroke="${mc}" stroke-width="0.9" marker-end="url(#${mad})"/>`;
+  arrows+=`<text x="${decX+decW+ag/2+1}" y="${ay-7}" text-anchor="middle" fill="${mc}" font-size="8" font-family="monospace" opacity="0.7">yes</text>`;
+  arrows+=`<line x1="${dcx}" y1="${by+bh+1}" x2="${dcx}" y2="${noY-1}" stroke="#C88A20" stroke-width="0.8" marker-end="url(#${mag})"/>`;
+  arrows+=`<text x="${dcx+6}" y="${by+bh+16}" text-anchor="start" fill="#C88A20" font-size="8" font-family="monospace" opacity="0.7">no</text>`;
+
+  let texts='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag), cx=x+stepW/2, s=preSteps[i];
+    const cp=`clip-path="url(#bw${uid}s${i})"`;
+    texts+=`<text x="${cx}" y="${by+14}" text-anchor="middle" dominant-baseline="central" fill="${mt}" font-size="9.5" font-family="Georgia,serif" font-weight="500" ${cp}>${esc(s.label)}</text>`;
+    texts+=`<text x="${cx}" y="${by+28}" text-anchor="middle" dominant-baseline="central" fill="${mt}55" font-size="7" font-family="monospace" ${cp}>${esc(s.desc)}</text>`;
+    texts+=`<text x="${cx}" y="${by+53}" text-anchor="middle" dominant-baseline="central" fill="${a1}" font-size="7" font-family="monospace" ${cp}>${esc(s.api)}</text>`;
+    texts+=`<text x="${cx}" y="${by+65}" text-anchor="middle" dominant-baseline="central" fill="${a1}99" font-size="6.5" font-family="monospace" ${cp}>${esc(s.trig)}</text>`;
+  }
+  const dcp=`clip-path="url(#bw${uid}d)"`;
+  texts+=`<text x="${dcx}" y="${by+26}" text-anchor="middle" dominant-baseline="central" fill="#8898B8" font-size="10" font-family="Georgia,serif" ${dcp}>${esc(dec.label)}</text>`;
+  texts+=`<text x="${dcx}" y="${by+42}" text-anchor="middle" dominant-baseline="central" fill="rgba(136,152,184,0.5)" font-size="7" font-family="monospace" ${dcp}>${esc(dec.detail)}</text>`;
+  const ycp=`clip-path="url(#bw${uid}y)"`;
+  const ycx=yesX+yesW/2;
+  texts+=`<text x="${ycx}" y="${by+14}" text-anchor="middle" dominant-baseline="central" fill="${ot}" font-size="9.5" font-family="Georgia,serif" font-weight="500" ${ycp}>${esc(yes.label)}</text>`;
+  texts+=`<text x="${ycx}" y="${by+28}" text-anchor="middle" dominant-baseline="central" fill="${ot}55" font-size="7" font-family="monospace" ${ycp}>${esc(yes.detail)}</text>`;
+  texts+=`<text x="${ycx}" y="${by+53}" text-anchor="middle" dominant-baseline="central" fill="${isAP?'#3A8A60':'#2A7090'}" font-size="7" font-family="monospace" ${ycp}>${esc(yes.api)}</text>`;
+  const ncp=`clip-path="url(#bw${uid}n)"`;
+  texts+=`<text x="${noCX}" y="${noY+15}" text-anchor="middle" dominant-baseline="central" fill="#C8A040" font-size="9.5" font-family="Georgia,serif" font-weight="500" ${ncp}>${esc(no.label)}</text>`;
+  texts+=`<text x="${noCX}" y="${noY+29}" text-anchor="middle" dominant-baseline="central" fill="rgba(200,160,64,0.55)" font-size="7" font-family="monospace" ${ncp}>${esc(no.detail)}</text>`;
+  texts+=`<text x="${noCX}" y="${noY+43}" text-anchor="middle" dominant-baseline="central" fill="#7A5010" font-size="7" font-family="monospace" ${ncp}>${esc(no.api)}</text>`;
+
+  const vh=noY+noH+8;
+  return `<svg class="flow" viewBox="0 0 880 ${vh}" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="${mam}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#445566" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  <marker id="${mad}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="${mc}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  <marker id="${mag}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#C88A20" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  ${clipDefs}
+</defs>
+${rects}${arrows}${texts}
+</svg>`;
+}
+
+// Three-way wide-box SVG — viewBox 900px so all boxes are generously sized
+function threewayAutoSVGWide(uid, isAP, preSteps, dec, outcomes){
+  const mc=isAP?'#4BAA74':'#4A9EC4';
+  const mt=isAP?'#6BC894':'#5AC0E0';
+  const bg=isAP?'#0E1E14':'#0C1A24';
+  const a1=isAP?'#3A8A60':'#2A7090';
+  const mam=`twma${uid}`;
+  const n=preSteps.length;
+  const bh=76, by=8, ag=12, ay=by+bh/2;
+
+  const stepW=210, decW=260;
+  const totalStepW=n*stepW+(n-1)*ag;
+  const totalRow=totalStepW+ag+decW;
+  const leftPad=Math.max(8,(900-totalRow)/2);
+  const decX=leftPad+totalStepW+ag;
+  const dcx=decX+decW/2;
+
+  let clipDefs='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag);
+    clipDefs+=`<clipPath id="tw${uid}s${i}"><rect x="${x+6}" y="${by}" width="${stepW-12}" height="${bh}"/></clipPath>`;
+  }
+  clipDefs+=`<clipPath id="tw${uid}d"><rect x="${decX+6}" y="${by}" width="${decW-12}" height="${bh}"/></clipPath>`;
+
+  const outW=260, outY=by+bh+28, outH=54, outGap=(900-3*outW)/4;
+  const outXs=[outGap, outGap*2+outW, outGap*3+outW*2];
+  const busY=outY-12;
+  for(let i=0;i<3;i++){
+    clipDefs+=`<clipPath id="tw${uid}o${i}"><rect x="${outXs[i]+6}" y="${outY}" width="${outW-12}" height="${outH}"/></clipPath>`;
+  }
+
+  // Pass 1: rects
+  let rects='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag);
+    rects+=`<rect x="${x}" y="${by}" width="${stepW}" height="${bh}" rx="4" fill="${bg}" stroke="${mc}40" stroke-width="0.8"/>`;
+    rects+=`<line x1="${x+8}" y1="${by+44}" x2="${x+stepW-8}" y2="${by+44}" stroke="${mc}18" stroke-width="0.5"/>`;
+  }
+  rects+=`<rect x="${decX}" y="${by}" width="${decW}" height="${bh}" rx="4" fill="#14182A" stroke="rgba(58,74,106,0.25)" stroke-width="0.8"/>`;
+  for(let i=0;i<3;i++){
+    rects+=`<rect x="${outXs[i]}" y="${outY}" width="${outW}" height="${outH}" rx="4" fill="#0C1218" stroke="${outcomes[i].col}55" stroke-width="0.9"/>`;
+  }
+
+  // Arrows
+  let arrows='';
+  for(let i=0;i<n-1;i++){
+    const x1=leftPad+i*(stepW+ag)+stepW;
+    arrows+=`<line x1="${x1+1}" y1="${ay}" x2="${x1+ag-1}" y2="${ay}" stroke="#445566" stroke-width="0.8" marker-end="url(#${mam})"/>`;
+  }
+  arrows+=`<line x1="${leftPad+totalStepW+1}" y1="${ay}" x2="${decX-1}" y2="${ay}" stroke="#445566" stroke-width="0.8" marker-end="url(#${mam})"/>`;
+  arrows+=`<line x1="${dcx}" y1="${by+bh+1}" x2="${dcx}" y2="${busY}" stroke="#2A3050" stroke-width="0.6" stroke-dasharray="3 2"/>`;
+  arrows+=`<line x1="${outXs[0]+outW/2}" y1="${busY}" x2="${outXs[2]+outW/2}" y2="${busY}" stroke="#2A3050" stroke-width="0.6" stroke-dasharray="3 2"/>`;
+  for(let i=0;i<3;i++){
+    const ocx=outXs[i]+outW/2;
+    arrows+=`<line x1="${ocx}" y1="${busY}" x2="${ocx}" y2="${outY-1}" stroke="${outcomes[i].col}" stroke-width="0.8" marker-end="url(#${mam})"/>`;
+  }
+
+  // Pass 2: text
+  let texts='';
+  for(let i=0;i<n;i++){
+    const x=leftPad+i*(stepW+ag), cx=x+stepW/2, s=preSteps[i];
+    const cp=`clip-path="url(#tw${uid}s${i})"`;
+    texts+=`<text x="${cx}" y="${by+14}" text-anchor="middle" dominant-baseline="central" fill="${mt}" font-size="9.5" font-family="Georgia,serif" font-weight="500" ${cp}>${esc(s.label)}</text>`;
+    texts+=`<text x="${cx}" y="${by+28}" text-anchor="middle" dominant-baseline="central" fill="${mt}55" font-size="7" font-family="monospace" ${cp}>${esc(s.desc)}</text>`;
+    texts+=`<text x="${cx}" y="${by+53}" text-anchor="middle" dominant-baseline="central" fill="${a1}" font-size="7" font-family="monospace" ${cp}>${esc(s.api)}</text>`;
+    texts+=`<text x="${cx}" y="${by+65}" text-anchor="middle" dominant-baseline="central" fill="${a1}99" font-size="6.5" font-family="monospace" ${cp}>${esc(s.trig)}</text>`;
+  }
+  const dcp=`clip-path="url(#tw${uid}d)"`;
+  texts+=`<text x="${dcx}" y="${by+26}" text-anchor="middle" dominant-baseline="central" fill="#8898B8" font-size="10" font-family="Georgia,serif" ${dcp}>${esc(dec.label)}</text>`;
+  texts+=`<text x="${dcx}" y="${by+42}" text-anchor="middle" dominant-baseline="central" fill="rgba(136,152,184,0.5)" font-size="7" font-family="monospace" ${dcp}>${esc(dec.detail)}</text>`;
+  for(let i=0;i<3;i++){
+    const ocx=outXs[i]+outW/2, o=outcomes[i];
+    const ocp=`clip-path="url(#tw${uid}o${i})"`;
+    texts+=`<text x="${ocx}" y="${outY+17}" text-anchor="middle" dominant-baseline="central" fill="${o.col}" font-size="10" font-family="Georgia,serif" ${ocp}>${esc(o.label)}</text>`;
+    texts+=`<text x="${ocx}" y="${outY+34}" text-anchor="middle" dominant-baseline="central" fill="${o.col}66" font-size="7.5" font-family="monospace" ${ocp}>${esc(o.detail)}</text>`;
+  }
+
+  const vh=outY+outH+8;
+  return `<svg class="flow" viewBox="0 0 900 ${vh}" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="${mam}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#445566" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  ${clipDefs}
+</defs>
+${rects}${arrows}${texts}
+</svg>`;
+}
+
+// Mini flow SVG for playbook (compact, 3 steps)
+function miniFlowSVG(uid, isAP, steps, outcome){
+  const mc=isAP?'#4BAA74':'#4A9EC4';
+  const mt=isAP?'#6BC894':'#5AC0E0';
+  const bg=isAP?'#0E1E14':'#0C1A24';
+  const obg=isAP?'#122818':'#0E2030';
+  const ot=isAP?'#80E4A4':'#80D0F0';
+  const mid=`mm${uid}`;
+  const n=steps.length;
+  const stepW=Math.min(130, Math.floor((560-(n)*12)/n));
+  const outW=Math.min(140,680-n*(stepW+12)-20);
+  const pad=Math.max(4,(680-(n*(stepW+12)+outW+12))/2);
+  
+  let out=[];
+  out.push(`<svg class="flow" viewBox="0 0 680 58" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="${mid}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="${mc}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`);
+  
+  steps.forEach((s,i)=>{
+    const sx=pad+i*(stepW+12), cx=sx+stepW/2;
+    out.push(`<rect x="${sx}" y="4" width="${stepW}" height="44" rx="3" fill="${bg}" stroke="${mc}35" stroke-width="0.6"/>
+<text x="${cx}" y="18" text-anchor="middle" dominant-baseline="central" fill="${mt}" font-size="10.5" font-family="Georgia,serif">${esc(s.label)}</text>
+<text x="${cx}" y="31" text-anchor="middle" dominant-baseline="central" fill="${mc}55" font-size="7.5" font-family="monospace">${esc(s.api)}</text>`);
+    const nx=i<steps.length-1 ? pad+(i+1)*(stepW+12) : pad+n*(stepW+12);
+    out.push(`<line x1="${sx+stepW}" y1="26" x2="${nx-2}" y2="26" stroke="${mc}" stroke-width="0.7" marker-end="url(#${mid})"/>`);
+  });
+  const ox=pad+n*(stepW+12), ocx=ox+outW/2;
+  out.push(`<rect x="${ox}" y="4" width="${outW}" height="44" rx="3" fill="${obg}" stroke="${mc}" stroke-width="0.9"/>
+<text x="${ocx}" y="18" text-anchor="middle" dominant-baseline="central" fill="${ot}" font-size="10.5" font-family="Georgia,serif">${esc(outcome.label)}</text>
+<text x="${ocx}" y="31" text-anchor="middle" dominant-baseline="central" fill="${ot}55" font-size="7.5" font-family="monospace">${esc(outcome.api)}</text>`);
+  out.push('</svg>');
+  return out.join('');
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER SCENARIOS
+══════════════════════════════════════════════════════ */
+
+function buildScenarioCard(s, idx){
+  const isAP = s.uc==='AP Invoice';
+  const cardCls = isAP ? 's-card-ap' : 's-card-co';
+  const badgeCls = isAP ? 's-badge-ap' : 's-badge-co';
+  const toggleCls = isAP ? 's-toggle-ap' : 's-toggle-co';
+  const hdrBg = isAP ? '#0F1D10' : '#0D1820';
+  const gapSecCls = isAP ? 's-section-gap-ap' : 's-section-gap-co';
+  const autoSecCls = isAP ? 's-section-auto-ap' : 's-section-auto-co';
+  const autoDotCls = isAP ? 's-sec-dot-auto' : 's-sec-dot-auto-co';
+  const autoTitleCls = isAP ? 's-sec-title-auto-ap' : 's-sec-title-auto-co';
+
+  let flowSVG='';
+  if(s.flowType==='linear'||s.flowType==='linearWide'){
+    flowSVG=linearAutoSVGWide(s.id, isAP, s.autoSteps, s.outcome);
+  } else if(s.flowType==='binary'||s.flowType==='binaryWide'){
+    flowSVG=binaryAutoSVGWide(s.id, isAP, s.preSteps, s.dec, s.yes, s.no);
+  } else if(s.flowType==='threeway'){
+    flowSVG=threewayAutoSVGWide(s.id, isAP, s.preSteps, s.dec, s.outcomes);
+  }
+
+  const uid=s.id.replace('-','');
+  return `<div class="s-card ${cardCls}" id="card-${s.id}">
+  <div class="s-card-hdr" style="background:${hdrBg}" onclick="toggleCard('${s.id}')">
+    <span class="${badgeCls}">${s.id}</span>
+    <span class="s-title">${esc(s.label)}</span>
+    <span class="s-uc">${esc(s.uc)}</span>
+    <span class="s-toggle ${toggleCls}" id="tog-${s.id}">+</span>
+  </div>
+  <div class="s-body" id="body-${s.id}">
+    <div class="s-section ${gapSecCls}">
+      <div class="s-sec-label">
+        <div class="s-sec-dot-gap"></div>
+        <span class="s-sec-title s-sec-title-gap">What CloudSuite can't do on its own — the gap</span>
+      </div>
+      ${gapSVG(uid, s.gapSteps, s.pain)}
+    </div>
+    <div class="s-section ${autoSecCls}">
+      <div class="s-sec-label">
+        <div class="${autoDotCls} s-sec-dot-auto"></div>
+        <span class="s-sec-title ${autoTitleCls}">How the bot fixes it</span>
+      </div>
+      <div class="tech-pill">⚙ Technical: <span class="tech-chain">${esc(s.techPill)}</span></div>
+      ${flowSVG}
+    </div>
+  </div>
+</div>`;
+}
+
+let currentFilter='All';
+
+function renderScenarios(){
+  const list=document.getElementById('scenarios-list');
+  let html='';
+  ['AP Invoice','Customer Order'].forEach(group=>{
+    if(currentFilter!=='All' && currentFilter!==group) return;
+    const isAP=group==='AP Invoice';
+    const grpScenarios=SCENARIOS.filter(s=>s.uc===group);
+    const col=isAP?'#7EC84A':'#4AB0D4';
+    html+=`<div class="group-header">
+      <div class="group-bar" style="background:${col}"></div>
+      <span class="group-label" style="color:${col}">${esc(group)}</span>
+      <span class="group-count">— ${grpScenarios.length} scenarios</span>
+    </div>`;
+    grpScenarios.forEach((s,i)=>{ html+=buildScenarioCard(s,i); });
+  });
+  list.innerHTML=html;
+}
+
+function filterScenarios(f){
+  currentFilter=f;
+  ['All','AP Invoice','Customer Order'].forEach(name=>{
+    const key=name==='All'?'all':name==='AP Invoice'?'ap':'co';
+    const btn=document.getElementById(`fb-${key}`);
+    btn.className='filter-btn'+(f===name?(' active-'+key):'');
+  });
+  renderScenarios();
+}
+
+function toggleCard(id){
+  const body=document.getElementById('body-'+id);
+  const tog=document.getElementById('tog-'+id);
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  tog.classList.toggle('open',!isOpen);
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER PLAYBOOK
+══════════════════════════════════════════════════════ */
+
+let currentPhase=0;
+let currentAudience='All';
+let expandedSteps={};
+
+const audColors={'Business':'pb-aud-active-biz','Functional':'pb-aud-active-func','Technical':'pb-aud-active-tech'};
+
+function buildSidebar(){
+  const sb=document.getElementById('pb-sidebar');
+  sb.innerHTML=PHASES.map((ph,i)=>`<button class="pb-sidebar-btn${i===0?' pb-sidebar-active':''}" 
+    id="sb-${i}" style="color:${ph.color}" onclick="selectPhase(${i})">
+    <span class="pb-sidebar-icon">${ph.icon}</span>
+    <div>
+      <div class="pb-sidebar-num">${ph.num}</div>
+      <div class="pb-sidebar-name">${esc(ph.label)}</div>
+    </div>
+  </button>`).join('');
+}
+
+function selectPhase(i){
+  currentPhase=i;
+  expandedSteps={};
+  PHASES.forEach((_,j)=>{
+    const btn=document.getElementById(`sb-${j}`);
+    btn.classList.toggle('pb-sidebar-active',j===i);
+  });
+  renderPhaseContent();
+}
+
+function setAudience(aud){
+  currentAudience=aud;
+  expandedSteps={};
+  renderPhaseContent();
+}
+
+function audBtn(aud, label){
+  const isActive=aud===currentAudience;
+  const cls=isActive?('pb-aud-btn '+(aud==='All'?'pb-aud-active-all':audColors[aud]||'')):'pb-aud-btn';
+  return `<button class="${cls}" onclick="setAudience('${aud}')">${label}</button>`;
+}
+
+function renderPhaseContent(){
+  const ph=PHASES[currentPhase];
+  const isDev=ph.id==='development';
+  const filtSteps=currentAudience==='All'?ph.steps:ph.steps.filter(s=>s.audience.includes(currentAudience));
+  
+  let html=`<div class="pb-phase-header">
+    <h2 class="pb-phase-title" style="color:${ph.color}">
+      <span class="pb-phase-icon">${ph.icon}</span>
+      ${ph.num} / ${esc(ph.label)}
+    </h2>
+    <p class="pb-phase-summary">${esc(ph.summary)}</p>
+    <div class="pb-audience-tabs">
+      ${audBtn('All','All')}
+      ${audBtn('Business','Business')}
+      ${audBtn('Functional','Functional')}
+      ${audBtn('Technical','Technical')}
+    </div>
+  </div>`;
+
+  if(filtSteps.length===0){
+    html+=`<div class="empty-state">No tasks in this phase require ${esc(currentAudience)} involvement.</div>`;
+  } else {
+    html+=`<div class="step-list">`;
+    filtSteps.forEach((step,i)=>{
+      const key=`${currentPhase}-${i}`;
+      const isOpen=!!expandedSteps[key];
+      const audBadges=step.audience.map(a=>`<span class="step-badge step-badge-${a.toLowerCase()}">${esc(a)}</span>`).join('');
+      html+=`<div class="step-item${isOpen?' open':''}" style="--phase-col:${ph.color}">
+        <button class="step-hdr" onclick="toggleStep('${key}')">
+          <span class="step-num">${String(i+1).padStart(2,'0')}</span>
+          <span class="step-title${isOpen?' open':''}">${esc(step.title)}</span>
+          <div class="step-aud">${audBadges}</div>
+          <span class="step-toggle-ph${isOpen?' open':''}" style="color:${ph.color}">+</span>
+        </button>
+        <div class="step-body${isOpen?' open':''}">`;
+      
+      // For development phase, if this is AP or CO bot step, show scenario sub-flows
+      if(isDev && (step.title.includes('AP Bot') || step.title.includes('Order Bot'))){
+        const isAPDev=step.title.includes('AP Bot');
+        const scenIds=isAPDev?['AP-1','AP-2','AP-3','AP-4','AP-5','AP-6','AP-7','AP-8']:['CO-9','CO-10','CO-11','CO-12','CO-13','CO-14','CO-15'];
+        html+=`<div style="margin-bottom:10px;">`;
+        scenIds.forEach(sid=>{
+          const sc=SCENARIOS.find(x=>x.id===sid);
+          if(!sc) return;
+          const isAP=sc.uc==='AP Invoice';
+          const badgeCls=isAP?'s-badge-ap':'s-badge-co';
+          const paraCls=isAP?'scen-para':'scen-para scen-para-co';
+          const miniSteps=sc.flowType==='linear' ? sc.autoSteps.slice(0,3).map(s=>({label:s.label,api:s.api})) : (sc.preSteps||sc.autoSteps||[]).slice(0,3).map(s=>({label:s.label,api:s.api}));
+          const miniOut=sc.flowType==='linear'? {label:sc.outcome.label, api:sc.outcome.api} : sc.yes ? {label:sc.yes.label.replace('✓ ','✓ '), api:sc.yes.api} : {label:sc.outcomes[0].label, api:'Multiple paths'};
+          html+=`<div class="scen-subflow">
+            <div class="scen-subflow-hdr">
+              <span class="${badgeCls}">${sid}</span>
+              <span style="font-size:12px;color:#DDD8C8">${esc(sc.label)}</span>
+            </div>
+            <p class="${paraCls}">${sc.pbPara}</p>
+            ${miniFlowSVG(sid.replace('-','')+'pb', isAP, miniSteps, miniOut)}
+          </div>`;
+        });
+        html+=`</div>`;
+      }
+      
+      // Regular detail bullets
+      step.details.forEach(d=>{
+        html+=`<div class="step-detail">
+          <span class="step-bullet" style="color:${ph.color}">▸</span>
+          <span>${esc(d)}</span>
+        </div>`;
+      });
+      
+      html+=`</div></div>`;
+    });
+    html+=`</div>`;
+  }
+  
+  // Re-apply current audience button state after re-render
+  html=html.replace(`id="aud-btn-${currentAudience.toLowerCase().replace(' ','')}" onclick`,`id="aud-btn-${currentAudience.toLowerCase().replace(' ','')}" class="pb-aud-btn ${currentAudience==='All'?'pb-aud-active-all':audColors[currentAudience]||''}" onclick`);
+  
+  document.getElementById('pb-content').innerHTML=html;
+}
+
+function toggleStep(key){
+  expandedSteps[key]=!expandedSteps[key];
+  renderPhaseContent();
+}
+
+/* ══════════════════════════════════════════════════════
+   TAB SWITCHING
+══════════════════════════════════════════════════════ */
+
+function showTab(tab){
+  document.getElementById('section-scenarios').style.display=tab==='scenarios'?'block':'none';
+  document.getElementById('section-playbook').style.display=tab==='playbook'?'block':'none';
+  document.getElementById('tab-scenarios').className='tab-btn'+(tab==='scenarios'?' active':'');
+  document.getElementById('tab-playbook').className='tab-btn'+(tab==='playbook'?' active':'');
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════════════════
+   ABBREVIATIONS GLOSSARY
+══════════════════════════════════════════════════════ */
+
+const ABBR_GROUPS = [
+  {
+    label: "Infor Product & Platform",
+    items: [
+      {term:"M3",          def:"Infor M3 — the core ERP application used for financials, manufacturing, and supply chain"},
+      {term:"CloudSuite",  def:"Infor CloudSuite — the cloud-hosted suite of M3 and related Infor applications"},
+      {term:"CS",          def:"CloudSuite — shorthand used throughout this document"},
+      {term:"CE",          def:"Cloud Edition — the SaaS-delivered version of Infor M3 (M3 CE)"},
+      {term:"LN",          def:"Infor LN — alternative Infor ERP product (referenced in environment audit)"},
+      {term:"FSM",         def:"Infor Financial & Supply Chain Management — another Infor CloudSuite variant"},
+      {term:"ION",         def:"Infor Operating Network — the middleware/integration layer connecting Infor applications"},
+      {term:"IDP",         def:"Infor Document Processor — Infor's OCR and document extraction engine"},
+      {term:"OS (Infor)",  def:"Infor OS — the Infor Operating Service platform that hosts ION, Mastermind, and user management"},
+      {term:"IDF",         def:"Infor Data Framework — extensible data table framework within CloudSuite"},
+      {term:"BOD",         def:"Business Object Document — the XML message format used by ION to exchange data between Infor applications"},
+      {term:"Ming.le",     def:"Infor Ming.le — the Infor social collaboration and notification platform"},
+    ]
+  },
+  {
+    label: "M3 API Programs",
+    items: [
+      {term:"APS450MI",    def:"Accounts Payable Subledger API — used to add, update, list, and post AP invoices in M3"},
+      {term:"APS100",      def:"AP Invoice Entry program in M3 (screen/role reference)"},
+      {term:"CRS610MI",    def:"Customer Master API — used to retrieve customer details and credit information"},
+      {term:"CRS620MI",    def:"Supplier/Vendor Master API — used to look up vendor records and payment terms"},
+      {term:"GLS200MI",    def:"General Ledger Transactions API — used to extract GL postings for reconciliation"},
+      {term:"MMS080MI",    def:"Item/Warehouse Balance API — used to check stock availability per item per warehouse"},
+      {term:"MWS420MI",    def:"Goods Receipt API — used to retrieve goods receipt note data for PO matching"},
+      {term:"OIS017MI",    def:"Customer Order Pricing API — used to retrieve customer-specific price agreements"},
+      {term:"OIS100MI",    def:"Customer Order Header API — used to create order headers and retrieve order details"},
+      {term:"OIS101MI",    def:"Customer Order Line API — used to add individual product lines to an order"},
+      {term:"OIS180MI",    def:"Invoice Trigger API — used to generate an invoice from a despatch advice"},
+      {term:"OIS300MI",    def:"Order Status API — used to list open order lines and check fulfilment status"},
+      {term:"PPS200MI",    def:"Purchase Order API — used to retrieve PO headers and lines for matching"},
+    ]
+  },
+  {
+    label: "RPA & Automation",
+    items: [
+      {term:"RPA",         def:"Robotic Process Automation — software that automates repetitive, rule-based tasks by mimicking user actions"},
+      {term:"Mastermind",  def:"Infor RPA Mastermind — the orchestration and scheduling engine that manages and monitors bot execution"},
+      {term:"OCR",         def:"Optical Character Recognition — technology that reads and extracts text from scanned documents and PDFs"},
+      {term:"BOT",         def:"An automated software process (robot) built in Infor RPA Studio to execute a defined workflow"},
+      {term:"RDP",         def:"Remote Desktop Protocol — used by Mastermind to allocate sessions for unattended bot execution"},
+      {term:"OAuth",       def:"Open Authorisation — the security protocol used by bots to authenticate with Infor ION API Gateway"},
+    ]
+  },
+  {
+    label: "Finance & Procurement",
+    items: [
+      {term:"AP",          def:"Accounts Payable — the finance function responsible for processing and paying supplier invoices"},
+      {term:"GL",          def:"General Ledger — the master record of all financial transactions in the accounting system"},
+      {term:"PO",          def:"Purchase Order — a formal document issued by a buyer to a supplier authorising a purchase"},
+      {term:"GRN",         def:"Goods Receipt Note — a record confirming that ordered goods have been physically received"},
+      {term:"DSO",         def:"Days Sales Outstanding — a measure of how quickly receivables are collected after a sale"},
+      {term:"ROI",         def:"Return on Investment — the measurable financial benefit of an automation relative to its cost"},
+      {term:"CFO",         def:"Chief Financial Officer — the executive responsible for financial planning and reporting"},
+    ]
+  },
+  {
+    label: "Customer Order & Fulfilment",
+    items: [
+      {term:"CO",          def:"Customer Order — a confirmed order placed by a customer, entered and managed in M3"},
+      {term:"CSR",         def:"Customer Service Representative — the team responsible for receiving and managing customer orders"},
+      {term:"EDD",         def:"Estimated Delivery Date — the projected date on which ordered goods will be delivered to the customer"},
+    ]
+  },
+  {
+    label: "Integration & Data Formats",
+    items: [
+      {term:"API",         def:"Application Programming Interface — a defined set of calls used for system-to-system data exchange"},
+      {term:"REST",        def:"Representational State Transfer — the architectural style used by Infor ION REST APIs"},
+      {term:"HTTP",        def:"Hypertext Transfer Protocol — the communication protocol underlying REST API calls"},
+      {term:"MIME",        def:"Multipurpose Internet Mail Extensions — the standard used to identify file/attachment types in emails"},
+      {term:"CSV",         def:"Comma-Separated Values — a plain-text tabular data format used for order file imports"},
+      {term:"XML",         def:"Extensible Markup Language — a structured data format used in EDI and ION BOD messages"},
+      {term:"EDI",         def:"Electronic Data Interchange — the standardised electronic exchange of business documents between organisations"},
+      {term:"PDF",         def:"Portable Document Format — the file format commonly used for supplier invoices and order documents"},
+      {term:"SMTP",        def:"Simple Mail Transfer Protocol — the standard used by bots to send notification and acknowledgement emails"},
+      {term:"SQL",         def:"Structured Query Language — used to query databases in logging and reporting integrations"},
+      {term:"URL",         def:"Uniform Resource Locator — the web address used to identify API endpoints"},
+    ]
+  },
+  {
+    label: "Project & Governance",
+    items: [
+      {term:"UAT",         def:"User Acceptance Testing — the phase where business users validate that bots behave correctly before go-live"},
+      {term:"SLA",         def:"Service Level Agreement — a defined time limit within which an action (e.g. approval) must be completed"},
+      {term:"IT",          def:"Information Technology — the customer's internal technology team responsible for infrastructure and access"},
+      {term:"UI",          def:"User Interface — the visual screen layer of an application; relevant where RPA uses screen automation"},
+      {term:"GDPR",        def:"General Data Protection Regulation — EU data privacy law applicable to personal data processed by bots"},
+      {term:"SOX",         def:"Sarbanes-Oxley Act — US financial compliance regulation requiring audit trails for financial processes"},
+      {term:"M3 CE",       def:"M3 Cloud Edition — the SaaS-hosted version of Infor M3 running on Infor's cloud infrastructure"},
+    ]
+  }
+];
+
+function buildAbbrModal(){
+  const body=document.getElementById('abbr-body');
+  body.innerHTML=ABBR_GROUPS.map(g=>`
+    <div class="abbr-group">
+      <div class="abbr-group-label">${g.label}</div>
+      <div class="abbr-grid">
+        ${g.items.map(item=>`<div class="abbr-row" data-term="${item.term.toLowerCase()}" data-def="${item.def.toLowerCase()}">
+          <span class="abbr-term">${item.term}</span>
+          <span class="abbr-def">${item.def}</span>
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function openAbbr(){
+  document.getElementById('abbr-overlay').classList.add('open');
+  document.getElementById('abbr-filter').value='';
+  filterAbbr('');
+  setTimeout(()=>document.getElementById('abbr-filter').focus(),80);
+}
+
+function closeAbbr(){
+  document.getElementById('abbr-overlay').classList.remove('open');
+}
+
+function closeAbbrOutside(e){
+  if(e.target===document.getElementById('abbr-overlay')) closeAbbr();
+}
+
+function filterAbbr(val){
+  const q=val.trim().toLowerCase();
+  document.querySelectorAll('.abbr-row').forEach(row=>{
+    const match=!q||row.dataset.term.includes(q)||row.dataset.def.includes(q);
+    row.style.display=match?'':'none';
+  });
+  document.querySelectorAll('.abbr-group').forEach(grp=>{
+    const visible=[...grp.querySelectorAll('.abbr-row')].some(r=>r.style.display!=='none');
+    grp.style.display=visible?'':'none';
+  });
+}
+
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeAbbr(); });
+
+buildAbbrModal();
+
+renderScenarios();
+buildSidebar();
+renderPhaseContent();
+
+</script>
+</body>
+</html>

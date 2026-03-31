@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales — Fortude Repository</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <nav class="global-nav">
+        <div class="nav-top">
+            <a href="../index.html" class="nav-brand"><span class="brand-f">F</span>ortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral...">
+        </div>
+        <div class="nav-tabs">
+            <a href="../practices/index.html" class="nav-tab">Practices</a>
+            <a href="index.html" class="nav-tab active">Enablers</a>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        <a href="index.html">Enablers</a>
+        <span>/</span>
+        <span>Sales</span>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <a href="index.html" class="hero-back">← Back to Enablers</a>
+            <div class="hero-eyebrow">Enabler — Sales</div>
+            <h1 style="display:flex;align-items:center;gap:12px;">
+                <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#F05A28;flex-shrink:0;margin-bottom:2px;"></span>
+                Sales
+            </h1>
+            <p>Onboarding materials, industry-specific playbooks, decks, case studies, battlecards and objection handling resources for the sales team</p>
+        </div>
+    </section>
+
+    <div class="sub-tabs-bar">
+        <div class="sub-tab active" onclick="switchTab(this,'onboarding')">Onboarding</div>
+        <div class="sub-tab" onclick="switchTab(this,'industry-playbooks')">Industry Specific Playbooks</div>
+        <div class="sub-tab" onclick="switchTab(this,'scripts')">Scripts</div>
+        <div class="sub-tab" onclick="switchTab(this,'decks')">Decks</div>
+        <div class="sub-tab" onclick="switchTab(this,'case-studies')">Case Studies</div>
+        <div class="sub-tab" onclick="switchTab(this,'battlecards')">Battlecards</div>
+        <div class="sub-tab" onclick="switchTab(this,'objection-handling')">Objection Handling</div>
+        <div class="sub-tab" onclick="switchTab(this,'engagement-models')">Engagement Model Overviews</div>
+        
+    </div>
+
+    <div class="sub-panel active" id="panel-onboarding">
+        <div class="container">
+<h3>No collateral uploaded yet</h3>
+                <p>Onboarding resources will appear here once added to this subcategory.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-panel" id="panel-industry-playbooks">
+        <div class="container">
+<h3>No collateral uploaded yet</h3>
+                <p>Industry Specific Playbooks resources will appear here once added to this subcategory.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-panel" id="panel-scripts">
+        <div class="container">
+<h3>No collateral uploaded yet</h3>
+                <p>Scripts resources will appear here once added to this subcategory.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-panel" id="panel-decks">
+        <div class="container">
+<h3>No collateral uploaded yet</h3>
+                <p>Decks resources will appear here once added to this subcategory.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-panel" id="panel-case-studies">
+        <div class="container">
+<h3>No collateral uploaded yet</h3>
+                <p>Case Studies resources will appear here once added to this subcategory.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-panel" id="panel-battlecards">
+        <div class="container">
+<h3>No collateral uploaded yet</h3>
+                <p>Battlecards resources will appear here once added to this subcategory.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-panel" id="panel-objection-handling">
+        <div class="container">
+<h3>No collateral uploaded yet</h3>
+                <p>Objection Handling resources will appear here once added to this subcategory.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-panel" id="panel-engagement-models">
+        <div class="container">
+<h3>No collateral uploaded yet</h3>
+                <p>Engagement Model Overviews resources will appear here once added to this subcategory.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v2.0</p>
+    </footer>
+
+    <script>
+    function switchTab(el, panel) {
+        document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('panel-' + panel).classList.add('active');
+    }
+    </script>
+</body>
+</html>

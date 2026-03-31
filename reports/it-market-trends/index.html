@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I&amp;I April — Fortude Repository</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        .report-header { background: linear-gradient(135deg, var(--navy) 0%, #1A2B45 100%); padding: 56px 40px; border-bottom: 4px solid var(--cyan); }
+        .report-header-content { max-width: 1200px; margin: 0 auto; }
+        .report-eyebrow { color: var(--cyan); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+        .report-header h1 { color: var(--white); font-size: 36px; line-height: 1.2; margin: 0 0 14px; font-weight: 300; }
+        .report-header h1 span { color: var(--cyan); font-weight: 600; }
+        .report-subtitle { color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.65; margin: 0 0 28px; max-width: 660px; }
+        .meta-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+        .meta-label { font-size: 10px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; font-weight: 700; }
+        .meta-value { font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 500; }
+        .report-body { max-width: 1200px; margin: 0 auto; padding: 48px 24px; display: grid; grid-template-columns: 1fr 300px; gap: 40px; }
+        .report-main h2 { color: var(--navy); font-size: 20px; margin: 0 0 16px; font-weight: 600; }
+        .report-main p { margin: 0 0 20px; line-height: 1.7; color: var(--body); }
+        .report-main h3 { color: var(--navy); font-size: 16px; margin: 24px 0 10px; font-weight: 600; }
+        .report-main ul { list-style: none; padding: 0; margin: 0 0 20px; }
+        .report-main li { padding: 8px 0; border-bottom: 1px solid rgba(13,33,56,0.06); font-size: 13px; color: var(--body); line-height: 1.6; }
+        .report-main li strong { color: var(--navy); }
+        .key-finding { background: rgba(39,181,232,0.06); border-left: 4px solid var(--cyan); padding: 16px; border-radius: 8px; margin: 24px 0; }
+        .key-finding-title { font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+        .key-finding p { font-size: 13px; color: var(--body); margin: 0; line-height: 1.6; }
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-box { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+        .sidebar-title { color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 14px; }
+        .topic-tag { background: #F5F5F5; color: var(--navy); font-size: 12px; padding: 6px 8px; border-radius: 4px; text-align: center; display: block; margin-bottom: 6px; }
+        .related-link { padding: 10px 12px; background: var(--ice); border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--cyan); font-size: 12px; display: block; margin-bottom: 6px; transition: all 0.2s; }
+        .related-link:hover { background: rgba(39,181,232,0.06); border-color: var(--cyan); }
+        @media (max-width: 768px) {
+            .report-body { grid-template-columns: 1fr; }
+            .meta-grid { grid-template-columns: repeat(2,1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="global-nav">
+        <div class="nav-top">
+            <a href="../../index.html" class="nav-brand"><span class="brand-f">F</span>ortude Repository</a>
+            <input type="text" class="nav-search" placeholder="Search collateral...">
+        </div>
+        <div class="nav-tabs">
+            <a href="../../practices/index.html" class="nav-tab">Practices</a>
+            <a href="../../enablers/index.html" class="nav-tab active">Enablers</a>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span>/</span>
+        <a href="../../enablers/index.html">Enablers</a>
+        <span>/</span>
+        <a href="../../enablers/insights-intelligence.html">Insights &amp; Intelligence</a>
+        <span>/</span>
+        <span>I&amp;I April</span>
+    </div>
+
+    <section class="report-header">
+        <div class="report-header-content">
+            <div class="report-eyebrow">Unplugged • April 2026 • Market Intelligence</div>
+            <h1>I&amp;I <span>April</span></h1>
+            <p class="report-subtitle">Global market analysis covering emerging enterprise technologies, software trends and strategic implications for Fortude's service portfolio — informing commercial and delivery priorities for 2026.</p>
+            <div class="meta-grid">
+                <div><div class="meta-label">Published</div><div class="meta-value">April 2026</div></div>
+                <div><div class="meta-label">Category</div><div class="meta-value">I&amp;I — Unplugged</div></div>
+                <div><div class="meta-label">Pages</div><div class="meta-value">32</div></div>
+                <div><div class="meta-label">Version</div><div class="meta-value">v1.0</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="report-body">
+        <div class="report-main">
+            <h2>About This Report</h2>
+            <p>This market intelligence report delivers a comprehensive view of the global enterprise IT landscape in 2026, with analysis of key technology adoption trends, vendor landscape shifts, and strategic opportunities most relevant to Fortude's practice areas.</p>
+
+            <h3>Key Topics Covered</h3>
+            <ul>
+                <li><strong>Global IT Spending Outlook</strong> — Enterprise software and services investment trends by region</li>
+                <li><strong>ERP Market Dynamics</strong> — Competitive shifts in the Infor, SAP and Microsoft ecosystems</li>
+                <li><strong>AI &amp; Automation Adoption</strong> — Real-world enterprise uptake rates and ROI evidence</li>
+                <li><strong>Cloud Migration Pace</strong> — On-premise to cloud transition velocity by industry vertical</li>
+                <li><strong>Talent &amp; Skills Landscape</strong> — Demand patterns for specialist ERP and AI skills</li>
+                <li><strong>Strategic Recommendations</strong> — Implications for Fortude's go-to-market positioning</li>
+            </ul>
+
+            <div class="key-finding">
+                <div class="key-finding-title">💡 Key Finding</div>
+                <p>Enterprise AI investment is accelerating 2.4x faster than general IT spend in 2026, with ERP-adjacent automation representing the largest single growth category in Fortude's addressable market.</p>
+            </div>
+
+            <h3>Ideal For</h3>
+            <ul>
+                <li><strong>Regional Leadership</strong> — Market sizing and opportunity prioritisation</li>
+                <li><strong>Sales Teams</strong> — Commercial context for client conversations and proposals</li>
+                <li><strong>Practice Leads</strong> — Strategic input for service development roadmaps</li>
+                <li><strong>Marketing</strong> — Trend data to underpin thought leadership and campaigns</li>
+            </ul>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-box">
+                <h4 class="sidebar-title">Quick Actions</h4>
+                <a href="full-report.html" class="btn btn-primary" style="display:block;margin-bottom:8px;">📄 View Full Report</a>
+                <button class="btn btn-secondary">⬇ Download PDF</button>
+            </div>
+            <div class="sidebar-box">
+                <h4 class="sidebar-title">Topics</h4>
+                <span class="topic-tag">Market Trends</span>
+                <span class="topic-tag">Enterprise IT</span>
+                <span class="topic-tag">ERP</span>
+                <span class="topic-tag">AI Adoption</span>
+                <span class="topic-tag">2026 Outlook</span>
+            </div>
+            <div class="sidebar-box">
+                <h4 class="sidebar-title">Related Reports</h4>
+                <a href="../rpa-playbook/index.html" class="related-link">AP &amp; CO RPA Playbook →</a>
+                <a href="../agentic-ai-strategy/index.html" class="related-link">I&amp;I March →</a>
+            </div>
+            <div class="sidebar-box">
+                <h4 class="sidebar-title">Back To</h4>
+                <a href="../../enablers/insights-intelligence.html" class="related-link">← Insights &amp; Intelligence</a>
+            </div>
+        </aside>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Fortude. Knowledge Repository v2.0</p>
+    </footer>
+
+</body>
+</html>
