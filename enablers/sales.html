@@ -9,9 +9,10 @@
 <body>
 
     <nav class="global-nav">
-        <div class="nav-top">
+        <div class="nav-top" style="position:relative;">
             <a href="../index.html" class="nav-brand"><span class="brand-f">F</span>ortude Repository</a>
-            <input type="text" class="nav-search" placeholder="Search collateral...">
+            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+                <div id="searchOverlay" style="display:none;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;position:absolute;top:40px;right:0;width:320px;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,0.1);"><div id="searchResults" style="padding:6px 0;"></div></div>
         </div>
         <div class="nav-tabs">
             <a href="../practices/index.html" class="nav-tab">Practices</a>
@@ -53,65 +54,49 @@
 
     <div class="sub-panel active" id="panel-onboarding">
         <div class="container">
-<h3>No collateral uploaded yet</h3>
-                <p>Onboarding resources will appear here once added to this subcategory.</p>
-            </div>
+</div>
         </div>
     </div>
 
     <div class="sub-panel" id="panel-industry-playbooks">
         <div class="container">
-<h3>No collateral uploaded yet</h3>
-                <p>Industry Specific Playbooks resources will appear here once added to this subcategory.</p>
-            </div>
+</div>
         </div>
     </div>
 
     <div class="sub-panel" id="panel-scripts">
         <div class="container">
-<h3>No collateral uploaded yet</h3>
-                <p>Scripts resources will appear here once added to this subcategory.</p>
-            </div>
+</div>
         </div>
     </div>
 
     <div class="sub-panel" id="panel-decks">
         <div class="container">
-<h3>No collateral uploaded yet</h3>
-                <p>Decks resources will appear here once added to this subcategory.</p>
-            </div>
+</div>
         </div>
     </div>
 
     <div class="sub-panel" id="panel-case-studies">
         <div class="container">
-<h3>No collateral uploaded yet</h3>
-                <p>Case Studies resources will appear here once added to this subcategory.</p>
-            </div>
+</div>
         </div>
     </div>
 
     <div class="sub-panel" id="panel-battlecards">
         <div class="container">
-<h3>No collateral uploaded yet</h3>
-                <p>Battlecards resources will appear here once added to this subcategory.</p>
-            </div>
+</div>
         </div>
     </div>
 
     <div class="sub-panel" id="panel-objection-handling">
         <div class="container">
-<h3>No collateral uploaded yet</h3>
-                <p>Objection Handling resources will appear here once added to this subcategory.</p>
-            </div>
+</div>
         </div>
     </div>
 
     <div class="sub-panel" id="panel-engagement-models">
         <div class="container">
-<h3>No collateral uploaded yet</h3>
-                <p>Engagement Model Overviews resources will appear here once added to this subcategory.</p>
-            </div>
+</div>
         </div>
     </div>
 
@@ -127,5 +112,6 @@
         document.getElementById('panel-' + panel).classList.add('active');
     }
     </script>
+    <script src="../assets/js/search.js"></script>
 </body>
 </html>

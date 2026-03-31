@@ -7,27 +7,25 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-
-    <nav class="global-nav">
+    <nav class="global-nav" style="position:relative;">
         <div class="nav-top">
             <a href="../index.html" class="nav-brand"><span class="brand-f">F</span>ortude Repository</a>
-            <input type="text" class="nav-search" placeholder="Search collateral...">
+            <div style="position:relative;">
+                <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+                <div id="searchOverlay" style="display:none;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;position:absolute;top:40px;right:0;width:320px;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,0.1);"><div id="searchResults" style="padding:6px 0;"></div></div>
+            </div>
         </div>
         <div class="nav-tabs">
             <a href="index.html" class="nav-tab active">Practices</a>
             <a href="../enablers/index.html" class="nav-tab">Enablers</a>
         </div>
     </nav>
-
     <div class="breadcrumb">
-        <a href="../index.html">Home</a>
-        <span>/</span>
-        <a href="index.html">Practices</a>
-        <span>/</span>
+        <a href="../index.html">Home</a><span>/</span>
+        <a href="index.html">Practices</a><span>/</span>
         <span>Automation</span>
     </div>
-
-    <section class="hero">
+    <section class="hero" style="border-bottom-color:#7F77DD;">
         <div class="hero-content">
             <a href="index.html" class="hero-back">← Back to Practices</a>
             <div class="hero-eyebrow">Practice Area</div>
@@ -38,38 +36,28 @@
             <p>Intelligent automation, document processing and warehouse & supply chain automation solutions</p>
         </div>
     </section>
-
     <div class="sub-tabs-bar">
-        <div class="sub-tab active" onclick="switchTab(this,'products')">Products</div><div class="sub-tab" onclick="switchTab(this,'services')">Services</div>
+        <div class="sub-tab active" onclick="switchTab(this,'products')">Products</div>
+        <div class="sub-tab " onclick="switchTab(this,'services')">Services</div>
     </div>
 
-    <div class="sub-panel" id="panel-products">
-        <div class="container">
-<h3>No collateral uploaded yet</h3>
-                <p>Product resources for Agentic AI Frameworks will appear here once added.</p>
-            </div></div>
+    <div class="sub-panel active" id="panel-products">
+        <div class="container"><div class="cards-grid"></div></div>
     </div>
 
-    <div class="sub-panels" id="panel-services">
-        <div class="container">
-<h3>No collateral uploaded yet</h3>
-                <p>Service resources for Intelligent Automation, Intelligent Document Processing, Warehouse & Supply Chain Automation will appear here once added.</p>
-            </div></div>
+    <div class="sub-panel " id="panel-services">
+        <div class="container"><div class="cards-grid"></div></div>
     </div>
 
-    <footer class="footer">
-        <p>&copy; 2026 Fortude. Knowledge Repository v2.0</p>
-    </footer>
-
+    <footer class="footer"><p>&copy; 2026 Fortude. Knowledge Repository v2.0</p></footer>
+    <script src="../assets/js/search.js"></script>
     <script>
-    function switchTab(el, panel) {
-        document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+    function switchTab(el,panel){
+        document.querySelectorAll('.sub-tab').forEach(t=>t.classList.remove('active'));
+        document.querySelectorAll('.sub-panel').forEach(p=>p.classList.remove('active'));
         el.classList.add('active');
-        document.getElementById('panel-' + panel).classList.add('active');
+        document.getElementById('panel-'+panel).classList.add('active');
     }
-    // set initial active
-    document.getElementById('panel-products').classList.add('active');
     </script>
 </body>
 </html>

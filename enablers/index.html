@@ -9,9 +9,10 @@
 <body>
 
     <nav class="global-nav">
-        <div class="nav-top">
+        <div class="nav-top" style="position:relative;">
             <a href="../index.html" class="nav-brand"><span class="brand-f">F</span>ortude Repository</a>
-            <input type="text" class="nav-search" placeholder="Search collateral...">
+            <input type="text" class="nav-search" placeholder="Search collateral..." id="globalSearch" autocomplete="off">
+                <div id="searchOverlay" style="display:none;background:#fff;border:1px solid rgba(13,33,56,0.1);border-radius:8px;position:absolute;top:40px;right:0;width:320px;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,0.1);"><div id="searchResults" style="padding:6px 0;"></div></div>
         </div>
         <div class="nav-tabs">
             <a href="../practices/index.html" class="nav-tab">Practices</a>
@@ -121,5 +122,6 @@
         <p>&copy; 2026 Fortude. Knowledge Repository v2.0</p>
     </footer>
 
+    <script src="../assets/js/search.js"></script>
 </body>
 </html>
